@@ -1,0 +1,18 @@
+q 4 p 3 d 3 OK
+q 4 p 3 d 4 BAD meas {1: 108} pred {1: 92, 2: 8} zeros 1
+q 5 p 3 d 3 OK
+q 5 p 3 d 4 BAD meas {1: 256} pred {1: 232, 2: 12} zeros 1
+q 7 p 3 d 4 BAD meas {1: 864} pred {1: 824, 2: 20} zeros 1
+q 8 p 3 d 4 BAD meas {1: 1372} pred {1: 1324, 2: 24} zeros 1
+q 7 p 5 d 5 OK
+q 7 p 5 d 6 BAD meas {1: 46656} pred {1: 46596, 2: 30} zeros 1
+q 8 p 5 d 7 BAD meas {1: 352947} pred {1: 351339, 2: 804} zeros 1
+q 6 p 5 d 8 BAD meas {1: 175000} pred {1: 166474, 2: 4263} zeros 1
+q 4 p 2 d 2 OK
+q 6 p 2 d 2 OK
+q 8 p 2 d 2 OK
+q 3 p 2 d 2 OK
+q 9 p 7 d 7 OK
+q 8 p 7 d 8 BAD meas {1: 6588344} pred {1: 6588248, 2: 48} zeros 1
+ok 8 bad 8
+VIGIA-FIN-OK exit=0 pico_kb=4752 t=0s

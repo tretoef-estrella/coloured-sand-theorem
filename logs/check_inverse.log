@@ -1,0 +1,13 @@
+m 10 c 1 E 11 M high factors via inverse {11: 1} pred high {11: 1} OK
+m 10 c 2 E 11 M high factors via inverse {11: 1} pred high {11: 1} OK
+m 10 c 3 E 11 M high factors via inverse {11: 1} pred high {11: 1} OK
+m 10 c 4 E 12 M high factors via inverse {12: 1} pred high {12: 1} OK
+m 10 c 5 E 12 M high factors via inverse {12: 1} pred high {12: 1} OK
+m 10 c 6 E 12 M high factors via inverse {12: 1} pred high {12: 1} OK
+m 11 c 1 E 12 M high factors via inverse {12: 1} pred high {12: 1} OK
+m 11 c 2 E 12 M high factors via inverse {12: 1} pred high {12: 1} OK
+m 11 c 3 E 13 M high factors via inverse {13: 1} pred high {13: 1} OK
+m 11 c 4 E 13 M high factors via inverse {11: 10, 13: 1} pred high {11: 10, 13: 1} OK
+m 11 c 5 E 13 M high factors via inverse {11: 10, 13: 1} pred high {11: 10, 13: 1} OK
+m 11 c 6 E 13 M high factors via inverse {11: 10, 13: 1} pred high {11: 10, 13: 1} OK
+VIGIA-FIN-OK exit=0 pico_kb=226304 t=45s

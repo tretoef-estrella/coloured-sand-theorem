@@ -1,0 +1,11 @@
+m=0 profiles=4
+m=1 profiles=7
+m=2 profiles=9
+m=3 profiles=11
+m=4 profiles=13
+m=5 profiles=15
+m=6 profiles=16
+m=7 profiles=17
+m=8 profiles=18
+tested 540 violations 0
+VIGIA-FIN-OK exit=0 pico_kb=25264 t=2s

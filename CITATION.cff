@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the paper as below. The surname is Amichis Luengo (two surnames, in this order)."
+title: "The Coloured Sand Theorem: the p-part of the sandpile group of the Hamming graph"
+type: software
+authors:
+  - family-names: "Amichis Luengo"
+    given-names: "Rafael"
+    email: "tretoef@gmail.com"
+    affiliation: "Independent researcher, Madrid, Spain"
+    orcid: "https://orcid.org/0009-0008-6252-675X"
+repository-code: "https://github.com/tretoef-estrella/coloured-sand-theorem"
+license:
+  - MIT
+  - CC-BY-4.0
+date-released: 2026-10-13
+keywords:
+  - sandpile group
+  - critical group
+  - Hamming graph
+  - Sylow p-subgroup
+  - Smith normal form
+  - Boolean lattice
+  - inclusion matrices
+  - tilting modules
+preferred-citation:
+  type: article
+  title: "The Coloured Sand Theorem: the p-part of the sandpile group of the Hamming graph"
+  authors:
+    - family-names: "Amichis Luengo"
+      given-names: "Rafael"
+      orcid: "https://orcid.org/0009-0008-6252-675X"
+  year: 2026
+  doi: "10.5281/zenodo.23327609"
+  notes: "Preprint, version 1"

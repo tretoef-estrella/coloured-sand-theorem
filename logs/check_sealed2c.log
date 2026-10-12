@@ -1,0 +1,32 @@
+m 7 c 1 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 7 c 2 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 7 c 3 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 7 c 4 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 7 c 5 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 7 c 6 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 8 c 1 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 8 c 2 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 8 c 3 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 8 c 4 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 8 c 5 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 8 c 6 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 9 c 1 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 9 c 2 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 9 c 3 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 9 c 4 OK low+count+sum: hi_n 0/0 hi_sum 0/0
+m 9 c 5 OK low+count+sum: hi_n 1/1 hi_sum 11/11
+m 9 c 6 OK low+count+sum: hi_n 1/1 hi_sum 11/11
+m 10 c 1 OK low+count+sum: hi_n 1/1 hi_sum 11/11
+m 10 c 2 OK low+count+sum: hi_n 1/1 hi_sum 11/11
+m 10 c 3 OK low+count+sum: hi_n 1/1 hi_sum 11/11
+m 10 c 4 OK low+count+sum: hi_n 1/1 hi_sum 12/12
+m 10 c 5 OK low+count+sum: hi_n 1/1 hi_sum 12/12
+m 10 c 6 OK low+count+sum: hi_n 1/1 hi_sum 12/12
+m 11 c 1 OK low+count+sum: hi_n 1/1 hi_sum 12/12
+m 11 c 2 OK low+count+sum: hi_n 1/1 hi_sum 12/12
+m 11 c 3 OK low+count+sum: hi_n 1/1 hi_sum 13/13
+m 11 c 4 OK low+count+sum: hi_n 11/11 hi_sum 123/123
+m 11 c 5 OK low+count+sum: hi_n 11/11 hi_sum 123/123
+m 11 c 6 OK low+count+sum: hi_n 11/11 hi_sum 123/123
+ok 30 bad 0
+VIGIA-FIN-OK exit=0 pico_kb=251904 t=93s

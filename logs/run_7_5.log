@@ -1,0 +1,3 @@
+p=7 d=5 M=11  zeros=1  Syl_p K: {1: 4425, 2: 3630, 3: 1325, 4: 254, 5: 25}  v_p|K|=16801  expected v_p(kappa)=16801  OK
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=480256 t=43s

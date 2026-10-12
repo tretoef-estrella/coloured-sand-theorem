@@ -1,0 +1,3 @@
+p=13 d=3 M=8  zeros=1  Syl_p K: {1: 1364, 2: 365, 3: 33}  v_p|K|=2193  expected v_p(kappa)=2193  OK
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=6112 t=0s

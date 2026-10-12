@@ -1,0 +1,32 @@
+m 7 c 1 OK exact
+m 7 c 2 OK exact
+m 7 c 3 OK exact
+m 7 c 4 OK exact
+m 7 c 5 OK exact
+m 7 c 6 OK exact
+m 8 c 1 OK exact
+m 8 c 2 OK exact
+m 8 c 3 OK exact
+m 8 c 4 OK exact
+m 8 c 5 OK exact
+m 8 c 6 OK exact
+m 9 c 1 OK exact
+m 9 c 2 OK exact
+m 9 c 3 OK exact
+m 9 c 4 OK exact
+m 9 c 5 OK exact
+m 9 c 6 OK exact
+m 10 c 1 OK low+count+sum: hi_n 1/1 hi_sum 11/11
+m 10 c 2 OK low+count+sum: hi_n 1/1 hi_sum 11/11
+m 10 c 3 OK low+count+sum: hi_n 1/1 hi_sum 11/11
+m 10 c 4 OK low+count+sum: hi_n 1/1 hi_sum 12/12
+m 10 c 5 BAD low+count+sum: hi_n 1/10 hi_sum 102/102
+m 10 c 6 BAD low+count+sum: hi_n 1/10 hi_sum 102/102
+m 11 c 1 BAD low+count+sum: hi_n 1/11 hi_sum 112/112
+m 11 c 2 BAD low+count+sum: hi_n 1/11 hi_sum 112/112
+m 11 c 3 BAD low+count+sum: hi_n 1/11 hi_sum 113/113
+m 11 c 4 OK low+count+sum: hi_n 11/11 hi_sum 123/123
+m 11 c 5 OK low+count+sum: hi_n 11/11 hi_sum 123/123
+m 11 c 6 OK low+count+sum: hi_n 11/11 hi_sum 123/123
+ok 25 bad 5
+VIGIA-FIN-OK exit=0 pico_kb=266240 t=127s

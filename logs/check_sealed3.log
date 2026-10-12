@@ -1,0 +1,16 @@
+q 6 p 3 d 3 zeros 1 OK
+q 6 p 3 d 4 zeros 1 OK
+q 9 p 3 d 3 zeros 1 OK
+q 9 p 3 d 4 zeros 1 OK
+q 12 p 3 d 3 zeros 1 OK
+q 12 p 3 d 4 zeros 1 OK
+q 27 p 3 d 4 zeros 1 OK
+q 10 p 5 d 5 zeros 1 OK
+q 10 p 5 d 6 zeros 1 OK
+q 10 p 5 d 7 zeros 1 OK
+q 15 p 5 d 5 zeros 1 OK
+q 15 p 5 d 8 zeros 1 OK
+q 25 p 5 d 6 zeros 1 OK
+q 20 p 5 d 7 zeros 1 OK
+ok 14 bad 0
+VIGIA-FIN-OK exit=0 pico_kb=5104 t=0s

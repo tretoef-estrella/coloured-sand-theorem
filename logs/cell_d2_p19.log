@@ -1,0 +1,3 @@
+p=19 d=2 M=7  zeros=1  Syl_p K: {1: 290, 2: 34}  v_p|K|=358  expected v_p(kappa)=358  OK
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=6272 t=0s
