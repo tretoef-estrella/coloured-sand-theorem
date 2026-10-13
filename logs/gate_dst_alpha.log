@@ -1,0 +1,12 @@
+m 1 ok 40 bad 0
+m 2 ok 80 bad 0
+m 3 ok 120 bad 0
+m 4 ok 160 bad 0
+m 5 ok 200 bad 0
+m 6 ok 240 bad 0
+m 7 ok 280 bad 0
+m 8 ok 320 bad 0
+m 9 ok 360 bad 0
+TOTAL ok 360 bad 0
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=35280 t=9s

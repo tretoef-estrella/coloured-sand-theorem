@@ -1,0 +1,5 @@
+(a) p=2 cases 9045 bad 0
+(b) p odd cases 4704 bad 0
+(c) Weyl-factor count vs 2^|I|: cases 363 bad 0
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=22208 t=0s

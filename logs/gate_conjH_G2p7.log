@@ -1,0 +1,39 @@
+lam 7 ok t 0.0
+lam 8 ok t 0.1
+lam 9 ok t 0.1
+lam 10 ok t 0.1
+lam 11 ok t 0.1
+lam 12 ok t 0.2
+lam 14 ok t 0.7
+lam 15 ok t 1.2
+lam 16 ok t 1.7
+lam 17 ok t 2.2
+lam 18 ok t 2.7
+lam 19 ok t 3.2
+lam 21 ok t 5.9
+lam 22 ok t 8.6
+lam 23 ok t 11.2
+lam 24 ok t 13.9
+lam 25 ok t 16.5
+lam 26 ok t 19.0
+lam 28 ok t 27.7
+lam 29 ok t 36.3
+lam 30 ok t 44.9
+lam 31 ok t 53.4
+lam 32 ok t 62.1
+lam 33 ok t 70.5
+lam 35 ok t 91.7
+lam 36 ok t 112.6
+lam 37 ok t 133.5
+lam 38 ok t 154.3
+lam 39 ok t 174.9
+lam 40 ok t 195.5
+lam 42 ok t 239.1
+lam 43 ok t 283.2
+lam 44 ok t 326.5
+lam 45 ok t 370.7
+lam 46 ok t 415.1
+lam 47 ok t 458.5
+G2 p7 lattices 36 unstable 0
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=21904 t=458s

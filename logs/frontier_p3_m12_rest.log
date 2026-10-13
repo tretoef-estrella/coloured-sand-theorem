@@ -1,0 +1,6 @@
+multiplicities {12: 1, 10: 10, 8: 54, 6: 143, 4: 131, 2: 297, 0: 1}
+q 6 c 1 block12 (left): {1: 8, 9: 2, 13: 2} neg {} free direct 0 free rest 0
+q 6 c 2 block12 (left): {1: 8, 9: 2, 13: 2} neg {} free direct 0 free rest 0
+q 6 c 3 block12 (left): {1: 8, 8: 1, 10: 1, 12: 1, 14: 1} neg {} free direct 0 free rest 0
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=931840 t=317s

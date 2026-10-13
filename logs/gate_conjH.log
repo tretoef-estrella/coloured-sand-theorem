@@ -1,0 +1,13 @@
+G1 p 5 done cases 120 bad 0 t 2.0
+G1 p 7 done cases 216 bad 0 t 15.8
+G1 TOTAL 216 bad 0
+G1c control (split lattice) cases 52 differ 52
+G2 p 5 t 35.4
+G2 p 7 t 38.7
+G2 stability lattices 19 unstable 0
+G3 p 5 lam 25 unstable-checks 0 model ([1, 1, 1, 1, 1, 1, 1, 1, 1, 26, 27], 0) formula ([1, 1, 1, 1, 1, 1, 1, 1, 27, 27], 0)
+G3 p 5 lam 26 unstable-checks 0 model ([1, 1, 1, 1, 1, 1, 1, 1, 1, 26, 27], 0) formula ([1, 1, 1, 1, 1, 1, 1, 1, 26, 28], 0)
+G3 p 5 lam 27 unstable-checks 0 model ([1, 1, 1, 1, 1, 1, 1, 1, 1, 25, 28], 0) formula ([1, 1, 1, 1, 1, 1, 1, 1, 25, 29], 0)
+G3 p 5 lam 28 unstable-checks 0 model ([1, 1, 1, 1, 1, 1, 1, 1, 1, 24, 29], 0) formula ([1, 1, 1, 1, 1, 1, 1, 1, 24, 30], 0)
+FIN-OK t 60.9
+VIGIA-FIN-OK exit=0 pico_kb=22896 t=61s

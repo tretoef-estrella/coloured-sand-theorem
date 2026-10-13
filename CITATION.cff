@@ -13,7 +13,7 @@ license:
   - MIT
   - CC-BY-4.0
 date-released: 2026-10-13
-version: "2"
+version: "3"
 keywords:
   - sandpile group
   - critical group
@@ -32,4 +32,4 @@ preferred-citation:
       orcid: "https://orcid.org/0009-0008-6252-675X"
   year: 2026
   doi: "10.5281/zenodo.23327608"
-  notes: "Preprint; concept DOI (all versions). Version 2 of 13 October 2026."
+  notes: "Preprint; concept DOI (all versions). Version 3 of 13 October 2026."

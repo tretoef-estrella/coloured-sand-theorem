@@ -1,0 +1,42 @@
+p 2 m 4 q 2 e 1 c 0 new blocks [(4, 1)] left {1: 2, 5: 1} negative {} free direct 1 free rest 0
+p 2 m 4 q 2 e 1 c 1 new blocks [(4, 1)] left {1: 2, 6: 2} negative {} free direct 0 free rest 0
+p 2 m 4 q 2 e 1 c 2 new blocks [(4, 1)] left {1: 2, 6: 2} negative {} free direct 0 free rest 0
+p 2 m 4 q 2 e 1 c 3 new blocks [(4, 1)] left {1: 2, 6: 2} negative {} free direct 0 free rest 0
+p 2 m 4 q 2 e 1 c 4 new blocks [(4, 1)] left {1: 2, 5: 1, 8: 1} negative {} free direct 0 free rest 0
+p 2 m 4 q 4 e 2 c 0 new blocks [(4, 1)] left {1: 2, 8: 1} negative {} free direct 1 free rest 0
+p 2 m 4 q 4 e 2 c 1 new blocks [(4, 1)] left {1: 2, 10: 2} negative {} free direct 0 free rest 0
+p 2 m 4 q 4 e 2 c 2 new blocks [(4, 1)] left {1: 2, 9: 1, 11: 1} negative {} free direct 0 free rest 0
+p 2 m 4 q 4 e 2 c 3 new blocks [(4, 1)] left {1: 2, 10: 2} negative {} free direct 0 free rest 0
+p 2 m 4 q 4 e 2 c 4 new blocks [(4, 1)] left {1: 2, 8: 1, 13: 1} negative {} free direct 0 free rest 0
+p 3 m 9 q 3 e 1 c 0 new blocks [(9, 1)] left {1: 4, 10: 1} negative {} free direct 1 free rest 0
+p 3 m 9 q 3 e 1 c 1 new blocks [(9, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 9 q 3 e 1 c 2 new blocks [(9, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 9 q 3 e 1 c 3 new blocks [(9, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 9 q 3 e 1 c 4 new blocks [(9, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 9 q 9 e 2 c 0 new blocks [(9, 1)] left {1: 4, 18: 1} negative {} free direct 1 free rest 0
+p 3 m 9 q 9 e 2 c 1 new blocks [(9, 1)] left {1: 4} negative {} free direct 2 free rest 0
+p 3 m 9 q 9 e 2 c 2 new blocks [(9, 1)] left {1: 4} negative {} free direct 2 free rest 0
+p 3 m 9 q 9 e 2 c 3 new blocks [(9, 1)] left {1: 4} negative {} free direct 2 free rest 0
+p 3 m 9 q 9 e 2 c 4 new blocks [(9, 1)] left {1: 4} negative {} free direct 2 free rest 0
+p 3 m 9 q 6 e 1 c 0 new blocks [(9, 1)] left {1: 4, 10: 1} negative {} free direct 1 free rest 0
+p 3 m 9 q 6 e 1 c 1 new blocks [(9, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 9 q 6 e 1 c 2 new blocks [(9, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 9 q 6 e 1 c 3 new blocks [(9, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 9 q 6 e 1 c 4 new blocks [(9, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 10 q 3 e 1 c 0 new blocks [(10, 1)] left {1: 4, 9: 1} negative {} free direct 1 free rest 0
+p 3 m 10 q 3 e 1 c 1 new blocks [(10, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 10 q 3 e 1 c 2 new blocks [(10, 1)] left {1: 4, 10: 1, 12: 1} negative {} free direct 0 free rest 0
+p 3 m 10 q 3 e 1 c 3 new blocks [(10, 1)] left {1: 4, 10: 1, 12: 1} negative {} free direct 0 free rest 0
+p 3 m 10 q 3 e 1 c 4 new blocks [(10, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 10 q 9 e 2 c 0 new blocks [(10, 1)] left {1: 4, 16: 1} negative {20: 9} free direct 10 free rest 0
+p 3 m 10 q 9 e 2 c 1 new blocks [(10, 1)] left {1: 4, 18: 1} negative {20: 9} free direct 10 free rest 0
+p 3 m 10 q 9 e 2 c 2 new blocks [(10, 1)] left {1: 4, 17: 1} negative {20: 9} free direct 10 free rest 0
+p 3 m 10 q 9 e 2 c 3 new blocks [(10, 1)] left {1: 4, 17: 1} negative {20: 9} free direct 10 free rest 0
+p 3 m 10 q 9 e 2 c 4 new blocks [(10, 1)] left {1: 4, 18: 1} negative {20: 9} free direct 10 free rest 0
+p 3 m 10 q 6 e 1 c 0 new blocks [(10, 1)] left {1: 4, 9: 1} negative {} free direct 1 free rest 0
+p 3 m 10 q 6 e 1 c 1 new blocks [(10, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+p 3 m 10 q 6 e 1 c 2 new blocks [(10, 1)] left {1: 4, 10: 1, 12: 1} negative {} free direct 0 free rest 0
+p 3 m 10 q 6 e 1 c 3 new blocks [(10, 1)] left {1: 4, 10: 1, 12: 1} negative {} free direct 0 free rest 0
+p 3 m 10 q 6 e 1 c 4 new blocks [(10, 1)] left {1: 4, 11: 2} negative {} free direct 0 free rest 0
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=75776 t=26s

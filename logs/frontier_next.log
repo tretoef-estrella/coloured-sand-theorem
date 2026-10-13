@@ -1,0 +1,28 @@
+p 2 m 5 q 2 c 0 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 2 c 1 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 2 c 2 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 2 c 3 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 4 c 0 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 4 c 1 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 4 c 2 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 4 c 3 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 6 c 0 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 6 c 1 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 6 c 2 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 5 q 6 c 3 den p: SAME den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 6 q 4 c 1 den p: DIFF den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 6 q 4 c 2 den p: DIFF den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 6 q 4 c 3 den p: DIFF den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 6 q 6 c 1 den p: DIFF den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 6 q 6 c 2 den p: DIFF den p^2: DIFF unstable(p,p^2): 0 6
+p 2 m 6 q 6 c 3 den p: DIFF den p^2: DIFF unstable(p,p^2): 0 6
+p 3 m 11 q 3 c 0 den p: SAME den p^2: DIFF unstable(p,p^2): 0 30
+p 3 m 11 q 3 c 1 den p: SAME den p^2: DIFF unstable(p,p^2): 0 30
+p 3 m 11 q 3 c 2 den p: SAME den p^2: DIFF unstable(p,p^2): 0 30
+p 3 m 11 q 3 c 3 den p: SAME den p^2: DIFF unstable(p,p^2): 0 30
+p 3 m 11 q 6 c 0 den p: SAME den p^2: DIFF unstable(p,p^2): 0 30
+p 3 m 11 q 6 c 1 den p: SAME den p^2: DIFF unstable(p,p^2): 0 30
+p 3 m 11 q 6 c 2 den p: SAME den p^2: DIFF unstable(p,p^2): 0 30
+p 3 m 11 q 6 c 3 den p: SAME den p^2: DIFF unstable(p,p^2): 0 30
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=246000 t=107s

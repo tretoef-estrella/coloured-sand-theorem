@@ -1,0 +1,12 @@
+control alpha=1 forced: cases 112 differ 112
+control no pooling: cases 128 differ 16
+m=10,11 ok 24 bad 0
+FULL LAPLACIAN H(3,4) OK {1: 1, 2: 8, 4: 6, 5: 14, 6: 6} 1
+FULL LAPLACIAN H(4,4) OK {1: 10, 3: 24, 4: 18, 5: 16, 6: 34, 8: 25, 10: 8} 1
+FULL LAPLACIAN H(3,6) OK {1: 65, 3: 74} 1
+FULL LAPLACIAN H(3,8) OK {1: 1, 3: 216, 5: 18, 7: 110, 9: 18} 1
+FULL LAPLACIAN H(2,12) OK {3: 101, 5: 20} 1
+FULL LAPLACIAN H(2,16) OK {5: 197, 9: 28} 1
+FULL LAPLACIAN H(3,10) OK {1: 513, 3: 242} 1
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=257024 t=177s

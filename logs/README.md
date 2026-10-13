@@ -25,6 +25,15 @@ Every log ends with the watchdog's line: `VIGIA-FIN-OK` (finished; peak memory a
 | `tiltgen_probe.log` | `tiltgen_probe.py` | stopped by the watchdog at 10 minutes during the $p=7$ stability part; the $p=3,5$ lines it printed are valid |
 | `tiltgen_probe2.log` | `tiltgen_probe2.py` | the block formula against the model, $\lambda\le p^2-2$ (180 cases); $p=3$, $m=9,10$ with the general rule differ by one factor, as Conjecture H's bound predicts |
 | `check_c0.log` | `check_c0.py` | the $c=0$ clause of the block formula, 60 cases |
-| `fullgroup_check.log` | `fullgroup_check.py` | full groups $p=q=3$, $d=5..8$ reproduced exactly; $d=9$ differs (outside the range) |
+| `fullgroup_check.log` | `fullgroup_check.py` | full groups $p=q=3$, $d=5..8$ reproduced exactly; $d=9$ differs (version 2 formula, outside its range; version 3: `check_table_v3.log`) |
 | `gate_jordan_N.log` | `gate_jordan_N.py` | Corollary 6: 37 cases, control (characteristic 0) differs in 7 |
 | `check_p2.log` | `check_p2.py` | Theorem G at $p=2$: valid for $m\le3$ (30 of 30), fails for $m=4,5,6$ (the block $\lambda=4$ has $a=p-1$), as stated |
+| `gate_conjH.log`, `gate_conjH_G2p7.log` | `gate_conjH.py`, `gate_conjH_G2p7.py` | version 3: blocks with $a+1<p$ for every $\lambda\le p^2-1$ ($p=5,7$): formula against model 216/216, split control 52/52, stability of the lattices (all $p=5$, sample $p=7$; then all 36 at $p=7$); G3: blocks with $a=p-1$ need the new glue |
+| `frontier_data.log` | `frontier_data.py` | version 3: direct Smith forms at $m=p^2$ ($p=2,3$) and $m=p^2+1$ ($p=3$), used to find the blocks with $a=p-1$ |
+| `seal4.log`, `check_seal4.log` | `seal4.py`, `check_seal4.py` | the 41 predictions of `PREDICCION_SELLADA_4.txt`, written and then computed |
+| `frontier_sharp.log`, `frontier_next.log` | `frontier_sharp.py`, `frontier_next.py` | the formula with glue $1/p^2$ fails at $\lambda=p^2+p-1$ (20/20); there the glue $1/p$ is forced and the model matches 20/20 |
+| `seal5.log`, `check_seal5.log` | `seal5.py`, `check_seal5.py` | the 22 predictions of `PREDICCION_SELLADA_5.txt`, written and then computed |
+| `check_table_v3.log` | `check_table_v3.py` | the data table of the paper ($p=q=3$, $d=5..9$) from Theorems A and G |
+| `gate_dst_alpha.log`, `gate_dst_alpha2.log` | `gate_dst_alpha.py`, `gate_dst_alpha2.py` | Theorem H: 360 + 24 pieces, 7 full Laplacians, two controls |
+| `frontier_p3_m12.log`, `frontier_p3_m12_rest.log` | `frontier_p3_m12.py`, `frontier_p3_m12_rest.py` | the block $\lambda=12$ at $p=3$ (Conjecture I); the first run was stopped by the watchdog after 5 of its 8 cells (its last line says so), the second run did the other 3 |
+| `check_conjI_proved.log`, `check_conjI_count.log` | `check_conjI_proved.py`, `check_conjI_count.py` | Conjecture I on the proved formulas; number of summands and of Weyl factors |

@@ -1,0 +1,8 @@
+Sealed prediction 6 (Grepy Connor, 13 Oct 2026, written after seeing ONLY the cell (p=3, m=12, q=3, c=0) of frontier_p3_m12.log).
+Candidate Conjecture I (big and small clocks): for every prime p, every lambda, every shift i >= 0 and every e >= 1,
+write lambda+1 = sum_{t<=k} d_t p^t with d_k != 0, I = {t < k : d_t != 0}. Then the block group
+Y_p(lambda,i,e) = coker(F + p^e u (D+i) on T_{Z_p}(lambda)) has exactly 2^|I| cyclic factors of order > p^k
+(the free summand counted when i = 0), and its other cyclic factors have order <= p^k and do not depend on (i,e).
+Prediction for the block lambda = 12 (p = 3, k = 2, I = {0,1}) at m = 12, i = c:
+  q=3, c=1,2,3 and q=6, c=0,1,2,3: the block group is (Z/3)^8 plus exactly 4 cyclic factors of exponent >= 3
+  (for c = 0: the free summand and 3 finite factors of exponent >= 3).
