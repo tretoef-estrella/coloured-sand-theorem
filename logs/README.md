@@ -36,4 +36,5 @@ Every log ends with the watchdog's line: `VIGIA-FIN-OK` (finished; peak memory a
 | `check_table_v3.log` | `check_table_v3.py` | the data table of the paper ($p=q=3$, $d=5..9$) from Theorems A and G |
 | `gate_dst_alpha.log`, `gate_dst_alpha2.log` | `gate_dst_alpha.py`, `gate_dst_alpha2.py` | Theorem H: 360 + 24 pieces, 7 full Laplacians, two controls |
 | `frontier_p3_m12.log`, `frontier_p3_m12_rest.log` | `frontier_p3_m12.py`, `frontier_p3_m12_rest.py` | the block $\lambda=12$ at $p=3$ (Conjecture I); the first run was stopped by the watchdog after 5 of its 8 cells (its last line says so), the second run did the other 3 |
+| `frontier_p3_m12_e2.log` | `frontier_p3_m12_e2.py` | after version 3: sealed prediction 7 (`PREDICCION_SELLADA_7.txt`), the block $\lambda=12$ at $p=3$ with $q=9$, $c=1,2$: $8$ factors of exponent $1$, none of exponent $2$, $4$ of exponent $\ge3$, in both cells, as predicted |
 | `check_conjI_proved.log`, `check_conjI_count.log` | `check_conjI_proved.py`, `check_conjI_count.py` | Conjecture I on the proved formulas; number of summands and of Weyl factors |

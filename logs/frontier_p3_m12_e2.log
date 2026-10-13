@@ -1,0 +1,5 @@
+multiplicities {12: 1, 10: 10, 8: 54, 6: 143, 4: 131, 2: 297, 0: 1}
+q 9 c 1 block12: exponent-1 factors 8 exponent-2 factors 0 factors of exponent >= 3 4 | direct zeros (exponent>=19) 66
+q 9 c 2 block12: exponent-1 factors 8 exponent-2 factors 0 factors of exponent >= 3 4 | direct zeros (exponent>=19) 66
+FIN-OK
+VIGIA-FIN-OK exit=0 pico_kb=931840 t=213s

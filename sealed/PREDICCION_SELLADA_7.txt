@@ -1,0 +1,4 @@
+Sealed prediction 7 (Grepy Connor, 2026-10-13 03:49:44, written BEFORE computing).
+Conjecture I (paper v3, Section 8) for the block lambda=12 at p=3 with e=2 (q=9), shifts c=1 and c=2 (m=12, k=0):
+the block group is (Z/3)^8 plus exactly 4 cyclic factors of order >= 27 (exponent >= 3).
+Part (ii) also predicts that the small part (Z/3)^8 is the same as for e=1.
