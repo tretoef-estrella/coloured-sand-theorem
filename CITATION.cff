@@ -13,6 +13,7 @@ license:
   - MIT
   - CC-BY-4.0
 date-released: 2026-10-13
+version: "2"
 keywords:
   - sandpile group
   - critical group
@@ -30,5 +31,5 @@ preferred-citation:
       given-names: "Rafael"
       orcid: "https://orcid.org/0009-0008-6252-675X"
   year: 2026
-  doi: "10.5281/zenodo.23327609"
-  notes: "Preprint, version 1"
+  doi: "10.5281/zenodo.23327608"
+  notes: "Preprint; concept DOI (all versions). Version 2 of 13 October 2026."

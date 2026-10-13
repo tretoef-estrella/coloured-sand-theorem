@@ -17,3 +17,14 @@ Every log ends with the watchdog's line: `VIGIA-FIN-OK` (finished; peak memory a
 | `check_sealed2b.log`, `check_sealed2c.log`, `check_inverse.log` | `check_sealed2b.py`, `check_inverse.py` | the 30 sealed pieces at $p=7$ (`check_sealed2b.log` is the first run, whose 5 failures were a bug of the checker in counting level 10; `check_sealed2c.log` is the corrected run; `check_inverse.log` pins the factors of valuation $\ge 11$ exactly) |
 | `check_sealed3.log` | `check_sealed3.py` | the 14 sealed full groups with composite $q$ |
 | `check_e0.log` | `check_e0.py` | the Glue Conjecture fails for $p\nmid q$, as the paper states |
+| `gate_glue_model.log` | `gate_glue_model.py` | Theorem F: stability of the lattice of Lemma 7 (2200 checks) and the block cokernel against the formula (292 cases), $\lambda\le2p-2$ |
+| `gate_glue_model_BUG_multiplier.log` | `gate_glue_model.py` (before the fix) | the first run: 32 «failures» caused by the checker, whose random multiplier of $q$ could be divisible by $p$; kept as a record |
+| `gate_glue_control_split.log` | `gate_glue_control_split.py` | control: the split lattice (no glue) fails 293 of 293 |
+| `tilt3p.log` | `tilt3p.py` | Theorem G: 27 lattices stable; 154 pieces against direct Smith forms ($p=3$, $m\le7$; $p=5$, $m\le10$) |
+| `tilt3p_probe.log` | `tilt3p_probe.py` | control (formula F beyond $2p-2$ fails 12 of 18); $p=3$, $m=8$ matches 5 of 5; $m=9,10$ outside the range |
+| `tiltgen_probe.log` | `tiltgen_probe.py` | stopped by the watchdog at 10 minutes during the $p=7$ stability part; the $p=3,5$ lines it printed are valid |
+| `tiltgen_probe2.log` | `tiltgen_probe2.py` | the block formula against the model, $\lambda\le p^2-2$ (180 cases); $p=3$, $m=9,10$ with the general rule differ by one factor, as Conjecture H's bound predicts |
+| `check_c0.log` | `check_c0.py` | the $c=0$ clause of the block formula, 60 cases |
+| `fullgroup_check.log` | `fullgroup_check.py` | full groups $p=q=3$, $d=5..8$ reproduced exactly; $d=9$ differs (outside the range) |
+| `gate_jordan_N.log` | `gate_jordan_N.py` | Corollary 6: 37 cases, control (characteristic 0) differs in 7 |
+| `check_p2.log` | `check_p2.py` | Theorem G at $p=2$: valid for $m\le3$ (30 of 30), fails for $m=4,5,6$ (the block $\lambda=4$ has $a=p-1$), as stated |
