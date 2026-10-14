@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite the paper as below. The surname is Amichis Luengo (two surnames, in this order)."
-title: "The Coloured Sand Theorem: the p-part of the sandpile group of the Hamming graph"
+title: "The Coloured Sand Theorem: the p-part of the sandpile group of the Hamming graph, for every prime p dividing q and every dimension d"
 type: software
 authors:
   - family-names: "Amichis Luengo"
@@ -12,8 +12,8 @@ repository-code: "https://github.com/tretoef-estrella/coloured-sand-theorem"
 license:
   - MIT
   - CC-BY-4.0
-date-released: 2026-10-13
-version: "3"
+date-released: 2026-10-14
+version: "4"
 keywords:
   - sandpile group
   - critical group
@@ -25,11 +25,11 @@ keywords:
   - tilting modules
 preferred-citation:
   type: article
-  title: "The Coloured Sand Theorem: the p-part of the sandpile group of the Hamming graph"
+  title: "The Coloured Sand Theorem: the p-part of the sandpile group of the Hamming graph, for every prime p dividing q and every dimension d"
   authors:
     - family-names: "Amichis Luengo"
       given-names: "Rafael"
       orcid: "https://orcid.org/0009-0008-6252-675X"
   year: 2026
   doi: "10.5281/zenodo.23327608"
-  notes: "Preprint; concept DOI (all versions). Version 3 of 13 October 2026."
+  notes: "Preprint; concept DOI (all versions). Version 4 of 14 October 2026, doi:10.5281/zenodo.23364147."

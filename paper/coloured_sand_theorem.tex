@@ -1,13 +1,17 @@
-\documentclass[11pt]{amsart}
-\usepackage[a4paper,margin=2.6cm]{geometry}
-\usepackage{amsmath,amssymb,booktabs,array}
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array,tabularx}
 \usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
 \newtheorem{theorem}{Theorem}
 \renewcommand{\thetheorem}{\Alph{theorem}}
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{lemma}{Lemma}
 \newtheorem{proposition}[lemma]{Proposition}
 \newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{definition}[lemma]{Definition}
+\newtheorem*{thmDp}{Theorem D$_p$ (the odd dance)}
+\newtheorem*{thmSmith}{Theorem (the Smith form of $M_p$)}
 \theoremstyle{remark}
 \newtheorem{remark}[lemma]{Remark}
 \newtheorem{example}[lemma]{Example}
@@ -18,26 +22,59 @@
 \newcommand{\Syl}{\operatorname{Syl}}
 \newcommand{\coker}{\operatorname{coker}}
 \newcommand{\rank}{\operatorname{rank}}
-
-\title[The Coloured Sand Theorem]{The Coloured Sand Theorem:\\ the $p$-part of the sandpile group of the Hamming graph}
-\author{Rafael Amichis Luengo}
-\address{Madrid, Spain}
-\email{tretoef@gmail.com}
-\date{13 October 2026 (version 3)}
+\newcommand{\Dist}{\operatorname{Dist}}
+\hypersetup{pdftitle={The Coloured Sand Theorem},pdfauthor={Rafael Amichis Luengo}}
 
 \begin{document}
 
-\begin{abstract}
-Let $H(d,q)=K_q^{\,d}$ be the Hamming graph and $K(H(d,q))$ its sandpile group (critical group). For primes $p\nmid q$ its $p$-part was determined by Jacobson, Niedermaier and Reiner in 2003, who called the remaining primes difficult, ``due to bad behavior of its $p$-primary structure''. We treat the primes $p\mid q$. Jacobson, Niedermaier and Reiner showed that over $\Z$ the Laplacian splits into explicit triangular pieces; we read these pieces as operators $q(c+H)+U$ on the Boolean lattice (A). From this we prove: (B) a closed formula for the Sylow $p$-subgroup for every prime $p>d$ and every $q$ divisible by $p$, in which ballot numbers appear; (C) the exponent of the Sylow $p$-subgroup for every prime $p$ and every $q\ge3$, namely $p^{\max_{1\le s\le d}(e s+v_p(s))}$ with $e=v_p(q)\ge1$; (D) the number of its cyclic factors when $p\mid q$, from Wilson's diagonal form of inclusion matrices. For every prime $p$ and every $d\le p^2+p-1$ we determine the group exactly (F, G), by writing down the lifts to the $p$-adic integers of the tilting modules of $SL_2$ in characteristic $p$ that have two Weyl factors. For $p=2$ we determine it for every $d$ (H), from the results of \cite{DST} on the hypercube. This proves the Glue Conjecture of version~1 and Conjecture~H of version~2; for these results $107$ predictions were written down before they were computed ($44$ in version~1, $63$ in version~3), all correct. We give a closed form for the number of cyclic factors when $3\mid q$, and we conjecture the shape of the remaining blocks (I): the number of large cyclic factors is the number of Weyl factors of the tilting module, a power of $2$ read off the $p$-adic digits, and the small ones do not depend on $q$.
-\end{abstract}
+\begin{center}
+{\LARGE\bfseries THE COLOURED SAND THEOREM}\\[8pt]
+{\large The $p$-part of the sandpile group of the Hamming graph,\\ for every prime $p$ dividing $q$ and every dimension $d$}\\[16pt]
+{\large\bfseries Rafael Amichis Luengo}\\[5pt]
+Madrid, Spain \;\textperiodcentered\; \texttt{tretoef@gmail.com} \;\textperiodcentered\; ORCID \href{https://orcid.org/0009-0008-6252-675X}{0009-0008-6252-675X}\\[3pt]
+14 October 2026 \;\textperiodcentered\; version 4 \;\textperiodcentered\; doi:\href{https://doi.org/10.5281/zenodo.23327608}{10.5281/zenodo.23327608} (all versions)
+\end{center}
 
-\maketitle
+\medskip\hrule\medskip
+
+\noindent\textbf{Abstract.}
+Let $H(d,q)=K_q^{\,d}$ be the Hamming graph and $K(H(d,q))$ its sandpile group (critical group, Jacobian). For primes $p\nmid q$ its $p$-part was determined by Jacobson, Niedermaier and Reiner in 2003, who wrote that the other primes appear ``to be difficult, due to bad behavior of its $p$-primary structure''. \textbf{We determine the Sylow $p$-subgroup of $K(H(d,q))$ for every prime $p$ dividing $q$ and every $d$, by an explicit rule.} After the splitting of Jacobson, Niedermaier and Reiner, the group is a sum of cokernels of operators $q(c+H)+U$ on the Boolean lattice (Theorem~A). These split over the indecomposable tilting modules $T(\lambda)$ of $SL_2$ in characteristic $p$ that occur in a tensor power of the natural module. The contribution of $T(\lambda)$ consists of explicit small cyclic factors and of $2^{|I|}$ large ones, where $I$ is the set of positions of the nonzero base-$p$ digits of $\lambda+1$ below the leading one. The large ones are obtained by pooling explicit integers, built from binomial valuations and base-$p$ carries, into a non-increasing sequence (Theorems~I and~J). The proof writes down explicit $\Z_p$-lattices for all tilting modules of $SL_2$, one move per base-$p$ digit; it reduces each contribution to the Smith form of an explicit $2^{|I|}\times2^{|I|}$ matrix, and computes that form as in our proof for the hypercube \cite{DST}, the case $p=2$. We also give closed formulas that need no pooling: for $p>d$ with ballot numbers (B), for the exponent with every prime (C), and for the number of cyclic factors (D). This proves Conjecture~I of version~3. The formal verification in Lean~4 is in progress (\S\ref{sec:lean}): every result of version~3 (Theorems A--H) is checked; for the new Theorems~I and~J, 8 of 19 planned pieces are checked. This work has not been refereed by a human expert.
+
+\medskip\hrule\medskip
+
+\subsection*{Summary of results}
+Throughout, $p$ is a prime, $q\ge2$, $e=v_p(q)$, and $\Syl_pA$ is the $p$-primary part of a finite abelian group $A$.
+
+\smallskip
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}l X l l@{}}
+\toprule
+Result & What it says & Where & Lean\\
+\midrule
+Theorem A & $\coker L(H(d,q))$ is a sum of pieces $X_q(m,c)=\coker(q(c+H)+U)$ (Jacobson--Niedermaier--Reiner) & \S1, \S2 & checked\\
+Theorem B & $\Syl_pK(H(d,q))$ for $p>d$, $p\mid q$, with ballot numbers & \S3 & checked\\
+Theorem C & the exponent of $\Syl_pK(H(d,q))$, every $p$, $q\ge3$ & \S4 & checked\\
+Theorem D & the number of cyclic factors, $p\mid q$ & \S5 & checked\\
+Theorem E & every piece of size $m<p$ & \S3 & checked\\
+Theorems F, G & every piece with $m\le p^2+p-1$ (two Weyl factors) & \S6 & checked\\
+Theorem H & $p=2$, every $d$, from \cite{DST} & \S7 & checked\\
+\textbf{Theorem I} & on each tilting block, exactly $2^{|I|}$ cyclic summands of order $>p^k$; the others form an explicit group independent of $q$ and of the shift (Conjecture~I of version~3) & \S8, \S9 & in progress\\
+\textbf{Theorem J} & the whole $\Syl_pK(H(d,q))$, every $p\mid q$, every $d$, in closed form & \S8, \S9 & in progress\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\smallskip
+\noindent\textbf{Status.} This is a preprint. For $d=2$ the whole group $K(H(2,q))$ was known before (Ducey, Gerhard and Watson \cite{DGW}); our results are new, to the best of our knowledge, for $d\ge3$ (see the section on provenance at the end). The proofs of Theorems A--H were re-derived by an independent reader with no access to our audits; that reading found one priority omission, three citation and presentation gaps and one wrong example in a remark, all corrected here (\S\ref{sec:changes}). The proofs of Theorems I and J were written by one reader, re-derived by a second and read cold by a third, who wrote the riskiest step, the floor of the Smith form for odd $p$, out in full; it found no error and no gap. All these readers are instances of the AI system Claude; no human expert has read the proofs. Every result of version~3 is checked in Lean~4 with Mathlib; the Lean proof of Theorems I and J is not finished (\S\ref{sec:lean}).
+
+\medskip\hrule
+
 
 \section{Introduction}
 
 For a connected graph $\Gamma$ with Laplacian $L(\Gamma)$, the sandpile group $K(\Gamma)$ is the torsion subgroup of $\coker L(\Gamma)$, and $\coker L(\Gamma)\cong\Z\oplus K(\Gamma)$; its order is the number of spanning trees \cite{Big}. The Hamming graph $H(d,q)$ has vertex set $(\Z/q)^d$, two vertices being adjacent when they differ in exactly one coordinate; it is the Cartesian power $K_q^{\,d}$ of the complete graph. Its Laplacian eigenvalues are $qs$, $0\le s\le d$, with multiplicity $\binom ds(q-1)^s$.
 
-Jacobson, Niedermaier and Reiner \cite{JNR} determined the Sylow $p$-subgroup of $K(K_{n_1}\times\cdots\times K_{n_k})$ for every prime $p$ that divides none of the $n_i$ \cite[Theorem~2]{JNR}, and bounded the number of invariant factors \cite[Theorem~3]{JNR}. About the other primes they wrote: ``Describing the exact structure of the critical group $K(K_{n_1}\times\cdots\times K_{n_k})$ appears to be difficult, due to bad behavior of its $p$-primary structure for primes $p$ that divide some of $n_1,\dots,n_k$.'' Ducey and Jalil \cite{DJ} recovered the results of \cite{JNR} by another method. For $q=2$ the graph is the hypercube; its odd part is due to Bai \cite{Bai} and its $2$-part was determined in \cite{DST}.
+Jacobson, Niedermaier and Reiner \cite{JNR} determined the Sylow $p$-subgroup of $K(K_{n_1}\times\cdots\times K_{n_k})$ for every prime $p$ that divides none of the $n_i$ \cite[Theorem~2]{JNR}, and bounded the number of invariant factors \cite[Theorem~3]{JNR}. About the other primes they wrote: ``Describing the exact structure of the critical group $K(K_{n_1}\times\cdots\times K_{n_k})$ appears to be difficult, due to bad behavior of its $p$-primary structure for primes $p$ that divide some of $n_1,\dots,n_k$.'' Ducey and Jalil \cite{DJ} recovered the results of \cite{JNR} by another method. For $d=2$ the whole group $K(H(2,q))=K(K_q\times K_q)$ was determined by Ducey, Gerhard and Watson \cite[Theorem~1.1]{DGW}; it also follows from \cite[Theorem~13 and Example~11]{JNR}. Our results agree with it at $d=2$, and are new, to the best of our knowledge, for $d\ge3$. For $q=2$ the graph is the hypercube; its odd part is due to Bai \cite{Bai} and its $2$-part was determined in \cite{DST}.
 
 In this paper $q\ge2$ is arbitrary, $p$ is a prime dividing $q$, and $e:=v_p(q)\ge1$, except where we say otherwise.
 
@@ -67,7 +104,7 @@ Let $d\ge1$, let $p>d$ be a prime dividing $q$, and $e=v_p(q)$. Then
 \Syl_p K\big(H(d,q)\big)\;\cong\;\bigoplus_{v=1}^{d}\big(\Z/p^{ev}\big)^{n_v},\qquad
 n_v=\sum_{\substack{j+2k=d+1-v\\ (j,k)\neq(0,0)}}\binom{d}{j}\,(q-2)^{j}\,b(k,v),
 \]
-the sum over integers $j,k\ge0$, where $b(k,v)=\frac{v}{v+2k}\binom{v+2k}{k}=[x^k]\,C(x)^v$ are the ballot numbers and $C(x)=\sum_n\frac1{n+1}\binom{2n}nx^n$ is the Catalan series.
+the sum over integers $j,k\ge0$ (the condition $(j,k)\ne(0,0)$ is automatic, since $j+2k=d+1-v\ge1$), where $b(k,v)=\frac{v}{v+2k}\binom{v+2k}{k}=[x^k]\,C(x)^v$ are the ballot numbers and $C(x)=\sum_n\frac1{n+1}\binom{2n}nx^n$ is the Catalan series.
 \end{theorem}
 
 Equivalently, with $c(z)=C(z^2)$ and $u=q-2$, $\sum_v n_v y^v=[z^{d+1}]\,(1+uz)^d\,\frac{yz\,c(z)}{1-yz\,c(z)}-y^{d+1}$. For instance, with $u=q-2$:
@@ -101,9 +138,8 @@ Here $\rho_p(m)$ is the rank over $\F_p$ of $U$ on $B_m$. For $q=p=3$ the theore
 $\Syl_p K(H(d,q))$ depends on $q$ only through $e=v_p(q)$ and the multiplicities $\binom dj(q-2)^j$.
 \end{corollary}
 
-\subsection*{Status} This is a preprint. The proofs were re-read by the system that wrote them (see Provenance) and checked against the computations of Section~\ref{sec:ver}; they have not yet been read by an independent reader. The versions are on Zenodo, concept doi:10.5281/zenodo.23327608 (version~1: doi:10.5281/zenodo.23327609; version~2: doi:10.5281/zenodo.23328702). Version~2 (13 October 2026) added Theorems~\ref{glue} and~\ref{thG} for $d\le3p-1$ and Corollary~\ref{corN}; in version~1, Theorem~\ref{glue} was stated as a conjecture. Version~3 (13 October 2026) extends Theorem~\ref{thG} to $d\le p^2+p-1$ and every prime, which contains Conjecture~H of version~2, adds Theorem~\ref{thP} (the prime $2$, every $d$) and the new Conjecture~\ref{conjI}.
-
-By Theorems~\ref{thG} and~\ref{thP}, what remains is $p$ odd and $d\ge p^2+p$, and there only the pieces $X_q(m,c)$ with $m\ge p^2+p$, whose tilting summands can have four or more Weyl factors. For these blocks we state Conjecture~\ref{conjI} (Section~\ref{sec:conjI}).
+\subsection*{The rest of the paper}
+Theorems~\ref{thBprime}--\ref{thP} (Sections~3, 6 and~7) compute the pieces $X_q(m,c)$ for $m<p$, for $m\le p^2+p-1$ and for $p=2$. Section~\ref{sec:conjI} states Theorems~\ref{thI} and~\ref{thJ}, which compute every piece for every odd $p$, and Section~\ref{sec:dance} proves them. Section~\ref{sec:ver} lists the computations, Section~\ref{sec:lean} the state of the Lean proof, and Section~\ref{sec:changes} the changes from version~3.
 
 \section{The splitting (after Jacobson, Niedermaier and Reiner)}
 
@@ -210,7 +246,7 @@ For $q=2$ the same argument gives only an upper bound, and it is not attained: f
 \section{The number of cyclic factors}
 
 \begin{proof}[Proof of Theorem~\ref{thD}]
-The number of cyclic factors of $\Syl_p K$ is $\dim_{\F_p}(\coker L\otimes\F_p)-1$, the $1$ for the free summand. Modulo $p$, $q(j+H)+U\equiv U$, so by Theorem~\ref{thA} $\dim_{\F_p}(\coker L\otimes\F_p)=\sum_j\binom dj(q-2)^j\big(2^{d-j}-\rank_{\F_p}U|_{B_{d-j}}\big)$. The rank of $U$ is the sum over $s$ of the ranks of the inclusion matrices $W_{s,s+1}$ of $s$-subsets versus $(s+1)$-subsets of $[m]$. By Wilson's diagonal form \cite{Wil}, for $t\le\min(k,m-k)$ the matrix $W_{t,k}$ is equivalent over $\Z$ to a diagonal matrix with entries $\binom{k-i}{t-i}$ of multiplicity $\binom mi-\binom m{i-1}$, $0\le i\le t$ (we use the statement as given in \cite[(2)]{CSX}); so its rank over $\F_p$ is $\sum_{i:\,p\nmid\binom{k-i}{t-i}}(\binom mi-\binom m{i-1})$. For $W_{s,s+1}$ with $2s\le m-1$ take $(t,k)=(s,s+1)$, so $\binom{k-i}{t-i}=s+1-i$; otherwise complementation identifies $W_{s,s+1}$ with the transpose of $W_{m-s-1,m-s}$ and we take $(t,k)=(m-1-s,m-s)$. This is $r_p(m,s)$.
+The number of cyclic factors of $\Syl_p K$ is $\dim_{\F_p}(\coker L\otimes\F_p)-1$, the $1$ for the free summand. Modulo $p$, $q(j+H)+U\equiv U$, so by Theorem~\ref{thA} $\dim_{\F_p}(\coker L\otimes\F_p)=\sum_j\binom dj(q-2)^j\big(2^{d-j}-\rank_{\F_p}U|_{B_{d-j}}\big)$. The rank of $U$ is the sum over $s$ of the ranks of the inclusion matrices $W_{s,s+1}$ of $s$-subsets versus $(s+1)$-subsets of $[m]$. By Wilson's diagonal form \cite[Theorem~2]{Wil}, for $t\le\min(k,m-k)$ the matrix $W_{t,k}$ is equivalent over $\Z$ to a diagonal matrix with entries $\binom{k-i}{t-i}$ of multiplicity $\binom mi-\binom m{i-1}$, $0\le i\le t$ (the summary in \cite[(2)]{CSX} states only the range $t\le k\le m/2$, which misses the middle rank $2s=m-1$ of odd $m$; Wilson's range covers it); so its rank over $\F_p$ is $\sum_{i:\,p\nmid\binom{k-i}{t-i}}(\binom mi-\binom m{i-1})$. For $W_{s,s+1}$ with $2s\le m-1$ take $(t,k)=(s,s+1)$, so $\binom{k-i}{t-i}=s+1-i$; otherwise complementation identifies $W_{s,s+1}$ with the transpose of $W_{m-s-1,m-s}$ and we take $(t,k)=(m-1-s,m-s)$. This is $r_p(m,s)$.
 \end{proof}
 
 
@@ -245,12 +281,12 @@ is built from that action alone.
 
 We use three standard facts.
 \begin{enumerate}
-\item[(T1)] $V^{\otimes m}$ is a tilting module, and it decomposes over $\Z_p$ as $\bigoplus_\lambda T_{\Z_p}(\lambda)^{n_\lambda}$, where $T_{\Z_p}(\lambda)$ is the unique lift of the indecomposable tilting module $T(\lambda)$ over $\F_p$. The reason is that $\mathrm{Ext}^1(\Delta,\nabla)=0$, so decompositions over $\F_p$ lift; this is standard \cite{Jan,Don}. For $p=2$ the argument is written out, and checked in Lean, in \cite[Lemma~3.3, Corollary~3.4]{DST}.
+\item[(T1)] $V^{\otimes m}$ is a tilting module, and it decomposes over $\Z_p$ as $\bigoplus_\lambda T_{\Z_p}(\lambda)^{n_\lambda}$, where $T_{\Z_p}(\lambda)$ is the unique lift of the indecomposable tilting module $T(\lambda)$ over $\F_p$. The reason is that $\mathrm{Ext}^1(\Delta,\nabla)=0$, so decompositions over $\F_p$ lift; this is classical \cite[\S1.2]{And}, \cite[II.E.6, II.E.19--E.22]{Jan}. For $p=2$ the argument is written out, and checked in Lean, in \cite[Lemma~3.3, Corollary~3.4]{DST}.
 \item[(T2)] Let $\lambda\le p^2+p-1$. If $\lambda\le p-1$, or if $\lambda+1\equiv0\pmod p$ and $\lambda\le p^2-1$, then $T(\lambda)=\Delta(\lambda)$ is simple. Otherwise write
 \[
 \lambda=p-1+r+pa,\qquad 1\le r\le p,\ 0\le a\le p-1,
 \]
-where $r=p$ (and then $a=p-1$) occurs only for $\lambda=p^2+p-1$. Then $T(\lambda)$ has exactly two Weyl factors, $\Delta(\lambda)$ and $\Delta(\lambda^-)$ with $\lambda^-:=\lambda-2r$, and it is a non-split extension $0\to\Delta(\lambda)\to T(\lambda)\to\Delta(\lambda^-)\to0$; so is its lift over $\Z_p$. Indeed, by Donkin's tensor product theorem \cite{Don}, $T(p-1+r'+pb)\cong T(p-1+r')\otimes T(b)^{[1]}$ for $0\le r'\le p-1$. For $r\le p-1$ take $r'=r$, $b=a\le p-1$, so that $T(a)=\Delta(a)$. For $\lambda=p^2+p-1$ take $r'=0$, $b=p$: then $T(p-1)$ is the Steinberg module and $T(p)$ has the Weyl factors $\Delta(p),\Delta(p-2)$. In both cases the product of characters, expanded by Brauer's formula with $\chi(-n-2)=-\chi(n)$, leaves exactly $\chi(\lambda)+\chi(\lambda-2r)$; the other terms cancel in pairs.
+where $r=p$ (and then $a=p-1$) occurs only for $\lambda=p^2+p-1$. Then $T(\lambda)$ has exactly two Weyl factors, $\Delta(\lambda)$ and $\Delta(\lambda^-)$ with $\lambda^-:=\lambda-2r$, and it is a non-split extension $0\to\Delta(\lambda)\to T(\lambda)\to\Delta(\lambda^-)\to0$; so is its lift over $\Z_p$. Indeed, by Donkin's tensor product theorem \cite[Prop.~2.1]{Don} (for $SL_2$ in every characteristic see \cite[Prop.~3.4(a)]{STWZ} and \cite[Remark~1.1(ii)]{And}), $T(p-1+r'+pb)\cong T(p-1+r')\otimes T(b)^{[1]}$ for $0\le r'\le p-1$. For $r\le p-1$ take $r'=r$, $b=a\le p-1$, so that $T(a)=\Delta(a)$. For $\lambda=p^2+p-1$ take $r'=0$, $b=p$: then $T(p-1)$ is the Steinberg module and $T(p)$ has the Weyl factors $\Delta(p),\Delta(p-2)$. In both cases the product of characters, expanded by Brauer's formula with $\chi(-n-2)=-\chi(n)$, leaves exactly $\chi(\lambda)+\chi(\lambda-2r)$; the other terms cancel in pairs.
 \item[(T3)] Comparing characters, the multiplicities in $V^{\otimes m}$ are given, from the top down, by $n_\lambda=\beta(m,\lambda)-n_{\lambda^+}$. Here $\lambda^+$ is the weight whose bottom factor is $\lambda$, and $n_{\lambda^+}=0$ if there is none or if $\lambda^+>m$. (For $\lambda\le p^2+p-1$ the map $\lambda\mapsto\lambda^-$ is injective: $\lambda^-\equiv p-1-r\pmod p$ determines $r$, and then $a$.)
 \end{enumerate}
 
@@ -301,7 +337,7 @@ Let $p$ be a prime, $q$ an integer with $e=v_p(q)\ge1$, $c\ge0$, and $m\le p^2+p
 where $\lambda$ runs over the integers $\equiv m\pmod 2$ with $0\le\lambda\le m$ and $n_\lambda$ is as in (T3).
 \end{theorem}
 
-With Theorem~\ref{thA}, Theorem~\ref{thG} determines $\Syl_pK(H(d,q))$ for every $d\le p^2+p-1$. This contains Conjecture~H of version~2 ($p$ odd, $d\le p^2-2$). For $p=3$ the range is $d\le11$ and for $p=5$ it is $d\le29$. For $p=2$ it is $d\le5$; the prime $2$ is treated for every $d$ in Section~\ref{sec:two}. The range is exactly the range in which every tilting summand of $V^{\otimes m}$ has at most two Weyl factors; at $m=p^2+p$ the block $\lambda=p^2+p$, with four Weyl factors, appears. The hypothesis $e\ge1$ is needed: for $p\nmid q$ the formula fails, for instance when $(q,p,d)=(4,3,4)$; there the answer of \cite{JNR} applies instead.
+With Theorem~\ref{thA}, Theorem~\ref{thG} determines $\Syl_pK(H(d,q))$ for every $d\le p^2+p-1$. This contains Conjecture~H of version~2 ($p$ odd, $d\le p^2-2$). For $p=3$ the range is $d\le11$ and for $p=5$ it is $d\le29$. For $p=2$ it is $d\le5$; the prime $2$ is treated for every $d$ in Section~\ref{sec:two}. The range is exactly the range in which every tilting summand of $V^{\otimes m}$ has at most two Weyl factors; at $m=p^2+p$ the block $\lambda=p^2+p$, with four Weyl factors, appears. We claim nothing for $p\nmid q$, where the answer is \cite[Theorem~2]{JNR}. (Version~3 said here that the formula fails for $p\nmid q$, at $(q,p,d)=(4,3,4)$. That was wrong: evaluated at $e=0$ the formula gives the right group there, and in all $784$ pieces with $p\nmid q$ and $p\le5$ checked by the independent reader. We have not proved it for $e=0$.)
 
 \subsection*{Proofs}
 Fix $\lambda$ with two Weyl factors, $(r,a)$ as in (T2), $\mu=\lambda^-$. Let $\ell_i=f^{(i)}x$ ($0\le i\le\lambda$) be the standard basis of $\Delta_{\Z_p}(\lambda)$, so $f\ell_i=(i+1)\ell_{i+1}$, $e\ell_i=(\lambda-i+1)\ell_{i-1}$, and more generally $f^{(t)}\ell_i=\binom{i+t}{t}\ell_{i+t}$ and $e^{(t)}\ell_i=\binom{\lambda-i+t}{t}\ell_{i-t}$. Let $s_j=f^{(j)}y$ ($0\le j\le\mu$) be that of $\Delta_{\Z_p}(\mu)$. Put
@@ -355,7 +391,7 @@ Solving the unit subdiagonals, the cokernel is generated by the first vector of 
 \item $p^{\sigma_t}h_t+p\,h_{t+1}$ on the $\tilde s$-chain;
 \item at the end of the $\tilde s$-chain, $p^{\sigma}h_{\rm last}+p^{v_p(u)}g_{a+1}$.
 \end{itemize}
-Every entry has valuation $\ge1$, so the relation matrix is $pM'$ with $M'$ integral.
+If $r=p$, every entry has valuation $\ge1$; if $r\le p-1$ this holds after the elimination of $g_{a+1}$ described next. In both cases the relation matrix is then $pM'$ with $M'$ integral.
 
 If $r\le p-1$ the last relation has a unit coefficient on $g_{a+1}$. Eliminating $g_{a+1}$ turns the last link of the $\ell$-chain into $p^{\tau+\sigma_a}h_a$ and the end relation into $p^{\alpha+\sigma_a}h_a$. In $M'$ the links with coefficient $1$ form $a$ units on the $\ell$-chain and $a$ on the $\tilde s$-chain, in distinct rows and columns. Clearing them (column operations along each chain, then row operations) splits off $I_{2a}$. The $2\times2$ matrix that remains, on the rows of the last link of the $\ell$-chain and of the end relation $p^{\alpha+\sigma_a}h_a$, and on the columns $g_0,h_0$, is upper triangular with diagonal valuations $E_{11}-1$, $E_{22}-1$ and corner $E_{12}-1$.
 
@@ -409,41 +445,67 @@ Consequently, for every $d\ge1$,
 By (T1) for $p=2$ \cite[Theorem~3.6]{DST}, $B_m\otimes\Z_2=V^{\otimes m}=\bigoplus_\lambda T_{\Z_2}(\lambda)^{m_\lambda(m)}$ as $\mathrm{Dist}$-modules. On a summand $T(\lambda)$, placed at the levels $k=(m-\lambda)/2,\dots,k+\lambda$, a vector of weight $h$ has $H=(m-h)/2=k+D_\lambda$, so $q(c+H)+U=f+q(c+k+D_\lambda)$. Write $q=2^eu$ with $u$ odd. The proof of Lemma~\ref{profile} applies verbatim to any lattice graded by the floor on which $f$ raises the floor by one; it rescales the floors by units and turns $f+2^eu(D_\lambda+i)$ into $f+2^e(D_\lambda+i)$. So the cokernel on the summand is $X^{(e)}(\lambda,c+k)$. The second statement follows from Theorem~\ref{thA}.
 \end{proof}
 
-For $q=2$ only $j=0$ survives, $e=1$, and this is the Main Theorem of \cite{DST}. For $e\ge1$ arbitrary, the theorem was checked against the Smith forms of $q(c+H)+U$ on $B_m$ in $384$ cases ($m\le11$, $e\le4$, $c\le4$) and against the full Laplacians of $H(d,q)$ for $(d,q)=(3,4),(4,4),(3,6),(3,8),(2,12),(2,16),(3,10)$. Two controls fail: using $\alpha=1$ instead of $\alpha=e$ changes the answer in all $112$ cases with $e\ge2$ tried, and omitting the antitonic fit changes it in $16$ of $128$.
+For $q=2$ only $j=0$ survives, $e=1$, and this is the Main Theorem of \cite{DST}. For $e\ge1$ arbitrary, the theorem was checked against the Smith forms of $q(c+H)+U$ on $B_m$ in $384$ cases with $m\le11$, $e\le4$, $c\le4$ (the list is in the logs of the record) and against the full Laplacians of $H(d,q)$ for $(d,q)=(3,4),(4,4),(3,6),(3,8),(2,12),(2,16),(3,10)$. Two controls fail: using $\alpha=1$ instead of $\alpha=e$ changes the answer in all $112$ cases with $e\ge2$ tried, and omitting the antitonic fit changes it in $16$ of $128$.
 
-\section{The remaining blocks: a conjecture}\label{sec:conjI}
+\section{The whole group: Theorems I and J}\label{sec:conjI}
 
 For a prime $p$, $\lambda\ge0$, $i\ge0$ and $e\ge1$ put
 \[
 Y_p(\lambda,i,e)=\coker\big(f+p^{e}(D_\lambda+i)\ \text{on}\ T_{\Z_p}(\lambda)\big),
 \]
 with $D_\lambda=(\lambda-h)/2$ the floor operator, as in Section~\ref{sec:two}. By (T1), and by Lemma~\ref{profile} applied as in the proof of Theorem~\ref{thP}, for every $m$ and $c$
-\[
+\begin{equation}\label{eq:blocks}
 \Z_p^{\,[c=0]}\oplus\Syl_pX_q(m,c)\;\cong\;\bigoplus_\lambda Y_p\big(\lambda,\,c+\tfrac{m-\lambda}2,\,v_p(q)\big)^{n_\lambda(m)},
+\end{equation}
+where $n_\lambda(m)$ is the multiplicity of $T(\lambda)$ in $V^{\otimes m}$. So everything comes down to the groups $Y_p(\lambda,i,e)$. Theorem~\ref{thG} computes them for $\lambda\le p^2+p-1$, and Theorem~\ref{thP} for $p=2$. In this section we compute them for every $\lambda$ and every odd $p$.
+
+\subsection*{Digits, dancers, clocks}
+Fix an odd prime $p$ and $\lambda\ge0$, and write
+\[
+\lambda+1=\sum_{t=0}^{k}d_tp^t,\qquad 0\le d_t\le p-1,\ d_k\ne0,\qquad I=I(\lambda)=\{t<k:d_t\ne0\},\qquad K=d_kp^k .
 \]
-where $n_\lambda(m)$ is the multiplicity of $T(\lambda)$ in $V^{\otimes m}$. So everything comes down to the groups $Y_p(\lambda,i,e)$. Theorem~\ref{thG} computes them for $\lambda\le p^2+p-1$, and Theorem~\ref{thP} for $p=2$.
+For $t\in I$ put $\mathrm{next}(t)=\min\{u\in I\cup\{k\}:u>t\}$ and $h_t=\mathrm{next}(t)-t$. The subsets $D\subseteq I$ are the \emph{dancers}; put $o_D=\sum_{t\in D}d_tp^t$. Since $d_tp^t>\sum_{u<t}(p-1)p^u$, the order of the dancers by increasing $o_D$ (the \emph{o-order}) is the lexicographic order of the digit sets from the top, exactly as for $p=2$; and $o_{I\setminus D}=o_I-o_D$, so $D\mapsto I\setminus D$ reverses it. Let $\kappa_p(a,b)=v_p\binom{a+b}{a}$, the number of carries in the base-$p$ addition $a+b$ (Kummer). For $E\subseteq I$ and $\mu\ge0$ put
+\[
+R_\mu(E)=\sum_{t\in E}\big(h_t-e\,d_tp^t\big)-\kappa_p(\mu,o_E),\qquad R^\sharp(E)=\sum_{t\in E}\big(h_t-e\,d_tp^t\big)-(k-\min E)\quad(R^\sharp(\emptyset)=0).
+\]
+The \emph{clocks} are: for $i\ge1$, with $m=i-1$, $x_D=R_m(D)-R_{m+K}(I\setminus D)$ ($D\subseteq I$); for $i=0$, $x^\sharp_D=R^\sharp(D)-R^\sharp(I\setminus D)$ ($D\ne\emptyset$). Let $\hat y_D$ and $\hat y^\sharp_D$ be their \emph{integer antitonic fits} in the o-order: partition the positions into consecutive blocks by the pool-adjacent-violators algorithm, so that the block means are strictly decreasing and each block value is the mean of its entries (the antitonic least-squares fit); then replace a block of $b$ positions with sum $S$ by $S\bmod b$ copies of $\lceil S/b\rceil$ followed by $b-(S\bmod b)$ copies of $\lfloor S/b\rfloor$. (By Lemma~\ref{integral} below the rounding never acts.) For $p=2$ ($d_t=1$, $K=2^k$) this is exactly the notation of \cite[\S1.2, \S5]{DST} with $\alpha=e$.
 
-Two things are known about $Y_p(\lambda,i,e)$ for every $\lambda$. Write $\lambda+1=\sum_{t=0}^{k}d_tp^t$ with $0\le d_t\le p-1$ and $d_k\ne0$, and put $I(\lambda)=\{t<k:d_t\ne0\}$.
-\begin{itemize}
-\item \emph{The number of cyclic summands} (the free summand included when $i=0$) is the number of Jordan blocks of $f$ on $T(\lambda)$ over $\F_p$, because $p^e(D_\lambda+i)\equiv0$. For $\lambda\ge p-1$ the module $T(\lambda)$ is projective over the first Frobenius kernel \cite[Part~II, Chapter~E]{Jan}, so $f$ acts freely over $\F_p[f]/(f^p)$ and the number is $\dim T(\lambda)/p$.
-\item \emph{The number of Weyl factors} of $T(\lambda)$ is $2^{|I(\lambda)|}$. Indeed, by Donkin's theorem $T(p-1+r'+pb)\cong T(p-1+r')\otimes T(b)^{[1]}$ ($0\le r'\le p-1$), and $\chi(p-1)\cdot\chi(n)(z^p)=\chi(pn+p-1)$, while for $r'\ge1$ the character of $T(p-1+r')$ is $\chi(p-1)(z^{r'}+z^{-r'})$; so each Weyl factor $\Delta(n)$ of $T(b)$ gives one Weyl factor of $T(\lambda)$ if $r'=0$ and two, $\Delta(pn+p-1\pm r')$, if $r'\ge1$. Since $\lambda+1=r'+p(b+1)$, this is the recursion $|I(\lambda)|=[r'\ne0]+|I(b)|$, starting from $T(\lambda)=\Delta(\lambda)$ for $\lambda\le p-2$.
-\end{itemize}
+\subsection*{The theorems}
+\begin{theorem}[Conjecture~I of version~3]\label{thI}
+Let $p$ be a prime, $\lambda\ge0$, $i\ge0$ and $e\ge1$, and let $k$, $d_k$ and $I$ be as above. Then exactly $2^{|I|}$ of the cyclic summands of $Y_p(\lambda,i,e)$ have order larger than $p^k$ (a free summand, when $i=0$, counting as one of them). The others have order at most $p^k$, and they form the group
+\[
+S_p(\lambda)=\bigoplus_{h=1}^{k-1}\big(\Z/p^h\big)^{(p-1)d_kp^{k-h-1}2^{|I|}}\;\oplus\;\big(\Z/p^k\big)^{(d_k-1)2^{|I|}},
+\]
+which depends only on $p$ and the base-$p$ digits of $\lambda+1$, not on $i$ or $e$.
+\end{theorem}
 
-\begin{conjecture}\label{conjI}
-Let $p$ be a prime, $\lambda\ge0$, $i\ge0$ and $e\ge1$, and let $k$ and $I(\lambda)$ be as above. Then:
-\begin{enumerate}
-\item[(i)] exactly $2^{|I(\lambda)|}$ of the cyclic summands of $Y_p(\lambda,i,e)$ have order larger than $p^k$ (the free summand, when $i=0$, counting as one of them), one for each Weyl factor of $T(\lambda)$;
-\item[(ii)] the others have order at most $p^k$, and together they form a group that does not depend on $i$ or on $e$.
-\end{enumerate}
-\end{conjecture}
+The number of large summands is the number of Weyl factors of $T(\lambda)$ (Lemma~\ref{dance}(i)). The total number of cyclic summands, $d_kp^{k-1}2^{|I|}=\dim T(\lambda)/p$ for $k\ge1$, is the number of Jordan blocks of $f$ on $T(\lambda)$ over $\F_p$; this is classical, since $T(\lambda)$ is projective over the first Frobenius kernel for $\lambda\ge p-1$ \cite[II.11.11]{Jan}.
 
-The conjecture holds whenever the groups are known. For $\lambda\le p^2+p-1$ it follows from Theorem~\ref{thG}: there $k\le2$, the small summands are $(\Z/p)^{a}$ or $(\Z/p)^{2a}$, and the large ones are the $\Z/p^{x}$, $\Z/p^{y}$ or $\Z/p^{A-a}$ of the block; since every $v_t\ge1$, one has $A'\ge\lambda^-+1$, $\alpha\ge r$ and $A-\alpha\ge\lambda+1-r$, which gives $E_{11},E_{12},E_{22}\ge k+1$ and $A-a\ge k+1$. For $p=2$ it follows from Theorem~\ref{thP}: the large summands are the ``big clocks'' indexed by $D\subseteq I$, and the small ones are $\bigoplus_{b<\theta}(\Z/2^b)^{2^{|I|+\theta-1-b}}$. We checked both statements on the formulas: $9045$ groups for $p=2$ ($\lambda\le200$, $e\le5$, $i\le8$) and $4704$ for $p\in\{3,5,7\}$ ($\lambda\le p^2+p-1$), with no exception; and the count of Weyl factors for $p\le5$, $\lambda\le120$.
+\begin{theorem}[the whole group]\label{thJ}
+Let $p$ be an odd prime, $\lambda\ge0$ and $e\ge1$. Then
+\begin{align*}
+Y_p(\lambda,i,e)&\;\cong\;S_p(\lambda)\oplus\bigoplus_{D\subseteq I}\Z/p^{\,k+eK+\kappa_p(i-1,K)+\hat y_D}\qquad(i\ge1),\\
+Y_p(\lambda,0,e)&\;\cong\;S_p(\lambda)\oplus\Z_p\oplus\bigoplus_{\emptyset\ne D\subseteq I}\Z/p^{\,k+eK+\hat y^\sharp_D}.
+\end{align*}
+Consequently, for every prime $p$ dividing $q$, with $e=v_p(q)$, and every $d\ge1$,
+\[
+\Z_p\oplus\Syl_pK\big(H(d,q)\big)\;\cong\;\bigoplus_{j=0}^{d}\ \bigoplus_{\lambda}Y_p\big(\lambda,\,j+\tfrac{d-j-\lambda}{2},\,e\big)^{\binom dj(q-2)^j\,n_\lambda(d-j)},
+\]
+$\lambda$ running over $0\le\lambda\le d-j$ with $\lambda\equiv d-j\pmod2$, where for $p=2$ the groups $Y_2=X^{(e)}$ are those of Theorem~\ref{thP}. The multiplicities $n_\lambda(m)$ are obtained by peeling the characters
+\[
+\operatorname{ch}T(\lambda)=\prod_{t<k}\chi_{p-1}\big(z^{p^t}\big)\,\big(z^{d_tp^t}+z^{-d_tp^t}\big)^{[d_t\ne0]}\cdot\chi_{d_k-1}\big(z^{p^k}\big),\qquad \chi_n(z)=\frac{z^{n+1}-z^{-n-1}}{z-z^{-1}},
+\]
+off $(z+z^{-1})^m$ from the top.
+\end{theorem}
 
-The first block outside both cases is $\lambda=12$ for $p=3$ ($\lambda+1=111_3$, four Weyl factors). Here $\dim T(12)=36$, $k=2$ and $I=\{0,1\}$, so the conjecture predicts $(\Z/3)^8$ and four summands of order at least $27$. The block occurs once in $V^{\otimes12}$, at the top, and every other block of $V^{\otimes12}$ has $\lambda\le10$ and is given by Theorem~\ref{thG}. So we computed the Smith form of $q(c+H)+U$ on $B_{12}$ for $q\in\{3,6\}$ and $0\le c\le3$, and removed the blocks $\lambda\le10$. We stated the conjecture after seeing the cell $(q,c)=(3,0)$ alone, and sealed a prediction for the other seven (Section~\ref{sec:ver}). The block is:
+For $\lambda\le p-2$ one has $k=0$, $I=\emptyset$, $K=\lambda+1<p$, and Theorem~\ref{thJ} gives $\Z/p^{e(\lambda+1)+\kappa_p(i-1,\lambda+1)}$, which is Theorem~\ref{thBprime}. For $\lambda\le p^2+p-1$ it agrees with Theorem~\ref{thG} (checked on $3450$ cells, \S\ref{sec:ver}), and at $p=2$ the same formula is Theorem~\ref{thP}. The right-hand side is a finite computation with binomial valuations; no Smith form is needed.
+
+\begin{example}
+The first block beyond Theorem~\ref{thG} is $\lambda=12$ for $p=3$: $\lambda+1=111_3$, $k=2$, $d_2=1$, $I=\{0,1\}$, $h_0=h_1=1$, four Weyl factors. Theorem~\ref{thI} gives $S_3(12)=(\Z/3)^8$, and Theorem~\ref{thJ} gives the large summands. For $q\in\{3,6\}$ ($e=1$), as computed directly from the Smith form of $q(c+H)+U$ on $B_{12}$ after removing the blocks $\lambda\le10$:
 \begin{center}\small
 \begin{tabular}{>{$}c<{$}l}
 \toprule
-c & block $\lambda=12$, for $q=3$ and for $q=6$\\
+c & block $\lambda=12$\\
 \midrule
 0 & $\Z_3\oplus(\Z/3)^8\oplus\Z/3^{7}\oplus\Z/3^{10}\oplus\Z/3^{12}$\\
 1,2 & $(\Z/3)^8\oplus(\Z/3^{9})^2\oplus(\Z/3^{13})^2$\\
@@ -451,7 +513,205 @@ c & block $\lambda=12$, for $q=3$ and for $q=6$\\
 \bottomrule
 \end{tabular}
 \end{center}
-All seven predictions hold. The large summands depend on $c$; we have no formula for them. For two Weyl factors their exponents are the numbers $x,y$ of Theorem~\ref{thG}, and for $p=2$ they are the big clocks of \cite{DST}; we expect a common form.
+Version~3 stated Conjecture~I after the cell $c=0$ alone and predicted the other seven cells; all held. Later, four cells with $q=9$ ($e=2$) were computed directly on $B_{12}$, and agree with Theorem~\ref{thJ} in every exponent below $19$, the precision of that computation; and $31$ further pieces $X_q(m,c)$, predicted from Theorem~\ref{thJ} before they were computed ($23$ with $p=3$ and $m\in\{12,13\}$, $8$ with $p=2$), agree exactly (\S\ref{sec:ver}).
+\end{example}
+
+\section{Proofs of Theorems I and J: the odd dance}\label{sec:dance}
+
+Throughout this section $p$ is odd, $A=\Z_p$, and $\Dist_A=A\otimes\Dist_\Z(SL_2)$ is the Kostant form, generated by the divided powers $E^{(r)},F^{(r)}$ and the $\binom{H}{r}$. A \emph{lattice} is a $\Dist_A$-module that is free of finite rank over $A$ and is the sum of its weight spaces, with integer weights. We put $u=-1$ (any unit $\equiv-1\pmod p$ would do) and, on a lattice, $X=FE$. As in Section~6, $\Delta_A(\mu)$ has the basis $e_s=F^{(s)}v$, $Fe_s=(s+1)e_{s+1}$. A lattice is \emph{graded by floors} when $F$ raises the floor by one; in $\Delta_A(\mu)$ the floor of $e_s$ is $s$. The plan is the one of \cite{DST} for $p=2$: explicit lattices built one base-$p$ digit at a time (\S9.1--9.2), elimination of unit pivots digit by digit (\S9.3), and the Smith form of the matrix that remains (\S9.4).
+
+\subsection*{9.1. The twist and the split}
+
+\begin{lemma}\label{EFH}
+Let $X,Y$ be finite-dimensional $U_\Q(\mathfrak{sl}_2)$-modules and $\varphi\colon X\to Y$ linear with $\varphi F=F\varphi$ and $\varphi H=H\varphi$. Then $\varphi E=E\varphi$. Hence a weight-preserving $A$-isomorphism of lattices that commutes with $F$ is an isomorphism of lattices, and on a vector space with given $F$, $H$ there is at most one $E$ making it an $\mathfrak{sl}_2$-module.
+\end{lemma}
+
+\begin{proof}
+$\Delta:=\varphi E-E\varphi$ raises weights by $2$ and commutes with $F$, since $\varphi[E,F]-[E,F]\varphi=\varphi H-H\varphi=0$. By Weyl's complete reducibility, $X$ is spanned by vectors $F^jx$ with $Ex=0$, $x$ of weight $h\ge0$, $F^{h+1}x=0$, and $Y_\Q$ is a sum of simple modules $\Delta_\Q(c)$; on each of them $F^{h+1}$ is injective on the weight space $h+2$. As $F^{h+1}\Delta x=\Delta F^{h+1}x=0$, $\Delta x=0$, and $\Delta F^jx=F^j\Delta x=0$.
+\end{proof}
+
+\begin{definition}[the twist $\Phi_p$, digit $0$]\label{defPhi}
+For a lattice $N$ let $\Phi_p(N)=\bigoplus_{j=0}^{p-1}b_j\otimes N$ (written $b_jn$), and for $n$ of weight $w$:
+$H(b_jn)=(pw+p-1-2j)\,b_jn$; $F(b_jn)=b_{j+1}n$ for $j\le p-2$ and $F(b_{p-1}n)=pu\,b_0(Fn)$; $E(b_jn)=b_{j-1}\,g_jn$ for $j\ge1$, with $g_j=p^2X+j(pw+p-j)$, and $E(b_0n)=(p/u)\,b_{p-1}(En)$. On morphisms $\Phi_p(f)=1\otimes f$. If $n$ is on floor $f$, then $b_jn$ is on floor $pf+j$.
+\end{definition}
+
+\begin{proposition}\label{propPhi}
+(a) $\Phi_p(N)$ is a lattice, and $\Phi_p$ is an exact functor that preserves saturated sublattices. For $r\ge0$, with $c=\lfloor(j+r)/p\rfloor$,
+\begin{gather*}
+F^{(r)}(b_jn)=(pu)^c\tfrac{c!}{r!}\,b_{j+r-pc}F^{(c)}n,\\
+E^{(r)}(b_jn)=(p/u)^{c'}\tfrac{c'!}{r!}\,b_{j-r+pc'}\,E^{(c')}\!\!\prod_{(a,i)\in S(j,r)}\!\!\big[p^2X+(i-pa)(p(w+1+a)-i)\big]n,
+\end{gather*}
+where $c'=\lfloor(r+p-1-j)/p\rfloor$ is the number of wraps and $S(j,r)$ is the set of pairs (wraps already made $a$, current index $i\ge1$) met in the first $r$ steps $j,j-1,\dots,1$, then $p-1,\dots,1$, and so on; all coefficients are $p$-integral.
+(b) $\Phi_p(N)\otimes\F_p\cong St\otimes(N\otimes\F_p)^{[1]}$, with $St=\Delta(p-1)$ the Steinberg module.
+(c) $\Phi_p(\Delta_A(\mu))\cong\Delta_A(p\mu+p-1)$, $\Phi_p(\nabla_A(\mu))\cong\nabla_A(p\mu+p-1)$.
+\end{proposition}
+
+\begin{proof}
+(a) The relation $[E,F]=H$ is checked on each $b_jn$: for $1\le j\le p-2$, $g_{j+1}-g_j=pw+p-1-2j$; on $b_0n$, $g_1-p^2X=pw+p-1$; on $b_{p-1}n$, $p^2(X+w)-g_{p-1}=pw-p+1$. These are the weights, and $E$, $F$ move weights by $\pm2$. The formula for $F^{(r)}$ follows from $F^r(b_jn)=(pu)^cb_{j+r-pc}F^cn$; the one for $E^{(r)}$ by walking $E$ down the indices, using that the Casimir $\Omega=4FE+(H+1)^2$ of $\Phi_p(N)$ is $p^2\Omega_N$ on every $b_jn$, so that $g_j$ is $(p^2\Omega_N-(p(w+1)-2j)^2)/4$. Integrality: $v_p(p^cc!/r!)=c+v_p(c!)-\lfloor r/p\rfloor-v_p(\lfloor r/p\rfloor!)\ge0$ because $c\ge\lfloor r/p\rfloor$ and $x\mapsto x+v_p(x!)$ is increasing (Legendre); the same for $E$ with $c'\ge\lfloor r/p\rfloor$. Exactness and saturation hold because $\Phi_p(N)=N^p$ as $A$-modules and $1\otimes f$ commutes with $F$, $H$, hence with $E$ (Lemma~\ref{EFH}).
+(b) Modulo $p$, with $r=ps+t$, $0\le t\le p-1$, the formulas of (a) reduce to $F^{(r)}(b_jn)\equiv[j+t\le p-1]\,\frac1{t!}\,b_{j+t}F^{(s)}n$ (using $(ps+t)!/(p^ss!)\equiv(-1)^st!$ and $u\equiv-1$) and $E^{(r)}(b_jn)\equiv[t\le j]\,(-1)^t\big(\frac{j!}{(j-t)!}\big)^2\frac1{t!}\,b_{j-t}E^{(s)}n$ (a full cycle of $g$'s is $\equiv\prod_{i=1}^{p-1}(-i^2)\equiv1$). These are the formulas of $St\otimes\bar N^{[1]}$ computed with the coproduct, in the basis $b'_j=F^jb'_0$ of $St$.
+(c) In the basis $x_R=b_je_s$, $R=ps+j$, one has $Fx_R=x_{R+1}$ for $j\le p-2$ and $Fx_{ps+p-1}=pu(s+1)x_{p(s+1)}$, while in $\Delta(p\mu+p-1)$, $Fe_R=(R+1)e_{R+1}$, with $R+1$ a unit unless $j=p-1$, where it is $p(s+1)$. A diagonal map with unit entries therefore commutes with $F$ and $H$, and Lemma~\ref{EFH} applies. The same for $\nabla$.
+\end{proof}
+
+\begin{definition}[the split $\Psi_r$, digit $r$, $1\le r\le p-1$]\label{defPsi}
+For a lattice $N$ let $\Psi_r(N)=\bigoplus_{j=0}^{p-1}(A_j\otimes N\oplus C_j\otimes N)$, with $H(A_jn)=(pw+p-1+r-2j)A_jn$, $H(C_jn)=(pw+p-1-r-2j)C_jn$; $F(A_jn)=A_{j+1}n$ and $F(C_jn)=C_{j+1}n$ for $j\le p-2$,
+\[
+F(A_{p-1}n)=pu\,A_0(Fn)+p\,C_{p-r}n,\qquad F(C_{p-1}n)=pu\,C_0(Fn);
+\]
+and, with $g^A_j=p^2X+j(pw+p+r-j)$ and $g^C_j=p^2X+j(pw+p-r-j)$:
+\begin{align*}
+E(A_0n)&=(p/u)\,A_{p-1}(En)-(p-r)(p/u)\,C_{p-1-r}(En),\\
+E(A_jn)&=A_{j-1}g^A_jn+r(p/u)\,C_{p+j-1-r}(En)\quad(1\le j\le r),\\
+E(A_jn)&=A_{j-1}g^A_jn+rp^2\,C_{j-1-r}(Xn)\quad(r+1\le j\le p-1),\\
+E(C_0n)&=r\,A_{r-1}n+(p/u)\,C_{p-1}(En),\\
+E(C_jn)&=C_{j-1}g^C_jn+r\,A_{j+r-1}n\quad(1\le j\le p-r),\\
+E(C_jn)&=C_{j-1}(g^C_j+rp)n+rpu\,A_{j+r-1-p}(Fn)\quad(p-r+1\le j\le p-1).
+\end{align*}
+On morphisms $\Psi_r(f)=1\otimes f$. If $n$ is on floor $f$, then $A_jn$ is on floor $pf+j$ and $C_jn$ on floor $pf+r+j$.
+\end{definition}
+
+\begin{proposition}\label{propPsi}
+(a) $\Psi_r(N)$ is a lattice, and $\Psi_r$ is an exact functor that preserves saturated sublattices.
+(b) $\Psi_r(N)\otimes\F_p\cong T(p-1+r)\otimes(N\otimes\F_p)^{[1]}$.
+(c) $\Psi_r(\Delta_A(\mu))$ has a sublattice $\Delta_A(p\mu+p-1+r)$ with quotient $\Delta_A(p\mu+p-1-r)$.
+\end{proposition}
+
+\begin{proof}
+(a) The relation $[E,F]=H$ is checked case by case on the ten index ranges of the definition (for instance, on $A_{p-1}n$ with $r\le p-2$ the $A$-coefficient of $EF-FE$ is $p^2EF+pr-g^A_{p-1}=pw-p+1+r$, the weight, and the $C$-coefficient is $0$). For $r=1$ the map $A_jn\mapsto\hat b_0\otimes b_jn+j\,\hat b_1\otimes b_{j-1}n$, $C_jn\mapsto\hat b_1\otimes b_jn$ is a unitriangular isomorphism $\Psi_1(N)\cong V\otimes\Phi_p(N)$ commuting with $F$ and $H$; by Lemma~\ref{EFH} it is an isomorphism, and $V\otimes\Phi_p(N)$ is a lattice. For $r\ge2$ the map $\iota\colon\Psi_r(N)\to V\otimes\Psi_{r-1}(N)$, $\iota(A_jn)=F^j\alpha(n)$, $\iota(C_jn)=F^j\gamma(n)$, with (primes for $\Psi_{r-1}$)
+\[
+\alpha(n)=\hat b_0\otimes A'_0n+(p/u)\,\hat b_1\otimes C'_{p-r}(En),\qquad \gamma(n)=\hat b_0\otimes C'_1n+\hat b_1\otimes A'_{r-1}n-(pw+p-r)\,\hat b_1\otimes C'_0n,
+\]
+commutes with $F$ (it suffices to check $F^p\gamma(n)=pu\,\gamma(Fn)$ and $F^p\alpha(n)=pu\,\alpha(Fn)+p\,F^{p-r}\gamma(n)$) and with $H$, hence with $E$ over $\Q$. Its reduction modulo $p$ is injective: on suitable coordinates it is diagonal with entries $1$ and $r-1$, a unit. So the image is a saturated $U_\Q$-stable sublattice of a lattice, hence $\Dist_A$-stable, and $\Psi_r(N)$ is a lattice by induction on $r$. Exactness as for $\Phi_p$.
+(b) Induction on $r$; $r=1$ is $V\otimes St=T(p)$. For $r\ge2$, $\bar\iota$ embeds $\overline{\Psi_r(N)}$ in $V\otimes T(p-2+r)\otimes\bar N^{[1]}$; the Casimir acts on $\overline{\Psi_r(N)}$ with the single generalized eigenvalue $r^2$ (its eigenvalues on $\Psi_r(N)_\Q$ are $(p(b+1)\pm r)^2\equiv r^2$), and the generalized $r^2$-eigenspace of $V\otimes T(p-2+r)$ is $T(p-1+r)$, because $(r-2)^2\not\equiv r^2$ and $\Delta(p-1+r)$ is not simple ($E^{(s)}F^{(r)}v=\binom{p-1+s}{s}F^{(r-s)}v\equiv0$ for $1\le s\le r$, by Lucas). Dimensions agree.
+(c) Path counting: for $k<p(\mu+1)$, $F^{(k)}(A_0n_0)$ is a unit times $A_{k\bmod p}n_{\lfloor k/p\rfloor}$ plus $C$-terms, and for $k=p(\mu+1)+t$, $0\le t\le r-1$, it is a unit times $C_{p-r+t}n_\mu$ (every branch through the coupling $pC_{p-r}$ contributes $p^{\mu+1}u^\mu\mu!$, and there are $\mu+1$ of them). So $\Dist\cdot A_0n_0\cong\Delta_A(p\mu+p-1+r)$ is saturated, and the quotient is spanned by the images of $F^{(k)}C_0n_0$, $k\le p\mu+p-1-r$.
+\end{proof}
+
+The characters are $\operatorname{ch}\Phi_p(N)=\chi_{p-1}\cdot(\operatorname{ch}N)(z^p)$ and $\operatorname{ch}\Psi_r(N)=(z^r+z^{-r})\chi_{p-1}\cdot(\operatorname{ch}N)(z^p)$; since $\chi_{p-1}(z)\chi_b(z^p)=\chi_{pb+p-1}(z)$, every Weyl factor $\Delta(b)$ of $N$ gives $\Delta(pb+p-1)$, respectively $\Delta(pb+p-1\pm r)$.
+
+\begin{lemma}[the dance lattices]\label{dance}
+Define $L(\lambda)=\Delta_A(\lambda)$ if $\lambda+1<p$; otherwise write $\lambda+1=d_0+p(b+1)$ with $0\le d_0\le p-1$ and put $L(\lambda)=\Phi_p(L(b))$ if $d_0=0$, $L(\lambda)=\Psi_{d_0}(L(b))$ if $d_0\ne0$. Then:
+(i) $L(\lambda)$ has rank $d_kp^k2^{|I|}$ and a $\Delta$-filtration with $2^{|I|}$ factors;
+(ii) $L(\lambda)\otimes\F_p\cong T(\lambda)$;
+(iii) $V^{\otimes m}\otimes\Z_p\cong\bigoplus_\lambda L(\lambda)^{n_\lambda(m)}$; in particular $L(\lambda)\cong T_{\Z_p}(\lambda)$ and $Y_p(\lambda,i,e)=\coker\big(F+p^e(D+i)\text{ on }L(\lambda)\big)$.
+\end{lemma}
+
+\begin{proof}
+(i) follows from Propositions~\ref{propPhi}(c) and~\ref{propPsi}(c) and exactness. (ii) By Propositions~\ref{propPhi}(b) and~\ref{propPsi}(b), $\overline{L(\lambda)}\cong T(p-1+d_0)\otimes\overline{L(b)}^{[1]}$ (with $T(p-1)=St$), which is $T(\lambda)$ by Donkin's tensor product theorem $T(p-1+r+pb)\cong T(p-1+r)\otimes T(b)^{[1]}$, $0\le r\le p-1$ \cite[Prop.~2.1]{Don}; for $SL_2$ in every characteristic $p$ see \cite[Prop.~3.4(a)]{STWZ} and \cite[Remark~1.1(ii)]{And}. (iii) The lattice $\bigoplus L(\lambda)^{n_\lambda(m)}$ has a $\Delta$-filtration, $V^{\otimes m}\otimes\Z_p$ has a $\nabla$-filtration, and their reductions are isomorphic by (ii) and the decomposition of the tilting module $V^{\otimes m}\otimes\F_p$ \cite[E.6]{Jan}. Since $\operatorname{Ext}^1(\Delta_A,\nabla_A)=0$, an isomorphism of the reductions lifts to a homomorphism over $\Z_p$, whose determinant is a unit. The existence and uniqueness of $T_{\Z_p}(\lambda)$ and the lifting of decompositions are classical \cite[\S1.2]{And}, \cite[II.E.19--E.22]{Jan}; what is new here is the explicit form of the lattices. The last statement is \eqref{eq:blocks}.
+\end{proof}
+
+\begin{remark}
+In the Lean proof (\S\ref{sec:lean}), statement (iii) is proved without Donkin's theorem and without the lifting lemma: for $1\le r\le p-1$ there are explicit short exact sequences $0\to\Psi_{r+1}(N)\to V\otimes\Psi_r(N)\to Q_{r-1}(N)\to0$ (with $\Psi_p(N):=\Phi_p(V\otimes N)$, $Q_{r-1}=\Psi_{r-1}$ for $r\ge2$, $Q_0=\Phi_p(N)^2$), and they split over $\Z_p$ by a Fitting idempotent of the Casimir, whose two eigenvalue classes $(r+1)^2$ and $(r-1)^2$ differ modulo the odd prime $p$. Induction on $m$ then gives (iii).
+\end{remark}
+
+\subsection*{9.2. Payment systems and the moves}
+Let $N$ be a lattice graded by floors. A \emph{payment system} of size $R$ on $N^{\oplus R}$ is the operator $G(x\iota_{s'})=Fx\,\iota_{s'}+\sum_sP(\varphi)_{ss'}\,x\iota_s$ for $x$ on floor $\varphi$, with $P(\varphi)\in M_R(A)$ lower triangular; it is \emph{even} if every $P(\varphi)\in pM_R(A)$. Two systems are equivalent ($\sim$) when they have the same Smith form. The operator $F+p^e(D+i)$ on $L(\lambda)$ is an even system of size $1$ with $P_0(\varphi)=p^e(\varphi+i)$, since $e\ge1$.
+
+\begin{proposition}[twist move]\label{twistmove}
+Let $N=\Phi_p(N')$ and let $G$ be even of size $R$. Then $G\sim I_{(p-1)R\operatorname{rank}N'}\oplus pG'$, with $G'$ even of size $R$ on $N'$ and
+$P'(f)=(-1)^{p-1}u^{-1}p^{-1}P(pf)P(pf+1)\cdots P(pf+p-1)$.
+\end{proposition}
+
+\begin{proof}
+For $j\le p-2$ the relation of $b_jn\iota_{s'}$ has coefficient $1$ on $b_{j+1}n\iota_{s'}$ and its other terms on $b_j$; eliminating these unit pivots gives, for the rows of generators $g_j(n)=(b_jn\iota_1,\dots,b_jn\iota_R)$, $g_{j+1}(n)=-g_j(n)P(pf+j)$. The remaining relation, of $b_{p-1}n$, is $pu\,g_0(Fn)+g_{p-1}(n)P(pf+p-1)=0$, that is $pu\,[g_0(Fn)+g_0(n)P'(f)]=0$.
+\end{proof}
+
+\begin{proposition}[split move]\label{splitmove}
+Let $N=\Psi_r(N')$ and let $G$ be even of size $R$. Then $G\sim I_{2(p-1)R\operatorname{rank}N'}\oplus pG''$, with $G''$ even of size $2R$ on $N'$ (slots $(s,A)$, then $(s,C)$) and
+\[
+P''(f)=\begin{pmatrix}Q_A(f)&0\\ K(f)&Q_C(f)\end{pmatrix},\quad
+\begin{aligned}Q_A(f)&=(-1)^{p-1}u^{-1}p^{-1}P(pf)\cdots P(pf+p-1),\\ Q_C(f)&=(-1)^{p-1}u^{-1}p^{-1}P(pf+r)\cdots P(pf+r+p-1),\\ K(f)&=(-1)^{p-r}u^{-1}P(pf+r)\cdots P(pf+p-1).\end{aligned}
+\]
+\end{proposition}
+
+\begin{proof}
+As for the twist: eliminate the $2(p-1)$ unit pivots per $n$ and slot; the relation of $A_{p-1}n$, from $F(A_{p-1}n)=puA_0(Fn)+pC_{p-r}n$, becomes $pu[a_0(Fn)+a_0(n)Q_A(f)+c_0(n)K(f)]=0$, and that of $C_{p-1}n$ becomes $pu[c_0(Fn)+c_0(n)Q_C(f)]=0$.
+\end{proof}
+
+\begin{proposition}[last level]\label{lastlevel}
+For $G$ even of size $R$ on $\Delta_A(d-1)^{\oplus R}$, $1\le d\le p-1$: $G\sim I_{(d-1)R}\oplus M$ with $M=(-1)^{d-1}((d-1)!)^{-1}P(0)P(1)\cdots P(d-1)\in p^dM_R(A)$.
+\end{proposition}
+
+\begin{proof}
+The pivots $s+1\le d-1\le p-2$ are units: $g_{s+1}=-g_sP(s)/(s+1)$, and the last relation is $g_{d-1}P(d-1)=0$.
+\end{proof}
+
+\begin{thmDp}
+Let $\lambda\ge0$, $e\ge1$, $i\ge0$. Put $P_0(\varphi)=p^e(\varphi+i)$ and, for $t=0,\dots,k-1$, let $P_{t+1}$ be the twist (Proposition~\ref{twistmove}) of $P_t$ if $d_t=0$ and the split with $r=d_t$ (Proposition~\ref{splitmove}) if $d_t\ne0$. Let $M_p(\lambda,i,e)=P_k(0)P_k(1)\cdots P_k(d_k-1)$, a lower triangular matrix of size $2^{|I|}$ with entries in $p^{d_k}\Z_p$. Then
+\[
+Y_p(\lambda,i,e)\;\cong\;S_p(\lambda)\oplus\coker\big(p^kM_p(\lambda,i,e)\big).
+\]
+\end{thmDp}
+
+\begin{proof}
+By Lemma~\ref{dance}, $Y_p(\lambda,i,e)$ is the cokernel of an even system of size $1$ on $L(\lambda)$. Apply the move of digit $t$ for $t=0,1,\dots,k-1$: before move $t$ the lattice is $L(\lambda_t)$, $\lambda_t+1=\sum_{t'\ge t}d_{t'}p^{t'-t}$, carrying $2^{|I\cap[0,t)|}$ slots, and the move eliminates $(p-1)d_kp^{k-t-1}2^{|I|}$ unit pivots and multiplies the rest by $p$. After $k$ moves the system lives on $\Delta_A(d_k-1)$ with $2^{|I|}$ slots, and Proposition~\ref{lastlevel} applies. So the operator is equivalent to $I_{n_0}\oplus p(I_{n_1}\oplus p(\cdots\oplus p(I_{(d_k-1)2^{|I|}}\oplus M)\cdots))$ with $n_t=(p-1)d_kp^{k-t-1}2^{|I|}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thI}]
+For odd $p$, by Theorem D$_p$, $Y_p(\lambda,i,e)\cong S_p(\lambda)\oplus\coker(p^kM)$ with $M$ of size $2^{|I|}$ and all entries in $p\Z_p$. Every Smith exponent of $M$ is then $\ge1$ or $\infty$, so $\coker(p^kM)$ is the sum of exactly $2^{|I|}$ cyclic modules, each $\Z_p$ or of order $\ge p^{k+1}$, while every summand of $S_p(\lambda)$ has order $\le p^k$. By the uniqueness of elementary divisors the statement follows. For $p=2$, \cite[Theorem~D]{DST} gives $Y_2(\lambda,i,e)=X^{(e)}(\lambda,i)\cong\bigoplus_{a=1}^{k-1}(\Z/2^a)^{2^{|I|+k-1-a}}\oplus\coker(2^kM)$ with $M$ the final matrix of an even payment system \cite[Proposition~4.3]{DST}, of size $2^{|I|}$ with even entries; the same argument applies, and $S_2(\lambda)$ is the displayed group with $d_k=1$.
+\end{proof}
+
+\subsection*{9.3. The entries of $M_p$}
+Let $\mathcal{C}=\Q[x_t:t\in I]/(x_t^2)$. Define $c^{(0)}=1$ and $c^{(h+1)}=a\,(c^{(h)})^p+[h\in I]\,b_h\,x_h\,(c^{(h)})^{p-d_h}$, with $a=(-1)^{p-1}/(up)$ and $b_h=(-1)^{p-d_h}/u$. For $\Delta\subseteq I$ write $[\,\cdot\,]_\Delta$ for the coefficient of $x^\Delta=\prod_{t\in\Delta}x_t$.
+
+\begin{lemma}[windows]\label{windows}
+After $h$ moves the slots are the $D\subseteq I\cap[0,h)$, and $P_h(f)_{DD'}=[c^{(h)}]_{D\setminus D'}\prod_{d\in W}p^e(i+d)$ for $D'\subseteq D$ (and $0$ otherwise), with $W=[p^hf+o_D,\ p^hf+o_{D'}+p^h-1]$. Consequently
+\[
+M_p(\lambda,i,e)_{DD'}=\frac{(-1)^{d_k-1}}{(d_k-1)!}\,\big[(c^{(k)})^{d_k}\big]_{D\setminus D'}\prod_{d=o_D}^{o_{D'}+K-1}p^e(i+d).
+\]
+With $c^{(h)}=a^{(p^h-1)/(p-1)}q_h(y)$ and $y_t=-b_t(-p)^{1+d_t(p^t-1)/(p-1)}x_t$, the polynomials $q_h$ satisfy $q_0=1$, $q_{t+1}=q_t^p-[t\in I]\,y_t\,q_t^{p-d_t}$.
+\end{lemma}
+
+\begin{proof}
+As \cite[Theorem~4.4]{DST}: an entry of a product $P_h(\varphi_1)\cdots P_h(\varphi_s)$ over consecutive floors is a sum over chains $D=T_0\supseteq\cdots\supseteq T_s=D'$; the windows of consecutive factors are adjacent, so every chain gives the same product of payments, and the coefficients add up to $[(c^{(h)})^s]_{D\setminus D'}$. The twist uses $s=p$ from floor $pf$; the split uses $s=p$ from $pf$ ($Q_A$), $s=p$ from $pf+r$ ($Q_C$, slot $D\cup\{h\}$, $o_{D\cup\{h\}}=o_D+d_hp^h$) and $s=p-r$ from $pf+r$ ($K$); the last level uses $s=d_k$ from floor $0$. The normalization is a substitution.
+\end{proof}
+
+\begin{lemma}[deficit law]\label{deficit}
+$[q_k^{d_k}]_\emptyset=1$, and $v_p\big([q_k^{d_k}]_\Delta\big)=k-|\Delta|-\min\Delta$ for $\emptyset\ne\Delta\subseteq I$.
+\end{lemma}
+
+\begin{proof}
+Induction on $|\Delta|$ and on $t>\max\Delta$, as in \cite[Lemma~4.5]{DST}. With $m=\max\Delta$, $[q_{m+1}]_\Delta=-[q_m^{p-d_m}]_{\Delta\setminus\{m\}}$. For a power $N$ of $q$, $[q^N]_\Gamma$ is the sum over the set partitions of $\Gamma$ into $j\le N$ blocks of $N(N-1)\cdots(N-j+1)\prod_B[q]_B$. For $N=p-d_m\in[1,p-1]$ the single-block term has a unit factor; for $N=p$ (every later move) every falling factorial $(p)_j$, $1\le j\le p$, has valuation $1$. In both cases a partition into $j\ge2$ blocks has valuation larger than the single-block one, by induction. So the valuation is $m-(|\Delta|-1)-\min\Delta$ at $t=m+1$ and grows by exactly $1$ at each later move; the final power $d_k$ is a unit.
+\end{proof}
+
+\begin{proposition}[cost form]\label{costform}
+Let $M=M_p(\lambda,i,e)$ and $b\subseteq a\subseteq I$, and let $\gamma(\Delta)=\sum_{u\in I\setminus\Delta,\ u>\min\Delta}h_u$ ($\gamma(\emptyset)=0$). If $i\ge1$, then $v_p(M_{ab})=eK+\kappa_p(m,K)+R_m(a)-R_{m+K}(b)+\gamma(a\setminus b)$ with $m=i-1$. If $i=0$, the row $\emptyset$ is zero and, for $a\ne\emptyset$, $v_p(M_{ab})=eK+R^\sharp(a)-R^\sharp(b)+\gamma(a\setminus b)$. All entries with $b\subseteq a$ ($a\ne\emptyset$ when $i=0$) are nonzero.
+\end{proposition}
+
+\begin{proof}
+By Lemmas~\ref{windows} and~\ref{deficit}, $v_p(M_{ab})=-d_k\frac{p^k-1}{p-1}+\sum_{t\in\Delta}\big(1+d_t\frac{p^t-1}{p-1}\big)+\delta(\Delta)+e(K-o_\Delta)+\sum_{d=o_a}^{o_b+K-1}v_p(i+d)$, $\Delta=a\setminus b$, $\delta(\Delta)=k-|\Delta|-\min\Delta$. Legendre's formula $v_p(n!)=(n-s_p(n))/(p-1)$, the identity $s_p(x+o_E)=s_p(x)+\sum_{t\in E}d_t-(p-1)\kappa_p(x,o_E)$, $s_p(K)=d_k$, and $|\Delta|+\delta(\Delta)=\sum_{t\in a}h_t-\sum_{t\in b}h_t+\gamma(\Delta)$ \cite[Lemma~5.1]{DST} collapse this to the stated form. For $i=0$ use also $\kappa_p(K-1,o_E)=k-\min E$.
+\end{proof}
+
+\subsection*{9.4. The Smith form of $M_p$}
+
+\begin{lemma}\label{integral}
+The real antitonic fits of the clocks $x$ and $x^\sharp$ of \S\ref{sec:conjI} take integer values.
+\end{lemma}
+
+\begin{thmSmith}
+For $i\ge1$ the Smith exponents of $M_p(\lambda,i,e)$ are $eK+\kappa_p(i-1,K)+\hat y_D$, $D\subseteq I$; for $i=0$ they are $\infty$ (once) and $eK+\hat y^\sharp_D$, $\emptyset\ne D\subseteq I$.
+\end{thmSmith}
+
+\begin{proof}[Proof of the Smith form and of Lemma~\ref{integral}]
+The proof of the case $p=2$, \cite[\S6--\S7]{DST}, goes through for odd $p$ with the changes listed below; every step not listed is used verbatim. A complete line-by-line version for odd $p$, written by the independent reader, is part of the record of this paper (file \texttt{THEOREM\_F\_ODD\_P.md}).
+
+\emph{(O1) The order.} Since $d_tp^t>\sum_{u<t,\,u\in I}d_up^u$, the o-order is the binary order of the digit sets, as for $p=2$; in particular all dancers without $c=\max I$ precede all dancers with $c$, and the two halves have $2^{|I|-1}$ elements each.
+
+\emph{Ceiling} \cite[\S6]{DST}. The tropical bound (Lemma~6.1), the unique golden matching (Theorem~6.2), which is a statement about the binary numbers of (O1) and the quantity $\gamma$ only, the natural minor (Corollary~6.3), which needs the cost form (Proposition~\ref{costform}) and the non-vanishing of the entries, convexity (Lemma~6.4) and Theorem~6.5 hold verbatim.
+
+\emph{Floor} \cite[\S7]{DST}. Lemmas~7.1--7.3 and Theorem~7.4 are statements about sequences and hold verbatim. A \emph{house} is $H=(I,k,\ell,e,(d_t))$ with $0\le\ell<p^k$, with rulers $R_H(E)=\sum_{t\in E}(h_t-ed_tp^t)-\kappa_p(\ell,o_E)$ and $J_H(E)=[\ell+o_E\ge p^k]$, an up-set.
+\begin{itemize}
+\item \emph{Lemma 7.5$_p$.} With $\ell=m\bmod p^k$ and $r_k(\mu)$ the number of consecutive digits $p-1$ of $\mu$ from digit $k$ on, $R_m=R_H-r_k(m)J_H$ and $R_{m+K}=R_H-r_k(m+K)J_H$.
+\item \emph{Lemma 7.6$_p$ (gates).} In the window $W_t=[t,\mathrm{next}(t))$ the addend has the single digit $[t\in E]\,d_t$ at $t$; put $\theta_t=p-\ell_t\in[1,p]$, $\kappa_t=1+\min(r_{t+1}(\ell),h_t-1)$ and $\mathrm{sat}_t=[\kappa_t=h_t]$. The window makes $\kappa_t$ carries if and only if $[t\in E]d_t+c_t\ge\theta_t$ ($c_t$ the incoming carry), so it has one of four types: OR ($\theta_t=1$), DIG ($2\le\theta_t\le d_t$, carries iff $t\in E$), AND ($\theta_t=d_t+1$) and NEV ($\theta_t\ge d_t+2$, never). A carry leaves the window if and only if it carries and is saturated. For $p=2$ only OR and AND occur.
+\item \emph{Lemma 7.7$_p$.} For $c=\max I$, $H'=(I\setminus\{c\},c,\ell\bmod p^c,e)$, $h=k-c$ and $\tau=h-ed_cp^c-[\mathrm{OR}\vee\mathrm{DIG}]\kappa$:
+$R_H(D_0)=R_{H'}(D_0)-[\mathrm{OR}]\kappa J'(D_0)$, $R_H(D_0\cup\{c\})=\tau+R_{H'}(D_0)-[\mathrm{AND}]\kappa J'(D_0)$, $J_H(D_0)=[\mathrm{OR}]\,\mathrm{sat}\,J'(D_0)$, $J_H(D_0\cup\{c\})=\mathrm{sat}\,([\mathrm{OR}\vee\mathrm{DIG}]+[\mathrm{AND}]J'(D_0))$.
+\item \emph{Theorem 7.8$_p$} (the induction of \cite[Theorem~7.8]{DST}, steps 1--8) with the bound $(\Lambda)$ replaced by $(\Lambda_p)$: $|\hat y_H|\le e\,o_I$. Step 2 uses $d_1\le ed_cp^c-h+\kappa\le ed_cp^c$ and $o_{I'}+d_cp^c=o_I$; in steps 3(a), 3(b) and 5 the quantity $\alpha2^c-\alpha(2^c-1)=\alpha$ becomes $e(d_cp^c-o_{I'})\ge e$, and $h-\alpha$ becomes $h-e$; in 3(c), $X_2(b')=\hat y'(b')-ed_cp^c\le-e$. The two new window types fall into existing cases: DIG with $\mathrm{sat}=1$ has $J_H=(0,1)$ and constant shift $d_1=ed_cp^c$, which is case 3(b); DIG with $\mathrm{sat}=0$, and NEV, have $J_H\equiv0$, which is case 3(d). Steps 4, 6, 7 and 8 hold with $\alpha$ replaced by $e$, with the inherited potential $v'(D_0)=V'(D_0)-[\mathrm{OR}]\kappa J'(D_0)$, $v'(D_0\cup\{c\})=\tau+V'(D_0)-[\mathrm{AND}]\kappa J'(D_0)$.
+\item Lemma~7.9 (integrality of the real fits, which is Lemma~\ref{integral}) and Theorem~7.10 follow verbatim, with the penalty cells $\mathrm{Cell}(H;r_k(m),r_k(m+K))$; for $i=0$ the house is $\ell=p^k-1$, all windows are of type OR, and $J=[D\ne\emptyset]$.
+\end{itemize}
+Every claim of this list was also checked numerically, in $56\,246$ houses by the constructor and in $47\,310$ by the independent reader (\S\ref{sec:ver}).
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thJ}]
+Combine Theorem D$_p$ with the Smith form of $M_p$: $\coker(p^kM_p)$ has the Smith exponents of $M_p$ raised by $k$. The statement on $K(H(d,q))$ follows from Theorem~\ref{thA} and \eqref{eq:blocks}, with Lemma~\ref{dance}(iii) for the multiplicities; for $p=2$ it is Theorem~\ref{thP}.
+\end{proof}
 
 \section{Verification}\label{sec:ver}
 
@@ -479,7 +739,12 @@ All computations were exact. The Smith forms over $\Z_{(p)}$ were computed modul
 \item the row $d=9$ of Section~\ref{sec:data}, which version~2 did not explain, is reproduced exactly.
 \end{itemize}
 \item Theorem~\ref{thP}: $384$ pieces against Smith forms on $B_m$ ($m\le11$, $e\le4$, $c\le4$) and seven full Laplacians, with the two controls described after the theorem.
-\item Conjecture~\ref{conjI}: on the formulas of Theorems~\ref{thG} and~\ref{thP}, $9045$ groups for $p=2$ ($\lambda\le200$, $e\le5$, $i\le8$) and $4704$ for $p\in\{3,5,7\}$, with no exception; the number of summands equals $\dim T(\lambda)/p$ in $286$ of $286$ cases; the count $2^{|I(\lambda)|}$ of Weyl factors from the characters for $p\le5$, $\lambda\le120$ ($363$ cases). For the block $\lambda=12$, $p=3$: a third sealed prediction (MD5 \texttt{a739d9c1\allowbreak 8622ab0c\allowbreak 5dfc811f\allowbreak 4cbd49f7}), written after one cell, for seven cells; seven agreements.
+\item Theorem~\ref{thI}, before its proof: on the formulas of Theorems~\ref{thG} and~\ref{thP}, $9045$ groups for $p=2$ ($\lambda\le200$, $e\le5$, $i\le8$) and $4704$ for $p\in\{3,5,7\}$, with no exception; the number of summands equals $\dim T(\lambda)/p$ in $286$ of $286$ cases; the count $2^{|I(\lambda)|}$ of Weyl factors from the characters for $p\le5$, $\lambda\le120$ ($363$ cases). For the block $\lambda=12$, $p=3$: a third sealed prediction (MD5 \texttt{a739d9c1\allowbreak 8622ab0c\allowbreak 5dfc811f\allowbreak 4cbd49f7}), written after one cell, for seven cells; seven agreements.
+\item Lemma~\ref{dance} and the moves (version~4): the lattices $L(\lambda)$ satisfy the $\mathfrak{sl}_2$ relations, have the character of $T(\lambda)$, and are stable under every $E^{(r)}$ and $F^{(r)}$, for every $\lambda$ with $\dim T(\lambda)\le600$ and $p\in\{3,5,7\}$ ($569$ lattices, checked twice, by the constructor and by the independent reader with its own engine); the closed formula for $E^{(r)}$ of Proposition~\ref{propPhi} on $273\,812$ pairs; $L(\lambda)\otimes\F_p\cong T(\lambda)$ identified without Donkin's theorem in $62$ cases. Controls (the twist without its factor $p$, the split without its coupling, the coupling $p^2$) break integrality or change the answer.
+\item Theorem D$_p$: the right-hand side computed by the moves equals a direct $p$-adic Smith form of $F+p^e(D+i)$ on $L(\lambda)$ in $1856$ cells ($p=3$, $\lambda\le80$; $p=5$, $\lambda\le150$; $e\in\{1,2\}$, $i\le3$); among them $1520$ cells sealed before the direct computation (MD5 \texttt{0a9c3442\allowbreak e54c54c8\allowbreak cc880d9b\allowbreak 2bc070b0}), $1513$ of them blind: all hold.
+\item Theorem~\ref{thJ}: $10\,710$ cells ($p\in\{3,5,7,11,13\}$) sealed before the computation (MD5 \texttt{2f931de9\allowbreak eb3933c5\allowbreak 1a4ff3ef\allowbreak b03274ab}), against the exact Smith form of $M_p$: all hold. The formula contains Theorem~\ref{thG} ($3450$ cells, $p\le11$), Theorem~\ref{thP} ($5628$ cells) and Theorem~\ref{thB} ($128$ groups), and reproduces the rows $d=5,\dots,11$ of Section~\ref{sec:data}.
+\item Independent of the lattices $L(\lambda)$: on each block, the length of $Y_p(\lambda,i,e)$ equals $v_p\det(F+p^e(D+i))$, computed from the character, and the number of its cyclic summands equals $\dim T(\lambda)/p$ ($20\,310$ cells, $p\le11$); for whole Hamming graphs, the length of $\Syl_pK(H(d,q))$ equals the $p$-adic valuation of Kirchhoff's count and the number of cyclic factors equals the corank of the Laplacian over $\F_p$ minus one ($180$ groups: $p=3$, $d\le20$; $p=5$, $d\le14$; $p=7$, $d\le10$; $p=11$, $d\le8$; and $12$ more, up to $d=60$, by the independent reader). Direct Smith forms on $B_{12}$ at $p=3$, $q=9$, $c\le3$ ($4$ cells, every exponent below $19$), and $31$ pieces with $m\in\{12,13\}$ ($p=3$) or $p=2$, sealed by the independent reader before computing them: all agree.
+\item The floor of the Smith form (Theorem~7.8$_p$): every claim of the list in \S9.4 was checked numerically in $56\,246$ houses ($p=3$, $k\le4$; $p=5$, $k\le3$; $p=7$ sampled), all four window types occurring, and again in $47\,310$ houses by the independent reader.
 \end{enumerate}
 
 \section{Data for $p=q=3$}\label{sec:data}
@@ -502,19 +767,46 @@ d & $(n_1,n_2,\dots)$\\
 \end{center}
 Theorem~\ref{thG} gives every row exactly. In version~2 the row $d=9$ was outside the range: its piece $X_3(9,0)$ contains the block $\lambda=9$, which has $a=p-1$, and the version-2 formula, with glue $1/p$, gave $(942,414,623,3339,448,293,495,134,84,36,9)$. With the glue $1/p^2$ of Lemma~\ref{forced} and the minimum in the definition of $G_c(m,\lambda)$ the row comes out right. The rows $d=10$ and $d=11$ were computed piece by piece and assembled by Theorem~\ref{thA}; both were predicted before they were computed (the first two sealed predictions of item~9 of Section~\ref{sec:ver} contain them).
 
-\section*{Provenance}
-The results were found on the night of 12--13 October 2026 by an AI system, Claude (Anthropic), working for the author: it chose the problem after a search of the literature, wrote the computations, found the formulas, sealed and checked the predictions, and found the proofs; it also found, when checking the literature before publication, that Theorem~\ref{thA} is \cite[Theorem~13]{JNR}. Version~2 was written later the same night, also by Claude: the Glue Conjecture of version~1 was proved and extended (Theorems~\ref{glue}, \ref{thG}) by writing down the tilting lattices, and the closed form of $N$ (Corollary~\ref{corN}) was proved. Version~3 was written later the same night, also by Claude: Theorem~\ref{thG} was extended to $m\le p^2+p-1$ and every prime by computing the glue of the blocks with $a=p-1$ (denominator $p^2$), Theorem~\ref{thP} was obtained by reading the results of \cite{DST}, which are stated for every power of $2$, at $2^{v_2(q)}$, and Conjecture~\ref{conjI} was stated from one computed cell. The author takes responsibility for the paper. To the best of our knowledge, after a search of the works citing \cite{JNR} and of arXiv, Theorems~\ref{thB}, \ref{thC} (for $e\ge1$), \ref{thD}, \ref{thBprime}, \ref{glue}, \ref{thG} and \ref{thP}, Corollary~\ref{corN} and Conjecture~\ref{conjI} are new; version~1 also claimed the case $e=0$ of Theorem~\ref{thC}, which follows from \cite[Theorem~2]{JNR}. Theorem~\ref{thA} is due to Jacobson, Niedermaier and Reiner. The tilting theory used in Sections~6 and~\ref{sec:conjI}, including the count of Weyl factors, is classical \cite{Don,Jan}, and so is the decomposition of tensor powers in the proof of Corollary~\ref{corN}.
+\section{Formal verification in Lean (in progress)}\label{sec:lean}
 
-\begin{thebibliography}{JNR03}
+The proofs are being checked in the proof assistant Lean~4 with the Mathlib library. The text was cut into short self-contained pieces; Aristotle, an AI system made by Harmonic \cite{Har}, wrote the Lean proofs; on the author's machine each returned project was compared with the previous one, searched for forbidden constructs (\texttt{sorry}, new axioms, \texttt{native\_decide}), compiled module by module, and its main statements were restated by hand in a check file whose axioms were printed. Every certified piece uses only the standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}.
+
+\textbf{Version~3 is entirely checked.} Theorems A--H, Lemmas~2--5, \ref{forced} and~\ref{blocks}, Corollaries~\ref{corq} and~\ref{corN}, and the Example of Section~6 are proved in Lean, with nothing cited: the tilting lattices of Section~6, their tensor rules and the decomposition of $V^{\otimes m}\otimes\Z_p$ for $m\le p^2+p-1$ are proved from scratch, as is Wilson's rank formula in the range used by Theorem~\ref{thD}; Theorem~\ref{thP} uses the Lean proof of \cite{DST}. At that stage the project had $111$ files, $20\,789$ lines and $1\,052$ theorems, with no \texttt{sorry}.
+
+\textbf{Theorems I and J are not yet checked.} Their proof was cut into $19$ pieces. At the time of writing $8$ are certified: the twist $\Phi_p$ (Definition~\ref{defPhi}, Proposition~\ref{propPhi}(a),(c)) and its reduction modulo $p$ (Proposition~\ref{propPhi}(b)); the split $\Psi_r$; the Casimir and the short exact sequences of the Remark after Lemma~\ref{dance}; their splitting over $\Z_{(p)}$; the dance lattices $L(\lambda)$ and $V^{\otimes m}\otimes\Z_p\cong\bigoplus L(\lambda)^{n_\lambda(m)}$ for every $m$, without Donkin's theorem; the twist move (Proposition~\ref{twistmove}); and the split move (Proposition~\ref{splitmove}). The project then has $177$ files, $32\,582$ lines and $1\,741$ theorems, with no \texttt{sorry}. The remaining pieces are the last level and Theorem~D$_p$, Theorem~\ref{thI}, the windows, the deficit law, the cost form, the ceiling and the floor of the Smith form, and Theorem~\ref{thJ}. The Lean project, a certificate and a clean rebuild will be published when it is complete.
+
+\section{Changes from version 3}\label{sec:changes}
+\begin{enumerate}
+\item New Theorems~\ref{thI} (Conjecture~I of version~3, every prime) and~\ref{thJ} (the whole group, every $d$), Sections~\ref{sec:conjI} and~\ref{sec:dance}, with their checks (\S\ref{sec:ver}, items~12--16) and the state of the Lean proof (\S\ref{sec:lean}). New title page and summary.
+\item Priority: the case $d=2$ was known (Ducey--Gerhard--Watson \cite[Theorem~1.1]{DGW}; it also follows from \cite[Theorem~13 and Example~11]{JNR}). Version~3 claimed Theorems B, C, D, G and H as new without excluding $d=2$. The existence of the $\Z_p$-forms of tilting modules and the lifting of decompositions are classical \cite[\S1.2]{And}, \cite[II.E]{Jan}; what is ours is their explicit form.
+\item Theorem~\ref{thD}: Wilson's diagonal form is used in the range $t\le\min(k,m-k)$, which is Wilson's own \cite[Theorem~2]{Wil}. Version~3 attributed it to the summary in \cite[(2)]{CSX}, which states only $t\le k\le m/2$ and misses the middle rank $2s=m-1$ of odd $m$.
+\item Remark after Theorem~\ref{thG}: version~3 said that for $p\nmid q$ the formula fails at $(q,p,d)=(4,3,4)$. This was wrong: evaluated at $e=0$, the formula of Theorem~\ref{thG} gives the right group there.
+\item Proof of Lemma~\ref{blocks}: the sentence ``every entry has valuation $\ge1$'' was placed before the elimination that makes it true.
+\item Theorem~\ref{thB}: the condition $(j,k)\ne(0,0)$ is automatic, since $j+2k=d+1-v\ge1$.
+\item The count of predictions: version~3 said $107$ ($44$ in version~1 and $63$ in version~3); two groups of version~3 were counted twice (once from the pieces and once from the full Laplacian), so they are $105$ distinct predicted groups.
+\item Version~3 said that Conjecture~I for $p=2$ follows from Theorem~\ref{thP}; that needed every big clock to exceed $p^k$, which was only checked by machine. It is now part of the proof of Theorem~\ref{thI}.
+\item Precise references for (T1) and (T2): \cite[II.E.6, II.E.19--E.22]{Jan}, \cite[Prop.~2.1]{Don}, \cite[Prop.~3.4(a)]{STWZ}, \cite[Remark~1.1(ii), \S1.2]{And}.
+\end{enumerate}
+
+\section*{Provenance, priority and use of AI}\label{sec:prov}
+The work was done for the author by Claude (Anthropic), an AI system, in several sessions. Version~1 (night of 12--13 October 2026): choice of the problem after a search of the literature, computations, Theorems B--E and Conjecture~F, with Theorem~A recognized as \cite[Theorem~13]{JNR} before publication. Versions~2 and~3 (the same night): Theorems~F, G and~H, Corollary~\ref{corN} and Conjecture~I. Version~3 was read cold by a separate instance with no access to our notes; its corrections are listed in Section~\ref{sec:changes}. Version~4 (13--14 October 2026): Theorems~I and~J were found and proved by a separate instance working as constructor, re-derived and re-computed by the instance that audits the project, and read cold by a third instance, with no access to the audit, which wrote the floor of the Smith form out in full, re-ran its own computations and searched the literature again. Lean proofs are written by Aristotle \cite{Har} and compiled and audited on the author's machine (Section~\ref{sec:lean}). No human expert has read the proofs. The author takes responsibility for the paper.
+
+To the best of our knowledge, after a search of the works citing \cite{JNR}, \cite{DGW}, \cite{DJ}, \cite{CSX}, \cite{Bai} and the main works on tilting modules of $SL_2$, of arXiv, zbMATH, OpenAlex, Zenodo, HAL, CORE, MathOverflow and the Hexagon preprint server: Theorem~A is due to Jacobson, Niedermaier and Reiner; the case $d=2$ of every result is due to Ducey, Gerhard and Watson \cite{DGW}; the case $e=0$ of Theorem~\ref{thC} follows from \cite[Theorem~2]{JNR}; the tilting theory used (Donkin's tensor product theorem, the existence and uniqueness of $\Z_p$-forms of tilting modules, the count of Weyl factors, projectivity over the first Frobenius kernel) and the decomposition of tensor powers in the proof of Corollary~\ref{corN} are classical \cite{Don,Jan,And}. Theorems~B--J for $d\ge3$, Corollary~\ref{corN}, and the explicit lattices of Section~\ref{sec:dance} were not found in the literature.
+
+\begin{thebibliography}{STWZ23}
 \bibitem[Bai03]{Bai} H. Bai, On the critical group of the $n$-cube, \emph{Linear Algebra Appl.} 369 (2003), 251--261.
+\bibitem[And97]{And} H. H. Andersen, Filtrations and tilting modules, \emph{Ann. Sci. \'Ec. Norm. Sup\'er. (4)} 30 (1997), 353--366.
 \bibitem[Big99]{Big} N. L. Biggs, Chip-firing and the critical group of a graph, \emph{J. Algebraic Combin.} 9 (1999), 25--45.
 \bibitem[CSX15]{CSX} D. B. Chandler, P. Sin, Q. Xiang, The Smith group of the hypercube graph, arXiv:1511.00272.
+\bibitem[DGW16]{DGW} J. E. Ducey, J. Gerhard, N. Watson, The Smith and critical groups of the square rook's graph and its complement, \emph{Electron. J. Combin.} 23(4) (2016), \#P4.9; arXiv:1507.06583.
 \bibitem[DJ14]{DJ} J. E. Ducey, D. M. Jalil, Integer invariants of abelian Cayley graphs, \emph{Linear Algebra Appl.} 445 (2014), 316--325; arXiv:1308.2335.
 \bibitem[Don93]{Don} S. Donkin, On tilting modules for algebraic groups, \emph{Math. Z.} 212 (1993), 39--60.
-\bibitem[DST]{DST} R. Amichis Luengo, The Dancing Sand Theorem: the 2-part of the sandpile group of the hypercube, for every $n$, preprint (2026), hexagon:2610.00205; doi:10.5281/zenodo.23188298.
+\bibitem[DST]{DST} R. Amichis Luengo, The Dancing Sand Theorem: the 2-part of the sandpile group of the hypercube, for every $n$, preprint (2026), version~11, hexagon:2610.00205; doi:10.5281/zenodo.23188298. Its proof is checked in Lean~4.
+\bibitem[Har]{Har} Harmonic, Aristotle, \url{https://aristotle.harmonic.fun}.
 \bibitem[Jan03]{Jan} J. C. Jantzen, \emph{Representations of Algebraic Groups}, 2nd ed., Math. Surveys Monogr. 107, Amer. Math. Soc., 2003.
 \bibitem[JNR03]{JNR} B. Jacobson, A. Niedermaier, V. Reiner, Critical groups for complete multipartite graphs and Cartesian products of complete graphs, \emph{J. Graph Theory} 44 (2003), 231--250.
 \bibitem[Pro82]{Pro} R. A. Proctor, Representations of $\mathfrak{sl}(2,\mathbb C)$ on posets and the Sperner property, \emph{SIAM J. Algebraic Discrete Methods} 3 (1982), 275--280.
+\bibitem[STWZ23]{STWZ} L. Sutton, D. Tubbenhauer, P. Wedrich, J. Zhu, $SL_2$ tilting modules in the mixed case, \emph{Selecta Math. (N.S.)} 29 (2023); arXiv:2105.07724.
 \bibitem[Wil90]{Wil} R. M. Wilson, A diagonal form for the incidence matrices of $t$-subsets vs.\ $k$-subsets, \emph{European J. Combin.} 11 (1990), 609--615.
 \end{thebibliography}
 
