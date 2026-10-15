@@ -1,0 +1,83 @@
+@H_single : ∀ {m : ℕ} {R : Type u_1} [inst : CommRing R] (S : Finset (Fin m)),
+  (H m R) (Pi.single S 1) = ↑(#S) • Pi.single S 1
+@U_single : ∀ {m : ℕ} {R : Type u_1} [inst : CommRing R] (S : Finset (Fin m)),
+  (U m R) (Pi.single S 1) = ∑ x ∈ Sᶜ, Pi.single (insert x S) 1
+@D_single : ∀ {m : ℕ} {R : Type u_1} [inst : CommRing R] (S : Finset (Fin m)),
+  (D m R) (Pi.single S 1) = ∑ x ∈ S, Pi.single (S.erase x) 1
+'ColouredSand.Strings.commutator_DU_UD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.string_relation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.Lam_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strings_a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strings_b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.stringEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strings_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.Lam_free_finrank' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.Lam_free_finrank_of_isLocalRing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.bidiagonal_coker' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.coker_opM_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.theorem_E' depends on axioms: [propext, Classical.choice, Quot.sound]
+def ColouredSand.Splitting.hammingGraph : (d q : ℕ) → SimpleGraph (Fin d → Fin q) :=
+fun d q => { Adj := fun x y => hammingDist x y = 1, symm := ⋯, loopless := ⋯ }
+def ColouredSand.Splitting.laplacian : (d q : ℕ) → ((Fin d → Fin q) → ℤ) →ₗ[ℤ] (Fin d → Fin q) → ℤ :=
+fun d q => (SimpleGraph.lapMatrix ℤ (hammingGraph d q)).mulVecLin
+laplacian_apply : ∀ (d q : ℕ) (f : (Fin d → Fin q) → ℤ) (x : Fin d → Fin q),
+  (laplacian d q) f x = ↑((hammingGraph d q).degree x) * f x - ∑ y ∈ (hammingGraph d q).neighborFinset x, f y
+Mq_apply : ∀ (q m c : ℕ) (f : B m ℤ) (S : Finset (Fin m)),
+  (Mq q m c) f S = ↑q * (↑c + ↑(#S)) * f S + ∑ x ∈ S, f (S.erase x)
+@hammingGraph_degree : ∀ {d q : ℕ} (x : Fin d → Fin q), (hammingGraph d q).degree x = d * (q - 1)
+completeGraph_lapMatrix : ∀ (q : ℕ), SimpleGraph.lapMatrix ℤ ⊤ = Kmat q
+'ColouredSand.Splitting.theorem_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.basisVec_isBasis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.K_ev_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.K_sigma' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.K_fv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.completeGraph_lapMatrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.hammingGraph_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.rescaling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.rescaling_coker' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.rescaling_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.rescaling_padic_coker' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.opM_coker_equiv_valuations' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.opM_coker_depends_only_on_valuations' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def ColouredSand.TheoremB.cokerL : ℕ → ℕ → Type :=
+fun d q => ((Fin d → Fin q) → ℤ) ⧸ (laplacian d q).range
+@[reducible] def ColouredSand.TheoremB.sandpile : (d q : ℕ) → Submodule ℤ (cokerL d q) :=
+fun d q => Submodule.torsion ℤ (cokerL d q)
+def ColouredSand.TheoremB.nCount : ℕ → ℕ → ℕ → ℕ :=
+fun d q v =>
+  ∑ j ∈ range (d + 1),
+    ∑ k ∈ range (d + 1), if j + 2 * k = d + 1 - v ∧ (j, k) ≠ (0, 0) then d.choose j * (q - 2) ^ j * ballot k v else 0
+def ColouredSand.TheoremB.ballot : ℕ → ℕ → ℕ :=
+fun k v => (v + 2 * k - 1).choose k - if k = 0 then 0 else (v + 2 * k - 1).choose (k - 1)
+laplacian_apply : ∀ (d q : ℕ) (f : (Fin d → Fin q) → ℤ) (x : Fin d → Fin q),
+  (laplacian d q) f x = ↑((hammingGraph d q).degree x) * f x - ∑ y ∈ (hammingGraph d q).neighborFinset x, f y
+'ColouredSand.TheoremB.theorem_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.ballot_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.ballot_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.sylow_tensor_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.coker_tensor_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.coker_tensor_padic_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.torsion_tensor_equiv_syl' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.nCount_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.nCount_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.nCount_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.theorem_B_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.theorem_B_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.theorem_B_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.hammingGraph_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.cokerL_equiv_int_prod_sandpile' depends on axioms: [propext, Classical.choice, Quot.sound]
+def ColouredSand.Exponent.expE : ℕ → ℕ → ℕ → ℕ :=
+fun p q d => if 1 ≤ padicValNat p q then (Icc 1 d).sup fun s => padicValNat p q * s + padicValNat p s else Nat.log p d
+def ColouredSand.Exponent.carryPairs : ℕ → Finset (ℕ × ℕ) :=
+fun d => {x ∈ Icc 1 d ×ˢ Icc 1 d | x.1 ≤ x.2}
+@mem_carryPairs : ∀ {d : ℕ} {x : ℕ × ℕ}, x ∈ carryPairs d ↔ 1 ≤ x.1 ∧ x.1 ≤ x.2 ∧ x.2 ≤ d
+'ColouredSand.Exponent.theorem_C' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.lemma4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.exponent_criterion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.exponent_criterion_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.kills_coker_iff_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.lemma5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.lemma5_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.exponent_three_three_ten' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.expE_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.exponent_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound]

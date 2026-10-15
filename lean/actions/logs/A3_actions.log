@@ -1,0 +1,129 @@
+def ColouredSand.Strings.opM.{u_1} : (m : ℕ) → (R : Type u_1) → [inst : CommRing R] → R → R → B m R →ₗ[R] B m R :=
+fun m R [CommRing R] q c => q • (c • LinearMap.id + H m R) + U m R
+def ColouredSand.Strings.H.{u_1} : (m : ℕ) → (R : Type u_1) → [inst : CommRing R] → B m R →ₗ[R] B m R :=
+fun m R [CommRing R] => { toFun := fun f T => ↑T.card * f T, map_add' := ⋯, map_smul' := ⋯ }
+def ColouredSand.Strings.U.{u_1} : (m : ℕ) → (R : Type u_1) → [inst : CommRing R] → B m R →ₗ[R] B m R :=
+fun m R [CommRing R] => { toFun := fun f T => ∑ x ∈ T, f (T.erase x), map_add' := ⋯, map_smul' := ⋯ }
+@[reducible] def ColouredSand.Splitting.Xq : ℕ → ℕ → ℕ → Type :=
+fun q m c => B m ℤ ⧸ (Mq q m c).range
+@[reducible] def ColouredSand.Splitting.Mq : ℕ → (m : ℕ) → ℕ → B m ℤ →ₗ[ℤ] B m ℤ :=
+fun q m c => opM m ℤ ↑q ↑c
+@[reducible] def ColouredSand.TheoremB.sandpile : (d q : ℕ) → Submodule ℤ (cokerL d q) :=
+fun d q => Submodule.torsion ℤ (cokerL d q)
+@[reducible] def ColouredSand.TheoremB.cokerL : ℕ → ℕ → Type :=
+fun d q => ((Fin d → Fin q) → ℤ) ⧸ (laplacian d q).range
+@[reducible] def FamilyGroup.X : List Bool → ℕ → ℕ → Type :=
+fun ds α i => Dance.SysT ℤ_[2] ds (Fin 1) ⧸ (Dance.sigma ℤ_[2] ds α i).range
+def Families.sigL.{u} : (A : Type u) →
+  [inst : CommRing A] →
+    [inst_1 : IsDomain A] →
+      [inst_2 : CharZero A] → [inst_3 : Doubling.OddUnits A] → (lam : ℕ) → ℕ → ℕ → Module.End A ((T A lam).ι → A) :=
+fun A [CommRing A] [IsDomain A] [CharZero A] [Doubling.OddUnits A] lam α i =>
+  (T A lam).Fd 1 + 2 ^ (α - 1) • ((↑lam + 2 * ↑i) • LinearMap.id - (T A lam).H)
+def ColouredSand.ThmH.Psi.{u_1} : (A : Type u_1) → [inst : CommRing A] → (m : ℕ) → B m A ≃ₗ[A] (tpow A m).ι → A :=
+fun A [CommRing A] m => LinearEquiv.funCongrLeft A A (beta A m).symm
+def ColouredSand.ThmH.beta.{u_1} : (A : Type u_1) → [inst : CommRing A] → (m : ℕ) → Finset (Fin m) ≃ (tpow A m).ι :=
+fun A [CommRing A] x =>
+  Nat.brecOn x fun x f =>
+    (match (motive := (x : ℕ) → Nat.below x → Finset (Fin x) ≃ (tpow A x).ι) x with
+      | 0 => fun x => { toFun := fun x => (), invFun := fun x => ∅, left_inv := ⋯, right_inv := ⋯ }
+      | n.succ => fun x => (splitFirst n).trans ((Equiv.refl (Fin 2)).prodCongr x.1))
+      f
+@FamDec.D2 : ∀ {A : Type u_1} {B : Type u_2} [inst : CommRing A] [inst_1 : CommRing B] [inst_2 : IsDomain A]
+  [inst_3 : CharZero A] [inst_4 : Doubling.OddUnits A] {φ : A →+* B},
+  Lift2.H1 φ →
+    Lift2.H2 φ →
+      Lift2.H3 A →
+        Lift2.OneAddTwoUnit A →
+          2 = 0 → ∀ (n : ℕ), Nonempty (Doubling.Iso (tpow A n) (Step36.dsumList (List.map (T A) (L n))))
+B2Z : ∀ (lam α i : ℕ),
+  1 ≤ α →
+    Nonempty ((((T ℤ_[2] lam).ι → ℤ_[2]) ⧸ LinearMap.range (sigL ℤ_[2] lam α i)) ≃ₗ[ℤ_[2]] FamilyGroup.X (ds lam) α i)
+ColouredSand.ThmH.D1 : ∀ (A : Type u_1) [inst : CommRing A] (m : ℕ) (S : Finset (Fin m)),
+  (tpow A m).wt ((beta A m) S) = ↑m - 2 * ↑S.card
+ColouredSand.ThmH.D2 : ∀ (A : Type u_1) [inst : CommRing A] (m : ℕ),
+  ↑(ColouredSand.ThmH.Psi A m) ∘ₗ U m A = (tpow A m).Fd 1 ∘ₗ ↑(ColouredSand.ThmH.Psi A m) ∧
+    ↑(ColouredSand.ThmH.Psi A m) ∘ₗ (2 • H m A) = (↑m • LinearMap.id - (tpow A m).H) ∘ₗ ↑(ColouredSand.ThmH.Psi A m)
+ColouredSand.ThmH.D3 : ∀ (A : Type u_1) [inst : CommRing A] (m e c : ℕ),
+  1 ≤ e →
+    ↑(ColouredSand.ThmH.Psi A m) ∘ₗ opM m A (2 ^ e) ↑c =
+      ((tpow A m).Fd 1 + 2 ^ (e - 1) • ((↑m + 2 * ↑c) • LinearMap.id - (tpow A m).H)) ∘ₗ ↑(ColouredSand.ThmH.Psi A m)
+ColouredSand.ThmH.T2 : ∀ (q m c : ℕ),
+  1 ≤ padicValNat 2 q →
+    Nonempty
+      ((B m ℤ_[2] ⧸ (opM m ℤ_[2] ↑↑q ↑↑c).range) ≃ₗ[ℤ_[2]]
+        (j : Fin (L m).length) → FamilyGroup.X (ds ((L m).get j)) (padicValNat 2 q) (c + (m - (L m).get j) / 2))
+N1 : padicValNat 2 4 = 2 ∧ padicValNat 2 12 = 2 ∧ padicValNat 2 8 = 3 ∧ padicValNat 2 6 = 1
+N2_lists : L 2 = [2] ∧ L 3 = [1, 1, 3] ∧ L 4 = [2, 2, 4]
+N2_halves : List.map (fun lam => (2 - lam) / 2) (L 2) = [0] ∧
+  List.map (fun lam => (3 - lam) / 2) (L 3) = [1, 1, 0] ∧ List.map (fun lam => (4 - lam) / 2) (L 4) = [1, 1, 0]
+'ColouredSand.ThmH.D1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.D2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.D3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.freeTorsionEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T5_exponent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.N1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.N2_lists' depends on axioms: [propext, Quot.sound]
+'ColouredSand.ThmH.N2_halves' depends on axioms: [propext, Quot.sound]
+checks/final/CheckColouredSandFinal2A3.lean:183:39: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A3.lean:180:21: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+checks/final/CheckColouredSandFinal2A3.lean:183:39: warning: '(try omega)' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+'FinalCheck.CSG3.CheckCSG3.hPsiL_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hPsiS_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hG1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hG2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hT1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hT2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hT3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hG34' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.T1_isDP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.T3_simple_iff' depends on axioms: [propext, Quot.sound]
+'ColouredSand.TiltP.C1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.C2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.G1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.G2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.G3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.G4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.iso_tensor_glueDP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hS' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hR1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hR2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hR3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hR4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hShift' depends on axioms: [propext, Quot.sound]
+'ColouredSand.TiltRules.S0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.S1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.S2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.R1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.R2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.R3_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.R3_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.R4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG5.CheckCSG5.hM1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG5.CheckCSG5.hM23' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG5.CheckCSG5.hD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG5.CheckCSG5.hW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.D1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.D2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.D3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W4_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W5_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.M3' depends on axioms: [propext, Classical.choice, Quot.sound]

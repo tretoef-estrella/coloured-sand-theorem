@@ -1,16 +1,22 @@
 # The Coloured Sand Theorem
 
-**The $p$-part of the sandpile group of the Hamming graph $`K_q^{\,d}`$, for every prime $p$ dividing $q$ and every dimension $d$.**
+### The $p$-part of the sandpile group of the Hamming graph $`K_q^{\,d}`$, for every prime $p$ dividing $q$ and every dimension $d$
 
-Rafael Amichis Luengo · Madrid · 14 October 2026 (version 4, [doi:10.5281/zenodo.23364147](https://doi.org/10.5281/zenodo.23364147)) · [ORCID 0009-0008-6252-675X](https://orcid.org/0009-0008-6252-675X)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.23327608-blue.svg)](https://doi.org/10.5281/zenodo.23327608) [![Version 6 DOI](https://img.shields.io/badge/version_6_DOI-10.5281%2Fzenodo.23400922-blue.svg)](https://doi.org/10.5281/zenodo.23400922) [![Lean build](https://github.com/tretoef-estrella/coloured-sand-theorem/actions/workflows/lean-build.yml/badge.svg)](https://github.com/tretoef-estrella/coloured-sand-theorem/actions/workflows/lean-build.yml) [![ORCID](https://img.shields.io/badge/ORCID-0009--0008--6252--675X-a6ce39.svg)](https://orcid.org/0009-0008-6252-675X)
 
-Paper: [`paper/coloured_sand_theorem.pdf`](paper/coloured_sand_theorem.pdf), the reference text (also [`.tex`](paper/coloured_sand_theorem.tex); version 4 has no markdown version) · Zenodo (all versions): [doi:10.5281/zenodo.23327608](https://doi.org/10.5281/zenodo.23327608)
+**Rafael Amichis Luengo** · Madrid · tretoef@gmail.com · preprint, version 6, 15 October 2026
+
+> **Status.** A complete proof, published as a preprint. Every theorem has a written proof that can be checked with pencil and paper. The proofs were re-derived by readers who had not written them, and the paper and its Lean certificate were read cold four times; every correction is listed in the paper. **Every theorem of the paper, Theorems A–J, has also been checked in the proof assistant Lean 4, for every prime, with nothing cited** ([below](#formal-verification-in-lean-4)), **and GitHub's own machines have rebuilt that Lean proof from the published files** ([Lean build](https://github.com/tretoef-estrella/coloured-sand-theorem/actions/workflows/lean-build.yml)). All the readers are instances of the AI system Claude. **It has not been refereed by a human expert.**
+
+**Read the paper:** [paper/coloured_sand_theorem.pdf](paper/coloured_sand_theorem.pdf) · [LaTeX source](paper/coloured_sand_theorem.tex) · permanent archive: [doi.org/10.5281/zenodo.23327608](https://doi.org/10.5281/zenodo.23327608) (this version: [doi.org/10.5281/zenodo.23400922](https://doi.org/10.5281/zenodo.23400922)) · **Lean certificate:** [lean/LEAN_CERTIFICATE_COLOURED_SAND_v2.pdf](lean/LEAN_CERTIFICATE_COLOURED_SAND_v2.pdf) ([Markdown](lean/LEAN_CERTIFICATE_COLOURED_SAND_v2.md)), the Lean project in [lean/](lean/README.md) · companion paper for $q=2$: [The Dancing Sand Theorem](https://github.com/tretoef-estrella/dancing-sand-theorem) ([doi.org/10.5281/zenodo.23188298](https://doi.org/10.5281/zenodo.23188298), [hexagon:2610.00205](https://hexagonmath.org/2610.00205))
+
+---
 
 ## The problem
 
 The sandpile group (critical group) $`K(\Gamma)`$ of a connected graph is the torsion part of the cokernel of its Laplacian; its order is the number of spanning trees. For the Hamming graph $`H(d,q)=K_q^{\,d}`$, Jacobson, Niedermaier and Reiner (J. Graph Theory 44, 2003) determined the $p$-part for every prime $p$ that does not divide $q$, and wrote that the other primes appear *"to be difficult, due to bad behavior of its p-primary structure"*. For $q=2$ (the hypercube) the $2$-part is the [Dancing Sand Theorem](https://github.com/tretoef-estrella/dancing-sand-theorem). This repository is about the primes $`p\mid q`$; we write $`e=v_p(q)`$.
 
-**Version 4 determines $`\mathrm{Syl}_pK(H(d,q))`$ for every prime $`p\mid q`$ and every $d$, by an explicit rule** (Theorems I and J). For $d=2$ the whole group was known before (Ducey, Gerhard and Watson, Electron. J. Combin. 23(4), 2016); our results are new, to the best of our knowledge, for $`d\ge3`$.
+**The paper determines $`\mathrm{Syl}_pK(H(d,q))`$ for every prime $`p\mid q`$ and every $d$, by an explicit rule** (Theorems I and J). For $d=2$ the whole group was known before (Ducey, Gerhard and Watson, Electron. J. Combin. 23(4), 2016); our results are new, to the best of our knowledge, for $`d\ge3`$.
 
 ## What is proved
 
@@ -31,13 +37,22 @@ The proof writes down explicit $`\mathbb Z_p`$-lattices for all tilting modules 
 
 ## Status
 
-A preprint, not refereed by a human expert. The proofs of Theorems A–H were re-derived by an independent reader with no access to our audits; it found one priority omission (the case $d=2$), three citation and presentation gaps and one wrong example in a remark, all corrected in version 4 (§13 of the paper). The proofs of Theorems I and J were written by one reader, re-derived by a second and read cold by a third, who wrote the riskiest step, the floor of the Smith form for odd $p$, out in full and found no error and no gap. All these readers are instances of the AI system Claude; the reports are in [`v4-checks/`](v4-checks/).
+A preprint, not refereed by a human expert. The proofs of Theorems A–H were re-derived by an independent reader with no access to our audits; it found one priority omission (the case $d=2$), three citation and presentation gaps and one wrong example in a remark, all corrected in version 4. The proofs of Theorems I and J were written by one reader, re-derived by a second and read cold by a third, who wrote the riskiest step, the floor of the Smith form for odd $p$, out in full and found no error and no gap; the reports are in [`v4-checks/`](v4-checks/). The Lean certificate and version 5 were read cold by a fourth reader, who found three claims wider than the Lean proof of that day (now all checked); the changes of version 6 were read cold by a fifth reader, who found no error in the mathematics or in the Lean statements. Every correction is listed in §13 of the paper. All these readers are instances of the AI system Claude.
 
-**Lean.** Every result of version 3 (Theorems A–H, Lemmas 2–5, 7, 8, Corollaries 1 and 6, the Example of §6) is checked in Lean 4 with Mathlib, with only the standard axioms and no `sorry` (111 files, 20 789 lines, 1 052 theorems at that stage). The Lean proof of Theorems I and J is in progress: 8 of 19 pieces are certified. The Lean project, a certificate and a clean rebuild will be published when it is complete; they are not in this repository yet.
+## Formal verification in Lean 4
+
+Every theorem of the paper, Theorems A–J, with Lemmas 2–5, 7 and 8, Corollaries 1 and 6 and Example 9, is proved in Lean 4 with Mathlib, for every prime, with no `sorry`, no `native_decide` and no axiom beyond Lean's three standard ones (`propext`, `Classical.choice`, `Quot.sound`). Nothing is cited from outside Lean and Mathlib.
+
+- **The headline for odd primes:** `ColouredSand.OddTwist.oddTotal_S2` — for every odd prime $p$, every $q\ge2$ with $p\mid q$ and every $d$, the $p$-primary part of $K(H(d,q))$ is an explicit direct sum of cyclic groups (Theorem J). **The prime 2:** `ColouredSand.ThmH.T4` (Theorem H, every even $q$, every $d$).
+- **Size:** 36 pieces, 254 files, 46 787 lines, 2 370 `theorem`/`lemma` lines, 0 `sorry`. A final check loads all 36 pieces in one environment and prints 451 `#print axioms` answers, all standard; the dependency cone of the headline theorems has 9 833 declarations in 335 modules.
+- **Rebuilt by GitHub:** [Actions run 38724562833](https://github.com/tretoef-estrella/coloured-sand-theorem/actions/runs/38724562833) (15 October 2026, commit `51c25f0`) built the whole project from its sources, on Mathlib's published build, and ran the final check; its logs, in [`lean/actions/`](lean/actions/), are identical line for line to the runs on the author's machine.
+- **What is not formalized** (§2 of the certificate): Theorem I and the blocks of Theorem J are proved for explicit dance lattices ($L(\lambda)$ for odd $p$, the lattices of the Dancing Sand Theorem for $p=2$); their identification with the tilting lattices $T_{\mathbb Z_p}(\lambda)$ is in the paper, not in Lean, and the statements on $K(H(d,q))$ do not need it. Theorem E is stated in the pieces for the $\mathbb Z_p$-cokernel; its form in the paper is checked by a separate file. Example 10 has no Lean statement.
+
+The Lean proofs were written by Aristotle (Harmonic) from statements taken from the paper, piece by piece; each piece was compiled on the author's machine and audited (every result restated by hand in a check file, axioms printed). How to rebuild it yourself: [`lean/README.md`](lean/README.md).
 
 ## Verification
 
-The checks of versions 1–3: run everything from [`engines/`](engines/) (Python 3 with NumPy; `sage_check.py` needs SageMath). Logs are in [`logs/`](logs/). The checks of Theorems I and J are in [`v4-checks/`](v4-checks/).
+The numerical checks are evidence, not part of the proof. The checks of versions 1–3: run everything from [`engines/`](engines/) (Python 3 with NumPy; `sage_check.py` needs SageMath). Logs are in [`logs/`](logs/). The checks of Theorems I and J are in [`v4-checks/`](v4-checks/).
 
 | Claim | Check | Result |
 |---|---|---|
@@ -72,7 +87,15 @@ The Smith forms are computed over $`\mathbb Z/p^M`$ with $`p^M<2^{31}`$; divisor
 
 ## Provenance
 
-The results were found on the night of 12–13 October 2026 by Claude (Anthropic), working for the author as «Grepy Terminator», the auditor of the author's previous projects: it chose the problem after a search of the literature, wrote the computations, found the formulas, sealed and checked the predictions, found the proofs, and found — when checking the literature before publication — that Theorem A is Theorem 13 of Jacobson–Niedermaier–Reiner. Version 2, the same night, also by Claude, in a new session («Grepy Connor»): the proof of the Glue Conjecture and its extension (Theorems F, G), Corollary 6 and Conjecture H. Version 3, the same night, same session: Theorem G up to $`m\le p^2+p-1`$ (which proves Conjecture H), Theorem H and Conjecture I. Version 4 (13–14 October 2026): Theorems I and J were found and proved by a separate session working as constructor, re-derived and re-computed by the session that audits the project, and read cold by a third session with no access to the audit; version 3 was read cold by a fourth. Lean proofs are written by Aristotle (Harmonic) and compiled and audited on the author's machine. One error of the machine's own check was caught and is kept in the record (`logs/gate_glue_model_BUG_multiplier.log`: a random multiplier of $q$ divisible by $p$). The author takes responsibility for the work.
+The results were found on the night of 12–13 October 2026 by Claude (Anthropic), working for the author as «Grepy Terminator», the auditor of the author's previous projects: it chose the problem after a search of the literature, wrote the computations, found the formulas, sealed and checked the predictions, found the proofs, and found — when checking the literature before publication — that Theorem A is Theorem 13 of Jacobson–Niedermaier–Reiner. Version 2, the same night, also by Claude, in a new session («Grepy Connor»): the proof of the Glue Conjecture and its extension (Theorems F, G), Corollary 6 and Conjecture H. Version 3, the same night, same session: Theorem G up to $`m\le p^2+p-1`$ (which proves Conjecture H), Theorem H and Conjecture I. Version 4 (13–14 October 2026): Theorems I and J were found and proved by a separate session working as constructor, re-derived and re-computed by the session that audits the project, and read cold by a third session with no access to the audit; version 3 was read cold by a fourth. Versions 5 and 6 (14–15 October 2026): the Lean proof of every theorem, for every prime, written by Aristotle (Harmonic) and compiled and audited on the author's machine, rebuilt on GitHub's machines, and read cold twice. One error of the machine's own check was caught and is kept in the record (`logs/gate_glue_model_BUG_multiplier.log`: a random multiplier of $q$ divisible by $p$). The author takes responsibility for the work.
+
+## How it was built
+
+The route to Theorems I and J began with the author. When Conjecture I was open, he insisted that the Dancing Sand had to hold the key to closing this problem entirely, because he knew what its images had solved. The auditor checked, and he was right: the key was the dance of [The Dancing Sand Theorem](https://github.com/tretoef-estrella/dancing-sand-theorem) §3–§4. A constructor carried the dance to every odd prime, a cold reader checked the proof, and Lean checked it by machine. The dance itself was an auditor's proposal; the author's part here was knowing where to look, and the images whose mechanisms the proof reuses.
+
+The author does not write proofs; as in the Dancing Sand, his part was to unblock the work. When the proof was stuck he gave an image in plain words, which was translated piece by piece into something that could be counted, and the translation was sealed before any measurement. Of the 27 images he gave for the Dancing Sand, 19 became the statement or the mechanism of a result and 6 served in part ([record/THE_IMAGES.md](https://github.com/tretoef-estrella/dancing-sand-theorem/blob/main/record/THE_IMAGES.md) of that repository). The proofs of Theorems I and J reuse that machinery for odd primes: the unique cheapest matching of the natural minor is his «orphan», the floor is the flat that settles its account with its mirror, and the carries are his climb «in the air».
+
+The work is a collaboration: each part completes the other.
 
 ## Licence
 

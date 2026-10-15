@@ -1,0 +1,867 @@
+@H_single : ∀ {m : ℕ} {R : Type u_1} [inst : CommRing R] (S : Finset (Fin m)),
+  (H m R) (Pi.single S 1) = ↑(#S) • Pi.single S 1
+@U_single : ∀ {m : ℕ} {R : Type u_1} [inst : CommRing R] (S : Finset (Fin m)),
+  (U m R) (Pi.single S 1) = ∑ x ∈ Sᶜ, Pi.single (insert x S) 1
+@D_single : ∀ {m : ℕ} {R : Type u_1} [inst : CommRing R] (S : Finset (Fin m)),
+  (D m R) (Pi.single S 1) = ∑ x ∈ S, Pi.single (S.erase x) 1
+'ColouredSand.Strings.commutator_DU_UD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.string_relation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.Lam_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strings_a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strings_b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.stringEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strings_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.Lam_free_finrank' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.Lam_free_finrank_of_isLocalRing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.bidiagonal_coker' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.coker_opM_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.theorem_E' depends on axioms: [propext, Classical.choice, Quot.sound]
+def ColouredSand.Splitting.hammingGraph : (d q : ℕ) → SimpleGraph (Fin d → Fin q) :=
+fun d q => { Adj := fun x y => hammingDist x y = 1, symm := ⋯, loopless := ⋯ }
+def ColouredSand.Splitting.laplacian : (d q : ℕ) → ((Fin d → Fin q) → ℤ) →ₗ[ℤ] (Fin d → Fin q) → ℤ :=
+fun d q => (SimpleGraph.lapMatrix ℤ (hammingGraph d q)).mulVecLin
+laplacian_apply : ∀ (d q : ℕ) (f : (Fin d → Fin q) → ℤ) (x : Fin d → Fin q),
+  (laplacian d q) f x = ↑((hammingGraph d q).degree x) * f x - ∑ y ∈ (hammingGraph d q).neighborFinset x, f y
+Mq_apply : ∀ (q m c : ℕ) (f : B m ℤ) (S : Finset (Fin m)),
+  (Mq q m c) f S = ↑q * (↑c + ↑(#S)) * f S + ∑ x ∈ S, f (S.erase x)
+@hammingGraph_degree : ∀ {d q : ℕ} (x : Fin d → Fin q), (hammingGraph d q).degree x = d * (q - 1)
+completeGraph_lapMatrix : ∀ (q : ℕ), SimpleGraph.lapMatrix ℤ ⊤ = Kmat q
+'ColouredSand.Splitting.theorem_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.basisVec_isBasis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.K_ev_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.K_sigma' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.K_fv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.completeGraph_lapMatrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.hammingGraph_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.rescaling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.rescaling_coker' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.rescaling_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.rescaling_padic_coker' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.opM_coker_equiv_valuations' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Splitting.opM_coker_depends_only_on_valuations' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def ColouredSand.TheoremB.cokerL : ℕ → ℕ → Type :=
+fun d q => ((Fin d → Fin q) → ℤ) ⧸ (laplacian d q).range
+@[reducible] def ColouredSand.TheoremB.sandpile : (d q : ℕ) → Submodule ℤ (cokerL d q) :=
+fun d q => Submodule.torsion ℤ (cokerL d q)
+def ColouredSand.TheoremB.nCount : ℕ → ℕ → ℕ → ℕ :=
+fun d q v =>
+  ∑ j ∈ range (d + 1),
+    ∑ k ∈ range (d + 1), if j + 2 * k = d + 1 - v ∧ (j, k) ≠ (0, 0) then d.choose j * (q - 2) ^ j * ballot k v else 0
+def ColouredSand.TheoremB.ballot : ℕ → ℕ → ℕ :=
+fun k v => (v + 2 * k - 1).choose k - if k = 0 then 0 else (v + 2 * k - 1).choose (k - 1)
+laplacian_apply : ∀ (d q : ℕ) (f : (Fin d → Fin q) → ℤ) (x : Fin d → Fin q),
+  (laplacian d q) f x = ↑((hammingGraph d q).degree x) * f x - ∑ y ∈ (hammingGraph d q).neighborFinset x, f y
+'ColouredSand.TheoremB.theorem_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.ballot_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.ballot_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.sylow_tensor_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.coker_tensor_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.coker_tensor_padic_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.torsion_tensor_equiv_syl' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.nCount_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.nCount_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.nCount_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.theorem_B_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.theorem_B_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.theorem_B_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.hammingGraph_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TheoremB.cokerL_equiv_int_prod_sandpile' depends on axioms: [propext, Classical.choice, Quot.sound]
+def ColouredSand.Exponent.expE : ℕ → ℕ → ℕ → ℕ :=
+fun p q d => if 1 ≤ padicValNat p q then (Icc 1 d).sup fun s => padicValNat p q * s + padicValNat p s else Nat.log p d
+def ColouredSand.Exponent.carryPairs : ℕ → Finset (ℕ × ℕ) :=
+fun d => {x ∈ Icc 1 d ×ˢ Icc 1 d | x.1 ≤ x.2}
+@mem_carryPairs : ∀ {d : ℕ} {x : ℕ × ℕ}, x ∈ carryPairs d ↔ 1 ≤ x.1 ∧ x.1 ≤ x.2 ∧ x.2 ≤ d
+'ColouredSand.Exponent.theorem_C' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.lemma4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.exponent_criterion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.exponent_criterion_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.kills_coker_iff_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.lemma5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.lemma5_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.exponent_three_three_ten' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.expE_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Exponent.exponent_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+def ColouredSand.NumberOfFactors.inclMat : (m t : ℕ) → Matrix { S // #S = t } { T // #T = t + 1 } ℤ :=
+fun m t => Matrix.of fun S T => if ↑S ⊆ ↑T then 1 else 0
+def ColouredSand.NumberOfFactors.rPart : ℕ → ℕ → ℕ → ℕ :=
+fun p m s =>
+  have t := if 2 * s ≤ m - 1 then s else m - 1 - s;
+  ∑ i ∈ range (t + 1) with ¬p ∣ t + 1 - i, strMult m i
+def ColouredSand.NumberOfFactors.rho : ℕ → ℕ → ℕ :=
+fun p m => ∑ s ∈ range m, rPart p m s
+def ColouredSand.NumberOfFactors.nFactors : ℕ → ℕ → ℕ → ℕ :=
+fun p d q => ∑ j ∈ range (d + 1), d.choose j * (q - 2) ^ j * (2 ^ (d - j) - rho p (d - j)) - 1
+def ColouredSand.Strings.strMult : ℕ → ℕ → ℕ :=
+fun m k => m.choose k - if k = 0 then 0 else m.choose (k - 1)
+U : (m : ℕ) → (R : Type u_1) → [inst : CommRing R] → B m R →ₗ[R] B m R
+'ColouredSand.NumberOfFactors.theorem_D' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.NumberOfFactors.theorem_D'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.NumberOfFactors.wilson_diagonal_form' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.NumberOfFactors.wilson_bases' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.NumberOfFactors.rank_U_zmod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.NumberOfFactors.nFactors_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.NumberOfFactors.rho_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.NumberOfFactors.rho_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.NumberOfFactors.cyclic_factors_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.NumberOfFactors.rho_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.NumberOfFactors.zeta_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def ColouredSand.TheoremB.sandpile : (d q : ℕ) → Submodule ℤ (cokerL d q) :=
+fun d q => Submodule.torsion ℤ (cokerL d q)
+@[reducible] def ColouredSand.Splitting.Xq : ℕ → ℕ → ℕ → Type :=
+fun q m c => B m ℤ ⧸ (Mq q m c).range
+def ColouredSand.Corollaries.fCoker : ℕ → ℕ :=
+fun m => finrank (ZMod 3) (B m (ZMod 3) ⧸ (U m (ZMod 3)).range)
+cycFactors3_values : [cycFactors3 1 3, cycFactors3 2 3, cycFactors3 3 3, cycFactors3 4 3, cycFactors3 5 3,
+      cycFactors3 6 3] =
+    [1, 4, 12, 34, 96, 274] ∧
+  [cycFactors3 1 6, cycFactors3 2 6, cycFactors3 3 6, cycFactors3 4 6] = [4, 25, 138, 757] ∧
+    [cycFactors3 1 9, cycFactors3 2 9, cycFactors3 3 9] = [7, 64, 534] ∧ cycFactors3 2 12 = 121
+fCoker_values : [fCoker 0, fCoker 1, fCoker 2, fCoker 3, fCoker 4, fCoker 5, fCoker 6, fCoker 7, fCoker 8, fCoker 9,
+    fCoker 10] =
+  [1, 1, 2, 3, 6, 11, 22, 43, 86, 171, 342]
+'ColouredSand.Corollaries.corollary1_piece' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Corollaries.corollary1_piece_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Corollaries.corollary1_whole' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Corollaries.jordan_type_U_zmod_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Corollaries.corollary6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Corollaries.corollary6_q_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Corollaries.fCoker_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Corollaries.corN_values' depends on axioms: [propext]
+'ColouredSand.Corollaries.cycFactors3_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG1.CheckCSG1.hB1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG1.CheckCSG1.hB2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG1.CheckCSG1.hS1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG1.CheckCSG1.hS2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG1.CheckCSG1.hL' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG1.CheckCSG1.hP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG1.CheckCSG1.hN2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.B1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.B2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.S1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.S2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.S1_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.S1_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.S2_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.S2_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.lemma_L' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.twoByTwo_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.positivity_P' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Blocks.glue_exponent_N' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG2.CheckCSG2.hG1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG2.CheckCSG2.hG2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG2.CheckCSG2.hG3a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG2.CheckCSG2.hG3b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG2.CheckCSG2.hG4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG2.CheckCSG2.hG5a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG2.CheckCSG2.hOop' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG2.CheckCSG2.hG5b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Glue.G1_stability_threshold' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Glue.G2_glue_forced' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Glue.G3a_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Glue.G3b_nonsplit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Glue.G4_rescaling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Glue.G5a_basis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Glue.G5b_maps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Glue.G5b_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Glue.G6_B1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Glue.G6_B2' depends on axioms: [propext, Classical.choice, Quot.sound]
+def ColouredSand.Strings.opM.{u_1} : (m : ℕ) → (R : Type u_1) → [inst : CommRing R] → R → R → B m R →ₗ[R] B m R :=
+fun m R [CommRing R] q c => q • (c • LinearMap.id + H m R) + U m R
+def ColouredSand.Strings.H.{u_1} : (m : ℕ) → (R : Type u_1) → [inst : CommRing R] → B m R →ₗ[R] B m R :=
+fun m R [CommRing R] => { toFun := fun f T => ↑T.card * f T, map_add' := ⋯, map_smul' := ⋯ }
+def ColouredSand.Strings.U.{u_1} : (m : ℕ) → (R : Type u_1) → [inst : CommRing R] → B m R →ₗ[R] B m R :=
+fun m R [CommRing R] => { toFun := fun f T => ∑ x ∈ T, f (T.erase x), map_add' := ⋯, map_smul' := ⋯ }
+@[reducible] def ColouredSand.Splitting.Xq : ℕ → ℕ → ℕ → Type :=
+fun q m c => B m ℤ ⧸ (Mq q m c).range
+@[reducible] def ColouredSand.Splitting.Mq : ℕ → (m : ℕ) → ℕ → B m ℤ →ₗ[ℤ] B m ℤ :=
+fun q m c => opM m ℤ ↑q ↑c
+@[reducible] def ColouredSand.TheoremB.sandpile : (d q : ℕ) → Submodule ℤ (cokerL d q) :=
+fun d q => Submodule.torsion ℤ (cokerL d q)
+@[reducible] def ColouredSand.TheoremB.cokerL : ℕ → ℕ → Type :=
+fun d q => ((Fin d → Fin q) → ℤ) ⧸ (laplacian d q).range
+@[reducible] def FamilyGroup.X : List Bool → ℕ → ℕ → Type :=
+fun ds α i => Dance.SysT ℤ_[2] ds (Fin 1) ⧸ (Dance.sigma ℤ_[2] ds α i).range
+def Families.sigL.{u} : (A : Type u) →
+  [inst : CommRing A] →
+    [inst_1 : IsDomain A] →
+      [inst_2 : CharZero A] → [inst_3 : Doubling.OddUnits A] → (lam : ℕ) → ℕ → ℕ → Module.End A ((T A lam).ι → A) :=
+fun A [CommRing A] [IsDomain A] [CharZero A] [Doubling.OddUnits A] lam α i =>
+  (T A lam).Fd 1 + 2 ^ (α - 1) • ((↑lam + 2 * ↑i) • LinearMap.id - (T A lam).H)
+def ColouredSand.ThmH.Psi.{u_1} : (A : Type u_1) → [inst : CommRing A] → (m : ℕ) → B m A ≃ₗ[A] (tpow A m).ι → A :=
+fun A [CommRing A] m => LinearEquiv.funCongrLeft A A (beta A m).symm
+def ColouredSand.ThmH.beta.{u_1} : (A : Type u_1) → [inst : CommRing A] → (m : ℕ) → Finset (Fin m) ≃ (tpow A m).ι :=
+fun A [CommRing A] x =>
+  Nat.brecOn x fun x f =>
+    (match (motive := (x : ℕ) → Nat.below x → Finset (Fin x) ≃ (tpow A x).ι) x with
+      | 0 => fun x => { toFun := fun x => (), invFun := fun x => ∅, left_inv := ⋯, right_inv := ⋯ }
+      | n.succ => fun x => (splitFirst n).trans ((Equiv.refl (Fin 2)).prodCongr x.1))
+      f
+@FamDec.D2 : ∀ {A : Type u_1} {B : Type u_2} [inst : CommRing A] [inst_1 : CommRing B] [inst_2 : IsDomain A]
+  [inst_3 : CharZero A] [inst_4 : Doubling.OddUnits A] {φ : A →+* B},
+  Lift2.H1 φ →
+    Lift2.H2 φ →
+      Lift2.H3 A →
+        Lift2.OneAddTwoUnit A →
+          2 = 0 → ∀ (n : ℕ), Nonempty (Doubling.Iso (tpow A n) (Step36.dsumList (List.map (T A) (L n))))
+B2Z : ∀ (lam α i : ℕ),
+  1 ≤ α →
+    Nonempty ((((T ℤ_[2] lam).ι → ℤ_[2]) ⧸ LinearMap.range (sigL ℤ_[2] lam α i)) ≃ₗ[ℤ_[2]] FamilyGroup.X (ds lam) α i)
+ColouredSand.ThmH.D1 : ∀ (A : Type u_1) [inst : CommRing A] (m : ℕ) (S : Finset (Fin m)),
+  (tpow A m).wt ((beta A m) S) = ↑m - 2 * ↑S.card
+ColouredSand.ThmH.D2 : ∀ (A : Type u_1) [inst : CommRing A] (m : ℕ),
+  ↑(ColouredSand.ThmH.Psi A m) ∘ₗ U m A = (tpow A m).Fd 1 ∘ₗ ↑(ColouredSand.ThmH.Psi A m) ∧
+    ↑(ColouredSand.ThmH.Psi A m) ∘ₗ (2 • H m A) = (↑m • LinearMap.id - (tpow A m).H) ∘ₗ ↑(ColouredSand.ThmH.Psi A m)
+ColouredSand.ThmH.D3 : ∀ (A : Type u_1) [inst : CommRing A] (m e c : ℕ),
+  1 ≤ e →
+    ↑(ColouredSand.ThmH.Psi A m) ∘ₗ opM m A (2 ^ e) ↑c =
+      ((tpow A m).Fd 1 + 2 ^ (e - 1) • ((↑m + 2 * ↑c) • LinearMap.id - (tpow A m).H)) ∘ₗ ↑(ColouredSand.ThmH.Psi A m)
+ColouredSand.ThmH.T2 : ∀ (q m c : ℕ),
+  1 ≤ padicValNat 2 q →
+    Nonempty
+      ((B m ℤ_[2] ⧸ (opM m ℤ_[2] ↑↑q ↑↑c).range) ≃ₗ[ℤ_[2]]
+        (j : Fin (L m).length) → FamilyGroup.X (ds ((L m).get j)) (padicValNat 2 q) (c + (m - (L m).get j) / 2))
+N1 : padicValNat 2 4 = 2 ∧ padicValNat 2 12 = 2 ∧ padicValNat 2 8 = 3 ∧ padicValNat 2 6 = 1
+N2_lists : L 2 = [2] ∧ L 3 = [1, 1, 3] ∧ L 4 = [2, 2, 4]
+N2_halves : List.map (fun lam => (2 - lam) / 2) (L 2) = [0] ∧
+  List.map (fun lam => (3 - lam) / 2) (L 3) = [1, 1, 0] ∧ List.map (fun lam => (4 - lam) / 2) (L 4) = [1, 1, 0]
+'ColouredSand.ThmH.D1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.D2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.D3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.freeTorsionEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.T5_exponent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.N1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmH.N2_lists' depends on axioms: [propext, Quot.sound]
+'ColouredSand.ThmH.N2_halves' depends on axioms: [propext, Quot.sound]
+checks/final/CheckColouredSandFinal2A3.lean:183:39: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A3.lean:180:21: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+checks/final/CheckColouredSandFinal2A3.lean:183:39: warning: '(try omega)' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+'FinalCheck.CSG3.CheckCSG3.hPsiL_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hPsiS_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hG1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hG2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hT1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hT2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hT3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG3.CheckCSG3.hG34' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.T1_isDP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.T3_simple_iff' depends on axioms: [propext, Quot.sound]
+'ColouredSand.TiltP.C1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.C2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.G1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.G2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.G3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.G4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltP.iso_tensor_glueDP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hS' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hR1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hR2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hR3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hR4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG4.CheckCSG4.hShift' depends on axioms: [propext, Quot.sound]
+'ColouredSand.TiltRules.S0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.S1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.S2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.R1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.R2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.R3_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.R3_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltRules.R4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG5.CheckCSG5.hM1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG5.CheckCSG5.hM23' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG5.CheckCSG5.hD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG5.CheckCSG5.hW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.D1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.D2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.D3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W4_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.W5_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TiltDec.M3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG6.CheckCSG6.hOp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG6.CheckCSG6.hHalf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG6.CheckCSG6.hK2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG6.CheckCSG6.hK4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG6.CheckCSG6.hE1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG6.CheckCSG6.hE2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG6.CheckCSG6.hG1a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG6.CheckCSG6.hG1c' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG6.CheckCSG6.hG2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.BlockOp.K3a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.BlockOp.K3b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.BlockOp.E3a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.BlockOp.E3b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.BlockOp.G1b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.BlockOp.E1_false_at_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG7.CheckCSG7.hL0a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG7.CheckCSG7.hL0b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG7.CheckCSG7.hL1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG7.CheckCSG7.hT1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG7.CheckCSG7.hT2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG7.CheckCSG7.hF1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG7.CheckCSG7.hF2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG7.CheckCSG7.hS1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG7.CheckCSG7.hS2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSG7.CheckCSG7.hX1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmG.L1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmG.L2_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmG.T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmG.T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmG.F1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmG.F2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmG.S1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmG.S2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmG.X1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hA0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hWt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hFactor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hS' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hB1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hB2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hB3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hA2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hA3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hD1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hcD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hD2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI1.CheckCSI1.hD3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.A1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.D1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.D2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hT0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hFrob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hSt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hC0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hC1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hC2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hC3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.oddModP_S1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.C3_hyp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.prop12Iso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hSlots' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hWt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hI5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hUnique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hEA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hEC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hD1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hIota' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hI23' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hI46' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hF12' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hQ0a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hQ0b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hQ0e' depends on axioms: [propext, Classical.choice, Quot.sound]
+checks/final/CheckColouredSandFinal2A5.lean:350:26: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:350:26: warning: 'exact C1 (M := M)' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:361:34: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:361:34: warning: 'exact C2 (N := N) s hs1 hsp' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:373:36: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:373:36: warning: 'exact C4 (N := N) hp3 r h1 h2' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:32: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:51: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:82: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:32: warning: 'exact P2 t h1 h2' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:51: warning: 'exact P2 (N := N) t h1 h2 ht' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:82: warning: 'exact P2 (N := N) t h1 h2' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:412:59: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:412:59: warning: 'exact P3 (N := N) t h1 h2 ht' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:454:38: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:455:39: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:454:38: warning: 'exact S4_pi (N := N) s hs1 hsp' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:455:39: warning: 'exact S4_pi1 (N := N) h1 h2 hp2' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:460:35: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:460:35: warning: 'exact S5_one (N := N) hp3 h1 h2' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:465:36: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:465:36: warning: 'exact S5_mid (N := N) s hs1 hsp3' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:471:36: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:471:36: warning: 'exact S5_last (N := N) s hs1 hsp' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+'FinalCheck.CSI4.CheckCSI4.hCas' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hpSub' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hC1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hC2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hC3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hC4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hPsip' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hP1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hAlphaGamma' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hP2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hP3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS5one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS5mid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS5last' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI5.CheckCSI5.hH' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI5.CheckCSI5.hDsum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI5.CheckCSI5.hCH' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI5.CheckCSI5.hModP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI5.CheckCSI5.hT0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI5.CheckCSI5.hT1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI5.CheckCSI5.hT2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI5.CheckCSI5.hT3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.splitting_H1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.splitting_H2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.exists_retraction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.tensor_T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.tensor_T3' depends on axioms: [propext, Classical.choice, Quot.sound]
+checks/final/CheckColouredSandFinal2B.lean:178:0: warning: automatically included section variable(s) unused in theorem `FinalCheck.CSI6.CheckCSI6.hRule`:
+  [Fact (Nat.Prime p)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fact (Nat.Prime p)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+checks/final/CheckColouredSandFinal2B.lean:205:0: warning: automatically included section variable(s) unused in theorem `FinalCheck.CSI6.CheckCSI6.hLL`:
+  [Fact (Nat.Prime p)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fact (Nat.Prime p)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+checks/final/CheckColouredSandFinal2B.lean:221:0: warning: automatically included section variable(s) unused in theorem `FinalCheck.CSI6.CheckCSI6.hK`:
+  [Fact (Nat.Prime p)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fact (Nat.Prime p)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+'FinalCheck.CSI6.CheckCSI6.hL' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI6.CheckCSI6.hRank' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI6.CheckCSI6.hRule' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI6.CheckCSI6.hTensor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI6.CheckCSI6.hTpow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI6.CheckCSI6.hLL' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI6.CheckCSI6.hA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI6.CheckCSI6.hK' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.K1_perm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.K3_simple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.danceL' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.leading_digit_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI7.CheckCSI7.hSetting' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI7.CheckCSI7.hFT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI7.CheckCSI7.hA1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI7.CheckCSI7.hA1sign' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI7.CheckCSI7.hA2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI7.CheckCSI7.hA3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.chainCokerEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.oslot_eq_slotLof' depends on axioms: [propext, Classical.choice, Quot.sound]
+checks/final/CheckColouredSandFinal2B.lean:350:0: warning: automatically included section variable(s) unused in theorem `FinalCheck.CSI8.CheckCSI8.hData`:
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+'FinalCheck.CSI8.CheckCSI8.hData' depends on axioms: [propext, Quot.sound]
+'FinalCheck.CSI8.CheckCSI8.hFS' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI8.CheckCSI8.hM1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI8.CheckCSI8.hM1sign' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI8.CheckCSI8.hM2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.coupledCokerEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.QSsign_of_odd' depends on axioms: [propext, Quot.sound]
+'FinalCheck.CSI9.CheckCSI9.hMlast' depends on axioms: [propext, Quot.sound]
+'FinalCheck.CSI9.CheckCSI9.hL1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI9.CheckCSI9.hL1general' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI9.CheckCSI9.hG1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI9.CheckCSI9.hG1vec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI9.CheckCSI9.hG1rec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI9.CheckCSI9.hG2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI9.CheckCSI9.hQ0Dop' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI9.CheckCSI9.hG3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.Gp_Q0_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.opDS_twist' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.opDS_psi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI10.CheckCSI10.hDigits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI10.CheckCSI10.hTop' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI10.CheckCSI10.hMp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI10.CheckCSI10.hM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI10.CheckCSI10.hDp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI10.CheckCSI10.hI' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI10.CheckCSI10.hDefs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.theorem_D_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.theorem_I_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI11.CheckCSI11.hDefs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI11.CheckCSI11.hQ0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI11.CheckCSI11.hQ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI11.CheckCSI11.hPart' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI11.CheckCSI11.hD2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI11.CheckCSI11.hD1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI11.CheckCSI11.hD1C10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI11.CheckCSI11.hD1lam' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.Q3_partition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI12.CheckCSI12.hDefs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI12.CheckCSI12.hLab' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI12.CheckCSI12.hSlots' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI12.CheckCSI12.hW1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI12.CheckCSI12.hW2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI12.CheckCSI12.hW2s' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI12.CheckCSI12.hC1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI12.CheckCSI12.hC1lam' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.W1_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.W2_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI13.CheckCSI13.hDefs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI13.CheckCSI13.hKummer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI13.CheckCSI13.hL1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI13.CheckCSI13.hL2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI13.CheckCSI13.hL3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI13.CheckCSI13.hL4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI13.CheckCSI13.hP1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI13.CheckCSI13.hP1zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI13.CheckCSI13.hP2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI14.CheckCSI14.hDefs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI14.CheckCSI14.hA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI14.CheckCSI14.hB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI14.CheckCSI14.hC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI14.CheckCSI14.hD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI14.CheckCSI14.hQ1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI14.CheckCSI14.hQ2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI14.CheckCSI14.hT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI15.CheckCSI15.hDefs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI15.CheckCSI15.hFires' depends on axioms: [propext, Quot.sound]
+'FinalCheck.CSI15.CheckCSI15.hRuler' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI15.CheckCSI15.hrP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI15.CheckCSI15.hA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI15.CheckCSI15.hA2rem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI15.CheckCSI15.hB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI15.CheckCSI15.hC' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ColouredSand.OddTwist.oddF_theorem_F0 : ∀ {p : ℕ} [hp : Fact (Nat.Prime p)] {dg : ℕ → ℕ} {I : Finset ℕ} {k ℓ : ℕ}
+  {e : ℤ},
+  (∀ t ∈ I, t < k) →
+    (∀ t ∈ I, 1 ≤ dg t ∧ dg t ≤ p - 1) →
+      ℓ < p ^ k →
+        1 ≤ e →
+          ∀ (hne : I.Nonempty) {c : ℕ},
+            c = I.max' hne →
+              (∀ q < 2 ^ (I.erase c).card,
+                  ColouredSand.OddTwist.xHseqP p k I dg ℓ e q =
+                    ColouredSand.OddTwist.xHseqP p c (I.erase c) dg (ℓ % p ^ c) e q +
+                      ColouredSand.OddTwist.dWalkP p k I dg ℓ e c q) ∧
+                ((∀ (q : ℕ),
+                      q + 1 < 2 ^ (I.erase c).card →
+                        ColouredSand.OddTwist.dWalkP p k I dg ℓ e c (q + 1) ≤
+                          ColouredSand.OddTwist.dWalkP p k I dg ℓ e c q) ∧
+                    ∀ (q : ℕ),
+                      0 < q →
+                        q < 2 ^ (I.erase c).card →
+                          ColouredSand.OddTwist.dWalkP p k I dg ℓ e c (q - 1) ≠
+                              ColouredSand.OddTwist.dWalkP p k I dg ℓ e c q →
+                            ∃ b' < 2 ^ (I.erase c).card,
+                              ColouredSand.OddTwist.JHseqP p c (I.erase c) dg (ℓ % p ^ c) b' = 1 ∧
+                                (∀ q' < b', ColouredSand.OddTwist.JHseqP p c (I.erase c) dg (ℓ % p ^ c) q' = 0) ∧
+                                  (q = b' ∨ q = 2 ^ (I.erase c).card - b')) ∧
+                  ((∀ q < 2 ^ (I.erase c).card,
+                        AntitonicFit.fit (2 ^ (I.erase c).card)
+                            (AntitonicFit.toR
+                              (ColouredSand.OddTwist.xHseqP p c (I.erase c) dg (ℓ % p ^ c) e +
+                                ColouredSand.OddTwist.dWalkP p k I dg ℓ e c))
+                            q =
+                          AntitonicFit.fit (2 ^ (I.erase c).card)
+                              (AntitonicFit.toR (ColouredSand.OddTwist.xHseqP p c (I.erase c) dg (ℓ % p ^ c) e)) q +
+                            ↑(ColouredSand.OddTwist.dWalkP p k I dg ℓ e c q)) ∧
+                      ∀ q < 2 ^ (I.erase c).card,
+                        AntitonicFit.ifit (2 ^ (I.erase c).card)
+                            (ColouredSand.OddTwist.xHseqP p c (I.erase c) dg (ℓ % p ^ c) e +
+                              ColouredSand.OddTwist.dWalkP p k I dg ℓ e c)
+                            q =
+                          AntitonicFit.ifit (2 ^ (I.erase c).card)
+                              (ColouredSand.OddTwist.xHseqP p c (I.erase c) dg (ℓ % p ^ c) e) q +
+                            ColouredSand.OddTwist.dWalkP p k I dg ℓ e c q) ∧
+                    (∀ q < 2 ^ I.card,
+                        AntitonicFit.fit (2 ^ I.card) (AntitonicFit.toR (ColouredSand.OddTwist.xHseqP p k I dg ℓ e)) q =
+                          AntitonicFit.concat (2 ^ (I.erase c).card)
+                            (fun i =>
+                              max
+                                ((AntitonicFit.fit (2 ^ (I.erase c).card)
+                                      (AntitonicFit.toR
+                                        (ColouredSand.OddTwist.xHseqP p c (I.erase c) dg (ℓ % p ^ c) e)) +
+                                    AntitonicFit.toR (ColouredSand.OddTwist.dWalkP p k I dg ℓ e c))
+                                  i)
+                                0)
+                            (fun i =>
+                              min
+                                (AntitonicFit.mirror (2 ^ (I.erase c).card)
+                                  (AntitonicFit.fit (2 ^ (I.erase c).card)
+                                      (AntitonicFit.toR
+                                        (ColouredSand.OddTwist.xHseqP p c (I.erase c) dg (ℓ % p ^ c) e)) +
+                                    AntitonicFit.toR (ColouredSand.OddTwist.dWalkP p k I dg ℓ e c))
+                                  i)
+                                0)
+                            q) ∧
+                      ∀ q < 2 ^ I.card,
+                        AntitonicFit.ifit (2 ^ I.card) (ColouredSand.OddTwist.xHseqP p k I dg ℓ e) q =
+                          AntitonicFit.concat (2 ^ (I.erase c).card)
+                            (fun i =>
+                              max
+                                ((AntitonicFit.ifit (2 ^ (I.erase c).card)
+                                      (ColouredSand.OddTwist.xHseqP p c (I.erase c) dg (ℓ % p ^ c) e) +
+                                    ColouredSand.OddTwist.dWalkP p k I dg ℓ e c)
+                                  i)
+                                0)
+                            (fun i =>
+                              min
+                                (AntitonicFit.mirror (2 ^ (I.erase c).card)
+                                  (AntitonicFit.ifit (2 ^ (I.erase c).card)
+                                      (ColouredSand.OddTwist.xHseqP p c (I.erase c) dg (ℓ % p ^ c) e) +
+                                    ColouredSand.OddTwist.dWalkP p k I dg ℓ e c)
+                                  i)
+                                0)
+                            q
+@ColouredSand.OddTwist.oddF_lemma_P : ∀ {p : ℕ} {I : Finset ℕ} {k ℓ : ℕ} {dg : ℕ → ℕ} {e : ℤ} {c : ℕ} {V' : ℕ → ℤ}
+  [Fact (Nat.Prime p)],
+  (∀ t ∈ I, t < k) →
+    (∀ t ∈ I, 1 ≤ dg t ∧ dg t ≤ p - 1) →
+      ℓ < p ^ k →
+        1 ≤ e →
+          ∀ (hne : I.Nonempty),
+            c = I.max' hne →
+              ColouredSand.OddTwist.IsPotentialP p c (I.erase c) dg (ℓ % p ^ c) e V' →
+                ((∀ (q q' : ℕ),
+                      Potential.IsArrow I q q' →
+                        q < 2 ^ (I.erase c).card →
+                          q' < 2 ^ (I.erase c).card →
+                            ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q -
+                                  ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q' +
+                                ↑(k - c) ≤
+                              ColouredSand.OddTwist.cHatSeqP p k I dg ℓ e q q') ∧
+                    (∀ (q q' : ℕ),
+                        Potential.IsArrow I q q' →
+                          2 ^ (I.erase c).card ≤ q →
+                            2 ^ (I.erase c).card ≤ q' →
+                              ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q -
+                                    ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q' +
+                                  ↑(k - c) ≤
+                                ColouredSand.OddTwist.cHatSeqP p k I dg ℓ e q q') ∧
+                      (∀ (q q' : ℕ),
+                          Potential.IsArrow I q q' →
+                            2 ^ (I.erase c).card ≤ q →
+                              q' < 2 ^ (I.erase c).card →
+                                ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q -
+                                    ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q' ≤
+                                  ColouredSand.OddTwist.cHatSeqP p k I dg ℓ e q q') ∧
+                        ∀ (q q' : ℕ),
+                          q < 2 ^ (I.erase c).card → 2 ^ (I.erase c).card ≤ q' → ¬Potential.IsArrow I q q') ∧
+                  ((∀ q < 2 ^ (I.erase c).card,
+                        ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q -
+                            ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' (2 ^ I.card - 1 - q) =
+                          ColouredSand.OddTwist.X1P p k I dg ℓ e c q) ∧
+                      ∀ q < 2 ^ (I.erase c).card,
+                        ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' (2 ^ (I.erase c).card + q) -
+                            ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' (2 ^ (I.erase c).card - 1 - q) =
+                          -ColouredSand.OddTwist.X1P p k I dg ℓ e c (2 ^ (I.erase c).card - 1 - q)) ∧
+                    ((∀ (q q' : ℕ),
+                          q ≤ q' →
+                            q' < 2 ^ (I.erase c).card →
+                              ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q' ≤
+                                ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q) ∧
+                        ∀ (q q' : ℕ),
+                          2 ^ (I.erase c).card ≤ q →
+                            q ≤ q' →
+                              q' < 2 ^ I.card →
+                                ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q' ≤
+                                  ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' q) ∧
+                      ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' (2 ^ (I.erase c).card) -
+                            ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' (2 ^ (I.erase c).card - 1) =
+                          -ColouredSand.OddTwist.X1P p k I dg ℓ e c (2 ^ (I.erase c).card - 1) ∧
+                        -ColouredSand.OddTwist.X1P p k I dg ℓ e c (2 ^ (I.erase c).card - 1) ≤
+                            ↑(k - c) - e * (↑(dg c) * ↑p ^ c - ↑(ColouredSand.OddTwist.oW p dg (I.erase c))) ∧
+                          ↑(k - c) - e * (↑(dg c) * ↑p ^ c - ↑(ColouredSand.OddTwist.oW p dg (I.erase c))) ≤
+                            ↑(k - c) - e
+@ColouredSand.OddTwist.oddF_lemma_X : ∀ {p : ℕ} {I : Finset ℕ} {k ℓ : ℕ} {dg : ℕ → ℕ} {e : ℤ} {c : ℕ} {V' : ℕ → ℤ}
+  [Fact (Nat.Prime p)],
+  (∀ t ∈ I, 1 ≤ dg t ∧ dg t ≤ p - 1) →
+    ColouredSand.OddTwist.IsPotentialP p c (I.erase c) dg (ℓ % p ^ c) e V' →
+      ∀ (q q' : ℕ),
+        q ≤ q' →
+          q' < 2 ^ (I.erase c).card →
+            ColouredSand.OddTwist.X1P p k I dg ℓ e c q' ≤ ColouredSand.OddTwist.X1P p k I dg ℓ e c q
+@ColouredSand.OddTwist.oddF_lemma_F : ∀ {p : ℕ} {I : Finset ℕ} {k ℓ : ℕ} {dg : ℕ → ℕ} {e : ℤ} {c : ℕ} {V' : ℕ → ℤ}
+  [Fact (Nat.Prime p)],
+  (∀ t ∈ I, t < k) →
+    (∀ t ∈ I, 1 ≤ dg t ∧ dg t ≤ p - 1) →
+      ℓ < p ^ k →
+        1 ≤ e →
+          ∀ (hne : I.Nonempty),
+            c = I.max' hne →
+              ColouredSand.OddTwist.IsPotentialP p c (I.erase c) dg (ℓ % p ^ c) e V' →
+                ∀ {f : ℕ},
+                  IsLeast {q | q < 2 ^ (I.erase c).card ∧ ColouredSand.OddTwist.X1P p k I dg ℓ e c q ≤ 0} f →
+                    (∀ q < 2 ^ I.card,
+                        ColouredSand.OddTwist.yhatP p k I dg ℓ e q = 0 ↔ f ≤ q ∧ q ≤ 2 ^ I.card - 1 - f) ∧
+                      (IsGreatest (ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' '' Set.Ico f (2 ^ (I.erase c).card))
+                            (ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' f) ∧
+                          IsLeast
+                              (ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' ''
+                                Set.Ico (2 ^ (I.erase c).card) (2 ^ I.card - f))
+                              (ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' (2 ^ I.card - 1 - f)) ∧
+                            ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' f -
+                                  ColouredSand.OddTwist.vPrimeP p k I dg ℓ e c V' (2 ^ I.card - 1 - f) =
+                                ColouredSand.OddTwist.X1P p k I dg ℓ e c f ∧
+                              ColouredSand.OddTwist.X1P p k I dg ℓ e c f ≤ 0) ∧
+                        ColouredSand.OddTwist.loFP p k I dg ℓ e c V' f ≤
+                            ColouredSand.OddTwist.hiFP p k I dg ℓ e c V' f ∧
+                          ∀ (cF : ℤ),
+                            ColouredSand.OddTwist.loFP p k I dg ℓ e c V' f ≤ cF →
+                              cF ≤ ColouredSand.OddTwist.hiFP p k I dg ℓ e c V' f →
+                                ColouredSand.OddTwist.IsPotentialP p k I dg ℓ e
+                                  (ColouredSand.OddTwist.flatVP p k I dg ℓ e c V' f cF)
+'FinalCheck.CSI16.CheckCSI16.hDefs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI16.CheckCSI16.hPot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI16.CheckCSI16.hF1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI16.CheckCSI16.hP4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI16.CheckCSI16.hN' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI16.CheckCSI16.hT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI16.CheckCSI16.hDelta' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.oddF_theorem_F0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.oddF_lemma_P' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.oddF_lemma_X' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.oddF_lemma_F' depends on axioms: [propext, Classical.choice, Quot.sound]
+checks/final/CheckColouredSandFinal2B.lean:1393:0: warning: automatically included section variable(s) unused in theorem `FinalCheck.CSI17.CheckCSI17.hDefs`:
+  [Fact (Nat.Prime p)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fact (Nat.Prime p)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+'FinalCheck.CSI17.CheckCSI17.hDefs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI17.CheckCSI17.hI1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI17.CheckCSI17.hI2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI17.CheckCSI17.hI3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI17.CheckCSI17.hB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI17.CheckCSI17.hBfloor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI17.CheckCSI17.hC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI17.CheckCSI17.hCfloor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.oddCell_theorem_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.oddCell_theorem_C' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hDefs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hSlot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hZ0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hS1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hS2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hS3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hZ1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hZ2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hZ3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hY1pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hY1zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hY1empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hY2pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hY2zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI18.CheckCSI18.hY2empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+checks/final/CheckColouredSandFinal2B.lean:1714:0: warning: automatically included section variable(s) unused in theorem `FinalCheck.CSI19.CheckCSI19.hDefs`:
+  [Fact (Nat.Prime p)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fact (Nat.Prime p)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+'FinalCheck.CSI19.CheckCSI19.hDefs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI19.CheckCSI19.hU1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI19.CheckCSI19.hB1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI19.CheckCSI19.hT1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI19.CheckCSI19.hS1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI19.CheckCSI19.hS2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI19.CheckCSI19.hS3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.oddTotal_S2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX1.CheckCSX1.hE' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX1.CheckCSX1.hCoprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX1.CheckCSX1.hOld' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strAll_span_prod_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strAll_theorem_E' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strAll_theorem_E_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strAll_theorem_E_coprime_explicit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.Strings.strAll_theorem_E_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX2.CheckCSX2.hE1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX2.CheckCSX2.hI1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX2.CheckCSX2.hI2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX2.CheckCSX2.hI3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX2.CheckCSX2.hI4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX2.CheckCSX2.hI5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX2.CheckCSX2.hI6' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TwoI.twoI_theorem_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TwoI.twoI_theorem_I_ds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TwoI.twoI_I1_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TwoI.twoI_I1_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TwoI.twoI_I1_nil_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TwoI.twoI_I1_nil_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TwoI.twoI_E2_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.TwoI.twoI_E2_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hM2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hB1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hT1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hT2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hF1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hF2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hS1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hS2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hT1all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hF2all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSX3.CheckCSX3.hS2all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmGTwo.twoThmG' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmGTwo.twoT2_allPrimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmGTwo.twoF1_allPrimes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.ThmGTwo.twoS1_allPrimes' depends on axioms: [propext, Classical.choice, Quot.sound]

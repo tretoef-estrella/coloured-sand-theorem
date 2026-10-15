@@ -1,0 +1,118 @@
+'FinalCheck.CSI2.CheckCSI2.hT0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hFrob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hSt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hC0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hC1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hC2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI2.CheckCSI2.hC3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.T1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.T2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.oddModP_S1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.C3_hyp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ColouredSand.OddTwist.prop12Iso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hSlots' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hWt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hI5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hUnique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hEA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hEC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hD1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hIota' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hI23' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hI46' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hF12' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hQ0a' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hQ0b' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI3.CheckCSI3.hQ0e' depends on axioms: [propext, Classical.choice, Quot.sound]
+checks/final/CheckColouredSandFinal2A5.lean:350:26: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:350:26: warning: 'exact C1 (M := M)' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:361:34: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:361:34: warning: 'exact C2 (N := N) s hs1 hsp' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:373:36: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:373:36: warning: 'exact C4 (N := N) hp3 r h1 h2' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:32: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:51: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:82: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:32: warning: 'exact P2 t h1 h2' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:51: warning: 'exact P2 (N := N) t h1 h2 ht' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:405:82: warning: 'exact P2 (N := N) t h1 h2' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:412:59: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:412:59: warning: 'exact P3 (N := N) t h1 h2 ht' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:454:38: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:455:39: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:454:38: warning: 'exact S4_pi (N := N) s hs1 hsp' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:455:39: warning: 'exact S4_pi1 (N := N) h1 h2 hp2' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:460:35: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:460:35: warning: 'exact S5_one (N := N) hp3 h1 h2' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:465:36: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:465:36: warning: 'exact S5_mid (N := N) s hs1 hsp3' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:471:36: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+checks/final/CheckColouredSandFinal2A5.lean:471:36: warning: 'exact S5_last (N := N) s hs1 hsp' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+'FinalCheck.CSI4.CheckCSI4.hCas' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hpSub' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hC1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hC2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hC3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hC4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hPsip' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hP1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hAlphaGamma' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hP2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hP3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS5one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS5mid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FinalCheck.CSI4.CheckCSI4.hS5last' depends on axioms: [propext, Classical.choice, Quot.sound]

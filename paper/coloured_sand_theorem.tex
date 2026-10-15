@@ -1,8 +1,51 @@
-\documentclass[11pt]{article}
-\usepackage[a4paper,margin=2.5cm]{geometry}
-\usepackage{amsmath,amssymb,amsthm,booktabs,array,tabularx}
-\usepackage[hidelinks]{hyperref}
+\documentclass[10pt]{article}
+\usepackage[a4paper,left=19mm,right=19mm,top=20mm,bottom=24mm,footskip=11mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsthm}
+\usepackage{stix2}
+\usepackage[protrusion=true,expansion=true,letterspace=60]{microtype}
+\usepackage{booktabs,array,tabularx}
 \usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage[framemethod=default]{mdframed}
+\usepackage[hidelinks]{hyperref}
+
+% ---- type sizes of «The Dancing Sand Theorem» (body 10.6 pt, leading 1.46) ----
+\makeatletter
+\renewcommand\normalsize{\@setfontsize\normalsize{10.6pt}{15.4pt}%
+  \abovedisplayskip 7pt plus 2pt minus 3pt\belowdisplayskip\abovedisplayskip
+  \abovedisplayshortskip 3pt plus 1pt\belowdisplayshortskip 4pt plus 2pt minus 1pt}
+\renewcommand\small{\@setfontsize\small{9.4pt}{12.4pt}}
+\renewcommand\footnotesize{\@setfontsize\footnotesize{8.6pt}{11pt}}
+\makeatother
+\normalsize
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.6mm plus 0.6mm minus 0.2mm}
+\definecolor{rulegrey}{HTML}{888888}
+\definecolor{boxgrey}{HTML}{777777}
+\color[HTML]{111111}
+
+% ---- headings: 14 pt bold with a thin grey rule; 11.6 pt; 10.8 pt ----
+\titleformat{\section}{\fontsize{14}{17}\selectfont\bfseries}{\thesection.}{0.35em}{}[\vspace{0.6mm}{\color{rulegrey}\titlerule[0.4pt]}]
+\titlespacing*{\section}{0pt}{6.5mm plus 1mm}{2.2mm}
+\titleformat{\subsection}{\fontsize{11.6}{14}\selectfont\bfseries}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{4mm plus 1mm}{1.2mm}
+
+% ---- statements: bold head, upright body, as in the Dancing Sand ----
+\newtheoremstyle{ds}{2.2mm}{2.2mm}{\upshape}{}{\bfseries}{.}{0.5em}{\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}
+\newtheoremstyle{dsrem}{2.2mm}{2.2mm}{\upshape}{}{\bfseries}{.}{0.5em}{}
+\renewcommand\qedsymbol{$\blacksquare$}
+\mdfdefinestyle{headline}{topline=false,bottomline=false,rightline=false,linewidth=0.6pt,linecolor=boxgrey,
+  innerleftmargin=4mm,innerrightmargin=0mm,innertopmargin=1.2mm,innerbottommargin=1.2mm,
+  leftmargin=4mm,rightmargin=4mm,skipabove=3mm,skipbelow=3mm}
+
+% ---- page numbers: centred, 9.5 pt, none on the first page ----
+\makeatletter
+\renewcommand\@oddfoot{\hfil{\fontsize{9.5}{11}\selectfont\color[HTML]{222222}\thepage}\hfil}
+\renewcommand\@evenfoot{\@oddfoot}
+\renewcommand\@oddhead{}\renewcommand\@evenhead{}
+\makeatother
+\theoremstyle{ds}
 \newtheorem{theorem}{Theorem}
 \renewcommand{\thetheorem}{\Alph{theorem}}
 \newtheorem{conjecture}[theorem]{Conjecture}
@@ -12,7 +55,7 @@
 \newtheorem{definition}[lemma]{Definition}
 \newtheorem*{thmDp}{Theorem D$_p$ (the odd dance)}
 \newtheorem*{thmSmith}{Theorem (the Smith form of $M_p$)}
-\theoremstyle{remark}
+\theoremstyle{dsrem}
 \newtheorem{remark}[lemma]{Remark}
 \newtheorem{example}[lemma]{Example}
 \emergencystretch=3em
@@ -23,25 +66,32 @@
 \newcommand{\coker}{\operatorname{coker}}
 \newcommand{\rank}{\operatorname{rank}}
 \newcommand{\Dist}{\operatorname{Dist}}
-\hypersetup{pdftitle={The Coloured Sand Theorem},pdfauthor={Rafael Amichis Luengo}}
+\hypersetup{pdftitle={The Coloured Sand Theorem},pdfsubject={The p-part of the sandpile group of the Hamming graph, for every prime p dividing q and every dimension d},pdfauthor={Rafael Amichis Luengo}}
 
 \begin{document}
 
+\thispagestyle{empty}
 \begin{center}
-{\LARGE\bfseries THE COLOURED SAND THEOREM}\\[8pt]
-{\large The $p$-part of the sandpile group of the Hamming graph,\\ for every prime $p$ dividing $q$ and every dimension $d$}\\[16pt]
-{\large\bfseries Rafael Amichis Luengo}\\[5pt]
-Madrid, Spain \;\textperiodcentered\; \texttt{tretoef@gmail.com} \;\textperiodcentered\; ORCID \href{https://orcid.org/0009-0008-6252-675X}{0009-0008-6252-675X}\\[3pt]
-14 October 2026 \;\textperiodcentered\; version 4 \;\textperiodcentered\; doi:\href{https://doi.org/10.5281/zenodo.23327608}{10.5281/zenodo.23327608} (all versions)
+\vspace*{2mm}
+{\fontsize{25}{30}\selectfont\bfseries\textls[60]{THE COLOURED SAND THEOREM}\par}
+\vspace{4.5mm}
+{\fontsize{13.5}{17.5}\selectfont\itshape The $p$-part of the sandpile group of the Hamming graph,\\ for every prime $p$ dividing $q$ and every dimension $d$\par}
+\vspace{7mm}
+{\bfseries Rafael Amichis Luengo\par}
+\vspace{1.4mm}
+Madrid, Spain \,\textperiodcentered\, tretoef@gmail.com \,\textperiodcentered\, ORCID \href{https://orcid.org/0009-0008-6252-675X}{0009-0008-6252-675X}\par
+\vspace{0.6mm}
+15 October 2026 \,\textperiodcentered\, version 6 \,\textperiodcentered\, doi:\href{https://doi.org/10.5281/zenodo.23327608}{10.5281/zenodo.23327608} (all versions)\par
 \end{center}
+\vspace{2mm}
+{\color{rulegrey}\hrule height 0.4pt}
+\section*{Abstract}
 
-\medskip\hrule\medskip
+Let $H(d,q)=K_q^{\,d}$ be the Hamming graph and $K(H(d,q))$ its sandpile group (critical group, Jacobian). For primes $p\nmid q$ its $p$-part was determined by Jacobson, Niedermaier and Reiner in 2003, who wrote that the other primes appear ``to be difficult, due to bad behavior of its $p$-primary structure''. {\boldmath\textbf{We determine the Sylow $p$-subgroup of $K(H(d,q))$ for every prime $p$ dividing $q$ and every $d$, by an explicit rule.}} After the splitting of Jacobson, Niedermaier and Reiner, the group is a sum of cokernels of operators $q(c+H)+U$ on the Boolean lattice (Theorem~A). These split over the indecomposable tilting modules $T(\lambda)$ of $SL_2$ in characteristic $p$ that occur in a tensor power of the natural module. The contribution of $T(\lambda)$ consists of explicit small cyclic factors and of $2^{|I|}$ large ones, where $I$ is the set of positions of the nonzero base-$p$ digits of $\lambda+1$ below the leading one. The large ones are obtained by pooling explicit integers, built from binomial valuations and base-$p$ carries, into a non-increasing sequence (Theorems~I and~J). The proof writes down explicit $\Z_p$-lattices for all tilting modules of $SL_2$, one move per base-$p$ digit; it reduces each contribution to the Smith form of an explicit $2^{|I|}\times2^{|I|}$ matrix, and computes that form as in our proof for the hypercube \cite{DST}, the case $p=2$. We also give closed formulas that need no pooling: for $p>d$ with ballot numbers (B), for the exponent with every prime (C), and for the number of cyclic factors (D). This proves Conjecture~I of version~3. {\boldmath\textbf{Every result of the paper, Theorems A--J, is checked in Lean~4 with Mathlib, for every prime, and the Lean project was rebuilt from its sources on GitHub's machines, on Mathlib's published build (\S\ref{sec:lean}).}} This work has not been refereed by a human expert.
 
-\noindent\textbf{Abstract.}
-Let $H(d,q)=K_q^{\,d}$ be the Hamming graph and $K(H(d,q))$ its sandpile group (critical group, Jacobian). For primes $p\nmid q$ its $p$-part was determined by Jacobson, Niedermaier and Reiner in 2003, who wrote that the other primes appear ``to be difficult, due to bad behavior of its $p$-primary structure''. \textbf{We determine the Sylow $p$-subgroup of $K(H(d,q))$ for every prime $p$ dividing $q$ and every $d$, by an explicit rule.} After the splitting of Jacobson, Niedermaier and Reiner, the group is a sum of cokernels of operators $q(c+H)+U$ on the Boolean lattice (Theorem~A). These split over the indecomposable tilting modules $T(\lambda)$ of $SL_2$ in characteristic $p$ that occur in a tensor power of the natural module. The contribution of $T(\lambda)$ consists of explicit small cyclic factors and of $2^{|I|}$ large ones, where $I$ is the set of positions of the nonzero base-$p$ digits of $\lambda+1$ below the leading one. The large ones are obtained by pooling explicit integers, built from binomial valuations and base-$p$ carries, into a non-increasing sequence (Theorems~I and~J). The proof writes down explicit $\Z_p$-lattices for all tilting modules of $SL_2$, one move per base-$p$ digit; it reduces each contribution to the Smith form of an explicit $2^{|I|}\times2^{|I|}$ matrix, and computes that form as in our proof for the hypercube \cite{DST}, the case $p=2$. We also give closed formulas that need no pooling: for $p>d$ with ballot numbers (B), for the exponent with every prime (C), and for the number of cyclic factors (D). This proves Conjecture~I of version~3. The formal verification in Lean~4 is in progress (\S\ref{sec:lean}): every result of version~3 (Theorems A--H) is checked; for the new Theorems~I and~J, 8 of 19 planned pieces are checked. This work has not been refereed by a human expert.
+\vspace{3mm}{\color{rulegrey}\hrule height 0.4pt}
 
-\medskip\hrule\medskip
-
+\clearpage
 \subsection*{Summary of results}
 Throughout, $p$ is a prime, $q\ge2$, $e=v_p(q)$, and $\Syl_pA$ is the $p$-primary part of a finite abelian group $A$.
 
@@ -58,16 +108,16 @@ Theorem D & the number of cyclic factors, $p\mid q$ & \S5 & checked\\
 Theorem E & every piece of size $m<p$ & \S3 & checked\\
 Theorems F, G & every piece with $m\le p^2+p-1$ (two Weyl factors) & \S6 & checked\\
 Theorem H & $p=2$, every $d$, from \cite{DST} & \S7 & checked\\
-\textbf{Theorem I} & on each tilting block, exactly $2^{|I|}$ cyclic summands of order $>p^k$; the others form an explicit group independent of $q$ and of the shift (Conjecture~I of version~3) & \S8, \S9 & in progress\\
-\textbf{Theorem J} & the whole $\Syl_pK(H(d,q))$, every $p\mid q$, every $d$, in closed form & \S8, \S9 & in progress\\
+\textbf{Theorem I} & on each tilting block, exactly $2^{|I|}$ cyclic summands of order $>p^k$; the others form an explicit group independent of $q$ and of the shift (Conjecture~I of version~3) & \S8, \S9 & checked\\
+\textbf{Theorem J} & the whole $\Syl_pK(H(d,q))$, every $p\mid q$, every $d$, in closed form & \S8, \S9 & checked\\
 \bottomrule
 \end{tabularx}
 \end{center}
 
 \smallskip
-\noindent\textbf{Status.} This is a preprint. For $d=2$ the whole group $K(H(2,q))$ was known before (Ducey, Gerhard and Watson \cite{DGW}); our results are new, to the best of our knowledge, for $d\ge3$ (see the section on provenance at the end). The proofs of Theorems A--H were re-derived by an independent reader with no access to our audits; that reading found one priority omission, three citation and presentation gaps and one wrong example in a remark, all corrected here (\S\ref{sec:changes}). The proofs of Theorems I and J were written by one reader, re-derived by a second and read cold by a third, who wrote the riskiest step, the floor of the Smith form for odd $p$, out in full; it found no error and no gap. All these readers are instances of the AI system Claude; no human expert has read the proofs. Every result of version~3 is checked in Lean~4 with Mathlib; the Lean proof of Theorems I and J is not finished (\S\ref{sec:lean}).
+\noindent\textbf{Status.} This is a preprint. For $d=2$ the whole group $K(H(2,q))$ was known before (Ducey, Gerhard and Watson \cite{DGW}); our results are new, to the best of our knowledge, for $d\ge3$ (see the section on provenance at the end). The proofs of Theorems A--H were re-derived by an independent reader with no access to our audits; that reading found one priority omission, three citation and presentation gaps and one wrong example in a remark, all corrected here (\S\ref{sec:changes}). The proofs of Theorems I and J were written by one reader, re-derived by a second and read cold by a third, who wrote the riskiest step, the floor of the Smith form for odd $p$, out in full; it found no error and no gap. The Lean certificate and version~5 were read cold by a fourth reader, who found three claims of version~5 wider than the Lean proof of that day: the cases Theorem~\ref{thBprime} for $p\nmid q$ and Theorems~F, G and~I for $p=2$ are now checked, and \S\ref{sec:lean} now says on which lattices Theorem~I and the blocks of Theorem~J are proved. The changes of version~6 were read cold by a fifth reader, who found no error in the mathematics or in the Lean statements; its corrections of wording are applied (\S\ref{sec:changes}). All these readers are instances of the AI system Claude; no human expert has read the proofs. Every result of the paper, Theorems A--J, is checked in Lean~4 with Mathlib for every prime (\S\ref{sec:lean}).
 
-\medskip\hrule
+\vspace{3mm}{\color{rulegrey}\hrule height 0.4pt}
 
 
 \section{Introduction}
@@ -78,7 +128,7 @@ Jacobson, Niedermaier and Reiner \cite{JNR} determined the Sylow $p$-subgroup of
 
 In this paper $q\ge2$ is arbitrary, $p$ is a prime dividing $q$, and $e:=v_p(q)\ge1$, except where we say otherwise.
 
-\subsection*{The pieces}
+\subsection{The pieces}
 Let $B_m$ be the free abelian group on the subsets of $[m]=\{1,\dots,m\}$, graded by size: $B_m=\bigoplus_{s=0}^m B_m(s)$. Let $H$ act on $B_m(s)$ as the scalar $s$, and let $U$ and $D$ be the up and down operators,
 \[
 U(S)=\sum_{x\notin S}S\cup\{x\},\qquad D(S)=\sum_{x\in S}S\setminus\{x\}.
@@ -138,8 +188,8 @@ Here $\rho_p(m)$ is the rank over $\F_p$ of $U$ on $B_m$. For $q=p=3$ the theore
 $\Syl_p K(H(d,q))$ depends on $q$ only through $e=v_p(q)$ and the multiplicities $\binom dj(q-2)^j$.
 \end{corollary}
 
-\subsection*{The rest of the paper}
-Theorems~\ref{thBprime}--\ref{thP} (Sections~3, 6 and~7) compute the pieces $X_q(m,c)$ for $m<p$, for $m\le p^2+p-1$ and for $p=2$. Section~\ref{sec:conjI} states Theorems~\ref{thI} and~\ref{thJ}, which compute every piece for every odd $p$, and Section~\ref{sec:dance} proves them. Section~\ref{sec:ver} lists the computations, Section~\ref{sec:lean} the state of the Lean proof, and Section~\ref{sec:changes} the changes from version~3.
+\subsection{The rest of the paper}
+Theorems~\ref{thBprime}--\ref{thP} (Sections~3, 6 and~7) compute the pieces $X_q(m,c)$ for $m<p$, for $m\le p^2+p-1$ and for $p=2$. Section~\ref{sec:conjI} states Theorems~\ref{thI} and~\ref{thJ}, which compute every piece for every odd $p$, and Section~\ref{sec:dance} proves them. Section~\ref{sec:ver} lists the computations, Section~\ref{sec:lean} the Lean proof, and Section~\ref{sec:changes} the changes from versions~3 and~4.
 
 \section{The splitting (after Jacobson, Niedermaier and Reiner)}
 
@@ -272,7 +322,7 @@ So $V^{\otimes m}=a_mJ_1\oplus b_mJ_2\oplus c_mJ_3$ with $(a_{m+1},b_{m+1},c_{m+
 
 By Theorem~\ref{thBprime} the only pieces not yet described are $X_q(m,c)$ with $m\ge p$. For $p\le m$ the strings of length $>p$ break: by \eqref{DU} the coefficient $i(m-2k-i+1)$ vanishes modulo $p$. The way they break is governed by the representation theory of $SL_2$ in characteristic $p$.
 
-\subsection*{The dictionary}
+\subsection{The dictionary}
 Let $V=\Z_p v_0\oplus\Z_p v_1$, where $\Z_p$ is the ring of $p$-adic integers, and let $f$ act on $V$ by $fv_0=v_1$, $fv_1=0$; give $v_0$ weight $1$ and $v_1$ weight $-1$. Identify $B_m\otimes\Z_p$ with $V^{\otimes m}$ by $S\mapsto v_{\mathbf 1_S}$. Then $U$ is the action of $f$ on the tensor power, a subset of size $s$ has weight $m-2s$, and so $H=(m-h)/2$ with $h$ the weight. The divided powers $U^{(r)}$ (add $r$ new elements, in all ways) are integral, and so is the analogous operator $e^{(r)}$ (remove $r$ elements). Hence $B_m\otimes\Z_p$ is a module over the distribution algebra $\mathrm{Dist}(SL_2)_{\Z_p}$, and
 \[
 q(c+H)+U \;=\; q\big(c+\tfrac{m-h}{2}\big)+f
@@ -292,7 +342,7 @@ where $r=p$ (and then $a=p-1$) occurs only for $\lambda=p^2+p-1$. Then $T(\lambd
 
 For $\lambda\equiv m\pmod 2$, $0\le\lambda\le m$, write $\beta(m,\lambda)=\binom{m}{(m-\lambda)/2}-\binom m{(m-\lambda)/2-1}$ (the number of strings of length $\lambda+1$).
 
-\subsection*{The blocks}
+\subsection{The blocks}
 Fix $m$, $c$ and $\lambda\equiv m\pmod2$, put $k=(m-\lambda)/2$ and
 \[
 v_t=e+v_p(c+k+t)\qquad(0\le t\le\lambda),
@@ -339,7 +389,7 @@ where $\lambda$ runs over the integers $\equiv m\pmod 2$ with $0\le\lambda\le m$
 
 With Theorem~\ref{thA}, Theorem~\ref{thG} determines $\Syl_pK(H(d,q))$ for every $d\le p^2+p-1$. This contains Conjecture~H of version~2 ($p$ odd, $d\le p^2-2$). For $p=3$ the range is $d\le11$ and for $p=5$ it is $d\le29$. For $p=2$ it is $d\le5$; the prime $2$ is treated for every $d$ in Section~\ref{sec:two}. The range is exactly the range in which every tilting summand of $V^{\otimes m}$ has at most two Weyl factors; at $m=p^2+p$ the block $\lambda=p^2+p$, with four Weyl factors, appears. We claim nothing for $p\nmid q$, where the answer is \cite[Theorem~2]{JNR}. (Version~3 said here that the formula fails for $p\nmid q$, at $(q,p,d)=(4,3,4)$. That was wrong: evaluated at $e=0$ the formula gives the right group there, and in all $784$ pieces with $p\nmid q$ and $p\le5$ checked by the independent reader. We have not proved it for $e=0$.)
 
-\subsection*{Proofs}
+\subsection{Proofs}
 Fix $\lambda$ with two Weyl factors, $(r,a)$ as in (T2), $\mu=\lambda^-$. Let $\ell_i=f^{(i)}x$ ($0\le i\le\lambda$) be the standard basis of $\Delta_{\Z_p}(\lambda)$, so $f\ell_i=(i+1)\ell_{i+1}$, $e\ell_i=(\lambda-i+1)\ell_{i-1}$, and more generally $f^{(t)}\ell_i=\binom{i+t}{t}\ell_{i+t}$ and $e^{(t)}\ell_i=\binom{\lambda-i+t}{t}\ell_{i-t}$. Let $s_j=f^{(j)}y$ ($0\le j\le\mu$) be that of $\Delta_{\Z_p}(\mu)$. Put
 \[
 \nu=\min_{1\le t\le r}v_p\tbinom{\lambda-r+t}{t}.
@@ -459,8 +509,8 @@ with $D_\lambda=(\lambda-h)/2$ the floor operator, as in Section~\ref{sec:two}. 
 \end{equation}
 where $n_\lambda(m)$ is the multiplicity of $T(\lambda)$ in $V^{\otimes m}$. So everything comes down to the groups $Y_p(\lambda,i,e)$. Theorem~\ref{thG} computes them for $\lambda\le p^2+p-1$, and Theorem~\ref{thP} for $p=2$. In this section we compute them for every $\lambda$ and every odd $p$.
 
-\subsection*{Digits, dancers, clocks}
-Fix an odd prime $p$ and $\lambda\ge0$, and write
+\subsection{Digits, dancers, clocks}
+Fix a prime $p$ and $\lambda\ge0$, and write
 \[
 \lambda+1=\sum_{t=0}^{k}d_tp^t,\qquad 0\le d_t\le p-1,\ d_k\ne0,\qquad I=I(\lambda)=\{t<k:d_t\ne0\},\qquad K=d_kp^k .
 \]
@@ -470,7 +520,8 @@ R_\mu(E)=\sum_{t\in E}\big(h_t-e\,d_tp^t\big)-\kappa_p(\mu,o_E),\qquad R^\sharp(
 \]
 The \emph{clocks} are: for $i\ge1$, with $m=i-1$, $x_D=R_m(D)-R_{m+K}(I\setminus D)$ ($D\subseteq I$); for $i=0$, $x^\sharp_D=R^\sharp(D)-R^\sharp(I\setminus D)$ ($D\ne\emptyset$). Let $\hat y_D$ and $\hat y^\sharp_D$ be their \emph{integer antitonic fits} in the o-order: partition the positions into consecutive blocks by the pool-adjacent-violators algorithm, so that the block means are strictly decreasing and each block value is the mean of its entries (the antitonic least-squares fit); then replace a block of $b$ positions with sum $S$ by $S\bmod b$ copies of $\lceil S/b\rceil$ followed by $b-(S\bmod b)$ copies of $\lfloor S/b\rfloor$. (By Lemma~\ref{integral} below the rounding never acts.) For $p=2$ ($d_t=1$, $K=2^k$) this is exactly the notation of \cite[\S1.2, \S5]{DST} with $\alpha=e$.
 
-\subsection*{The theorems}
+\subsection{The theorems}
+\begin{mdframed}[style=headline]
 \begin{theorem}[Conjecture~I of version~3]\label{thI}
 Let $p$ be a prime, $\lambda\ge0$, $i\ge0$ and $e\ge1$, and let $k$, $d_k$ and $I$ be as above. Then exactly $2^{|I|}$ of the cyclic summands of $Y_p(\lambda,i,e)$ have order larger than $p^k$ (a free summand, when $i=0$, counting as one of them). The others have order at most $p^k$, and they form the group
 \[
@@ -478,9 +529,11 @@ S_p(\lambda)=\bigoplus_{h=1}^{k-1}\big(\Z/p^h\big)^{(p-1)d_kp^{k-h-1}2^{|I|}}\;\
 \]
 which depends only on $p$ and the base-$p$ digits of $\lambda+1$, not on $i$ or $e$.
 \end{theorem}
+\end{mdframed}
 
 The number of large summands is the number of Weyl factors of $T(\lambda)$ (Lemma~\ref{dance}(i)). The total number of cyclic summands, $d_kp^{k-1}2^{|I|}=\dim T(\lambda)/p$ for $k\ge1$, is the number of Jordan blocks of $f$ on $T(\lambda)$ over $\F_p$; this is classical, since $T(\lambda)$ is projective over the first Frobenius kernel for $\lambda\ge p-1$ \cite[II.11.11]{Jan}.
 
+\begin{mdframed}[style=headline]
 \begin{theorem}[the whole group]\label{thJ}
 Let $p$ be an odd prime, $\lambda\ge0$ and $e\ge1$. Then
 \begin{align*}
@@ -497,6 +550,7 @@ $\lambda$ running over $0\le\lambda\le d-j$ with $\lambda\equiv d-j\pmod2$, wher
 \]
 off $(z+z^{-1})^m$ from the top.
 \end{theorem}
+\end{mdframed}
 
 For $\lambda\le p-2$ one has $k=0$, $I=\emptyset$, $K=\lambda+1<p$, and Theorem~\ref{thJ} gives $\Z/p^{e(\lambda+1)+\kappa_p(i-1,\lambda+1)}$, which is Theorem~\ref{thBprime}. For $\lambda\le p^2+p-1$ it agrees with Theorem~\ref{thG} (checked on $3450$ cells, \S\ref{sec:ver}), and at $p=2$ the same formula is Theorem~\ref{thP}. The right-hand side is a finite computation with binomial valuations; no Smith form is needed.
 
@@ -520,7 +574,7 @@ Version~3 stated Conjecture~I after the cell $c=0$ alone and predicted the other
 
 Throughout this section $p$ is odd, $A=\Z_p$, and $\Dist_A=A\otimes\Dist_\Z(SL_2)$ is the Kostant form, generated by the divided powers $E^{(r)},F^{(r)}$ and the $\binom{H}{r}$. A \emph{lattice} is a $\Dist_A$-module that is free of finite rank over $A$ and is the sum of its weight spaces, with integer weights. We put $u=-1$ (any unit $\equiv-1\pmod p$ would do) and, on a lattice, $X=FE$. As in Section~6, $\Delta_A(\mu)$ has the basis $e_s=F^{(s)}v$, $Fe_s=(s+1)e_{s+1}$. A lattice is \emph{graded by floors} when $F$ raises the floor by one; in $\Delta_A(\mu)$ the floor of $e_s$ is $s$. The plan is the one of \cite{DST} for $p=2$: explicit lattices built one base-$p$ digit at a time (\S9.1--9.2), elimination of unit pivots digit by digit (\S9.3), and the Smith form of the matrix that remains (\S9.4).
 
-\subsection*{9.1. The twist and the split}
+\subsection{The twist and the split}
 
 \begin{lemma}\label{EFH}
 Let $X,Y$ be finite-dimensional $U_\Q(\mathfrak{sl}_2)$-modules and $\varphi\colon X\to Y$ linear with $\varphi F=F\varphi$ and $\varphi H=H\varphi$. Then $\varphi E=E\varphi$. Hence a weight-preserving $A$-isomorphism of lattices that commutes with $F$ is an isomorphism of lattices, and on a vector space with given $F$, $H$ there is at most one $E$ making it an $\mathfrak{sl}_2$-module.
@@ -599,10 +653,10 @@ Define $L(\lambda)=\Delta_A(\lambda)$ if $\lambda+1<p$; otherwise write $\lambda
 \end{proof}
 
 \begin{remark}
-In the Lean proof (\S\ref{sec:lean}), statement (iii) is proved without Donkin's theorem and without the lifting lemma: for $1\le r\le p-1$ there are explicit short exact sequences $0\to\Psi_{r+1}(N)\to V\otimes\Psi_r(N)\to Q_{r-1}(N)\to0$ (with $\Psi_p(N):=\Phi_p(V\otimes N)$, $Q_{r-1}=\Psi_{r-1}$ for $r\ge2$, $Q_0=\Phi_p(N)^2$), and they split over $\Z_p$ by a Fitting idempotent of the Casimir, whose two eigenvalue classes $(r+1)^2$ and $(r-1)^2$ differ modulo the odd prime $p$. Induction on $m$ then gives (iii).
+In the Lean proof (\S\ref{sec:lean}), the decomposition $V^{\otimes m}\otimes\Z_p\cong\bigoplus_\lambda L(\lambda)^{n_\lambda(m)}$ of (iii), with $n_\lambda(m)$ given by the recursion of the tensor rules, is proved without Donkin's theorem and without the lifting lemma: for $1\le r\le p-1$ there are explicit short exact sequences $0\to\Psi_{r+1}(N)\to V\otimes\Psi_r(N)\to Q_{r-1}(N)\to0$ (with $\Psi_p(N):=\Phi_p(V\otimes N)$, $Q_{r-1}=\Psi_{r-1}$ for $r\ge2$, $Q_0=\Phi_p(N)^2$), and they split over $\Z_p$ by a Fitting idempotent of the Casimir, whose two eigenvalue classes $(r+1)^2$ and $(r-1)^2$ differ modulo the odd prime $p$. Induction on $m$ then gives it. The identification $L(\lambda)\cong T_{\Z_p}(\lambda)$ is not formalized.
 \end{remark}
 
-\subsection*{9.2. Payment systems and the moves}
+\subsection{Payment systems and the moves}
 Let $N$ be a lattice graded by floors. A \emph{payment system} of size $R$ on $N^{\oplus R}$ is the operator $G(x\iota_{s'})=Fx\,\iota_{s'}+\sum_sP(\varphi)_{ss'}\,x\iota_s$ for $x$ on floor $\varphi$, with $P(\varphi)\in M_R(A)$ lower triangular; it is \emph{even} if every $P(\varphi)\in pM_R(A)$. Two systems are equivalent ($\sim$) when they have the same Smith form. The operator $F+p^e(D+i)$ on $L(\lambda)$ is an even system of size $1$ with $P_0(\varphi)=p^e(\varphi+i)$, since $e\ge1$.
 
 \begin{proposition}[twist move]\label{twistmove}
@@ -649,7 +703,7 @@ By Lemma~\ref{dance}, $Y_p(\lambda,i,e)$ is the cokernel of an even system of si
 For odd $p$, by Theorem D$_p$, $Y_p(\lambda,i,e)\cong S_p(\lambda)\oplus\coker(p^kM)$ with $M$ of size $2^{|I|}$ and all entries in $p\Z_p$. Every Smith exponent of $M$ is then $\ge1$ or $\infty$, so $\coker(p^kM)$ is the sum of exactly $2^{|I|}$ cyclic modules, each $\Z_p$ or of order $\ge p^{k+1}$, while every summand of $S_p(\lambda)$ has order $\le p^k$. By the uniqueness of elementary divisors the statement follows. For $p=2$, \cite[Theorem~D]{DST} gives $Y_2(\lambda,i,e)=X^{(e)}(\lambda,i)\cong\bigoplus_{a=1}^{k-1}(\Z/2^a)^{2^{|I|+k-1-a}}\oplus\coker(2^kM)$ with $M$ the final matrix of an even payment system \cite[Proposition~4.3]{DST}, of size $2^{|I|}$ with even entries; the same argument applies, and $S_2(\lambda)$ is the displayed group with $d_k=1$.
 \end{proof}
 
-\subsection*{9.3. The entries of $M_p$}
+\subsection{The entries of $M_p$}
 Let $\mathcal{C}=\Q[x_t:t\in I]/(x_t^2)$. Define $c^{(0)}=1$ and $c^{(h+1)}=a\,(c^{(h)})^p+[h\in I]\,b_h\,x_h\,(c^{(h)})^{p-d_h}$, with $a=(-1)^{p-1}/(up)$ and $b_h=(-1)^{p-d_h}/u$. For $\Delta\subseteq I$ write $[\,\cdot\,]_\Delta$ for the coefficient of $x^\Delta=\prod_{t\in\Delta}x_t$.
 
 \begin{lemma}[windows]\label{windows}
@@ -680,7 +734,7 @@ Let $M=M_p(\lambda,i,e)$ and $b\subseteq a\subseteq I$, and let $\gamma(\Delta)=
 By Lemmas~\ref{windows} and~\ref{deficit}, $v_p(M_{ab})=-d_k\frac{p^k-1}{p-1}+\sum_{t\in\Delta}\big(1+d_t\frac{p^t-1}{p-1}\big)+\delta(\Delta)+e(K-o_\Delta)+\sum_{d=o_a}^{o_b+K-1}v_p(i+d)$, $\Delta=a\setminus b$, $\delta(\Delta)=k-|\Delta|-\min\Delta$. Legendre's formula $v_p(n!)=(n-s_p(n))/(p-1)$, the identity $s_p(x+o_E)=s_p(x)+\sum_{t\in E}d_t-(p-1)\kappa_p(x,o_E)$, $s_p(K)=d_k$, and $|\Delta|+\delta(\Delta)=\sum_{t\in a}h_t-\sum_{t\in b}h_t+\gamma(\Delta)$ \cite[Lemma~5.1]{DST} collapse this to the stated form. For $i=0$ use also $\kappa_p(K-1,o_E)=k-\min E$.
 \end{proof}
 
-\subsection*{9.4. The Smith form of $M_p$}
+\subsection{The Smith form of $M_p$}
 
 \begin{lemma}\label{integral}
 The real antitonic fits of the clocks $x$ and $x^\sharp$ of \S\ref{sec:conjI} take integer values.
@@ -767,15 +821,27 @@ d & $(n_1,n_2,\dots)$\\
 \end{center}
 Theorem~\ref{thG} gives every row exactly. In version~2 the row $d=9$ was outside the range: its piece $X_3(9,0)$ contains the block $\lambda=9$, which has $a=p-1$, and the version-2 formula, with glue $1/p$, gave $(942,414,623,3339,448,293,495,134,84,36,9)$. With the glue $1/p^2$ of Lemma~\ref{forced} and the minimum in the definition of $G_c(m,\lambda)$ the row comes out right. The rows $d=10$ and $d=11$ were computed piece by piece and assembled by Theorem~\ref{thA}; both were predicted before they were computed (the first two sealed predictions of item~9 of Section~\ref{sec:ver} contain them).
 
-\section{Formal verification in Lean (in progress)}\label{sec:lean}
+\section{Formal verification in Lean}\label{sec:lean}
 
-The proofs are being checked in the proof assistant Lean~4 with the Mathlib library. The text was cut into short self-contained pieces; Aristotle, an AI system made by Harmonic \cite{Har}, wrote the Lean proofs; on the author's machine each returned project was compared with the previous one, searched for forbidden constructs (\texttt{sorry}, new axioms, \texttt{native\_decide}), compiled module by module, and its main statements were restated by hand in a check file whose axioms were printed. Every certified piece uses only the standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}.
+The proofs are checked in the proof assistant Lean~4 with the Mathlib library. The text was cut into short self-contained pieces; Aristotle, an AI system made by Harmonic \cite{Har}, wrote the Lean proofs; on the author's machine each returned project was compared with the previous one, searched for forbidden constructs (\texttt{sorry}, new axioms, \texttt{native\_decide}), compiled module by module, and its main statements were restated by hand in a check file whose axioms were printed. Every certified piece uses only the standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}.
 
-\textbf{Version~3 is entirely checked.} Theorems A--H, Lemmas~2--5, \ref{forced} and~\ref{blocks}, Corollaries~\ref{corq} and~\ref{corN}, and the Example of Section~6 are proved in Lean, with nothing cited: the tilting lattices of Section~6, their tensor rules and the decomposition of $V^{\otimes m}\otimes\Z_p$ for $m\le p^2+p-1$ are proved from scratch, as is Wilson's rank formula in the range used by Theorem~\ref{thD}; Theorem~\ref{thP} uses the Lean proof of \cite{DST}. At that stage the project had $111$ files, $20\,789$ lines and $1\,052$ theorems, with no \texttt{sorry}.
+\textbf{Version~3 is checked.} Theorems A--H, Lemmas~2--5, \ref{forced} and~\ref{blocks}, Corollaries~\ref{corq} and~\ref{corN}, and the Example of Section~6 are proved in Lean, in the generality of version~3 (Theorem~\ref{thBprime} for $p\mid q$, Theorems~\ref{glue} and~\ref{thG} for odd $p$; the other cases are checked by the pieces of the next paragraph), with nothing cited: the tilting lattices of Section~6, their tensor rules and the decomposition of $V^{\otimes m}\otimes\Z_p$ for $m\le p^2+p-1$ are proved from scratch, as is Wilson's rank formula in the range used by Theorem~\ref{thD}; Theorem~\ref{thP} uses the Lean proof of \cite{DST}. At that stage the pieces of version~3 had $110$ files, $20\,765$ lines and $1\,032$ lines beginning with \texttt{theorem} or \texttt{lemma}, with no \texttt{sorry}.
+\textbf{Theorems I and J are checked.} Their proof was cut into $19$ pieces, all certified: the twist $\Phi_p$ (Definition~\ref{defPhi}, Proposition~\ref{propPhi}) and its reduction modulo $p$; the split $\Psi_r$; the Casimir and the short exact sequences of the Remark after Lemma~\ref{dance}, and their splitting over $\Z_{(p)}$; the dance lattices $L(\lambda)$ and $V^{\otimes m}\otimes\Z_p\cong\bigoplus L(\lambda)^{n_\lambda(m)}$ for every $m$, without Donkin's theorem; the twist move (Proposition~\ref{twistmove}), the split move (Proposition~\ref{splitmove}) and the last level; Theorem~D$_p$ and Theorem~\ref{thI}; the deficit law, the windows, the cost form, the ceiling, the houses, Theorem~F at $p$, the integrality and the floor of every cell; the Smith form of the final matrix; and Theorem~\ref{thJ}. The statement checked for Theorem~\ref{thJ} is about the sandpile group itself: the torsion of the cokernel of Mathlib's Laplacian matrix of the Hamming graph $H(d,q)$, for every odd prime $p$, every $q\ge2$ with $p\mid q$ and every $d\ge0$. The multiplicities $n_\lambda(m)$ enter through the recursion given by the tensor rules, which is proved to describe $V^{\otimes m}\otimes\Z_p$; the description by characters at the end of Theorem~\ref{thJ} is a way to compute them and is not formalized.
 
-\textbf{Theorems I and J are not yet checked.} Their proof was cut into $19$ pieces. At the time of writing $8$ are certified: the twist $\Phi_p$ (Definition~\ref{defPhi}, Proposition~\ref{propPhi}(a),(c)) and its reduction modulo $p$ (Proposition~\ref{propPhi}(b)); the split $\Psi_r$; the Casimir and the short exact sequences of the Remark after Lemma~\ref{dance}; their splitting over $\Z_{(p)}$; the dance lattices $L(\lambda)$ and $V^{\otimes m}\otimes\Z_p\cong\bigoplus L(\lambda)^{n_\lambda(m)}$ for every $m$, without Donkin's theorem; the twist move (Proposition~\ref{twistmove}); and the split move (Proposition~\ref{splitmove}). The project then has $177$ files, $32\,582$ lines and $1\,741$ theorems, with no \texttt{sorry}. The remaining pieces are the last level and Theorem~D$_p$, Theorem~\ref{thI}, the windows, the deficit law, the cost form, the ceiling and the floor of the Smith form, and Theorem~\ref{thJ}. The Lean project, a certificate and a clean rebuild will be published when it is complete.
+\textbf{Every prime.} Three further pieces check the cases that the pieces above left out: Theorem~\ref{thBprime} for $p\nmid q$ (the pieces above assume $p\mid q$); Theorem~\ref{thI} for $p=2$, stated on the groups $X^{(e)}(\lambda,i)$ of \cite{DST}, which on paper are the blocks $Y_2(\lambda,i,e)$ of Theorem~\ref{thP}; and Theorems~\ref{glue} and~\ref{thG} for $p=2$, with the bounds $m\le2$ and $m\le5$. With them, every result of the paper is checked for every prime. In Lean, Theorem~\ref{thI} and the block formulas of Theorems~\ref{thJ} and~\ref{thP} are proved for explicit dance lattices: $L(\lambda)$ for odd $p$, and the lattices of \cite{DST} for $p=2$; their identification with $T_{\Z_p}(\lambda)$ (Lemma~\ref{dance}(ii); \cite[Remark~(1) after Theorem~3.6]{DST}) is not formalized and is not needed for the statements on $K(H(d,q))$. Theorem~\ref{thBprime} is stated in Lean for the $\Z_p$-module $\operatorname{coker}(q(c+H)+U)$ on $B_m(\Z_p)$, free summand included; its form for $\Syl_pX_q(m,c)$ follows in a few lines and is checked too (\texttt{checks/CheckTheoremEPaperForm.lean}, written by the fifth reader).
 
-\section{Changes from version 3}\label{sec:changes}
+All $36$ pieces live in one Lean project, which also holds the Lean proof of \cite{DST}. Two groups of pieces defined the same names; the names were changed on one side only: in the three newer pieces of the first clash and in the files that use them ($14$ files in five pieces), and, for the second, in the piece that no other module imports (five files in one piece), and both renames were checked to be pure (undoing them gives back the original files byte for byte). The final check is six files; each loads all $36$ pieces together and repeats the hand restatements of a part of them. They compile with no error, and each of their $451$ \texttt{\#print axioms} commands answers with the standard axioms only. The pieces of this paper have $254$ files, $46\,787$ lines and $2\,370$ lines beginning with \texttt{theorem} or \texttt{lemma}, with no \texttt{sorry}. The whole Lean project was rebuilt from its sources, on Mathlib's published build, with the final check, in GitHub Actions run~38724562833 of the repository \url{https://github.com/tretoef-estrella/coloured-sand-theorem}, at commit \texttt{51c25f0}, on 15 October 2026. The Lean project is in the folder \texttt{lean/} of that repository; the Lean certificate, with the full statements, the dependency cone of the main theorems and the data of every piece, is deposited with this version in its Zenodo record.
+
+\section{Changes}\label{sec:changes}
+\subsection*{From version 4 to version 6 (version 5 was not published)}
+\begin{enumerate}
+\item The Lean proof is complete, for every prime (\S\ref{sec:lean}): Theorems~\ref{thI} and~\ref{thJ}, and three further pieces for Theorem~\ref{thBprime} with $p\nmid q$, Theorem~\ref{thI} with $p=2$, and Theorems~\ref{glue} and~\ref{thG} with $p=2$. The Lean project was rebuilt from its sources on GitHub's machines, on Mathlib's published build. The summary table, the abstract and the status paragraph say so. No statement and no proof of the paper changes.
+\item The Lean section says that Theorem~\ref{thI} and the block formulas of Theorem~\ref{thJ} are checked for explicit dance lattices ($L(\lambda)$ for odd $p$, and those of \cite{DST} for $p=2$), and that their identification with $T_{\Z_p}(\lambda)$ is not formalized; it describes the two renames correctly, and gives the size of the version-3 pieces by the same counting rule as the rest of the section.
+\item Bibliography: \cite{DST} with its concept DOI and the DOI of its version~11, labelled, and the DOI of its Lean certificate.
+\item The status paragraph and the section on provenance describe the cold readings of the Lean work. A fifth reader read the changes of this version (the Lean certificate~v2 and this paper) cold; its corrections are applied: the description of the two renames, the form in which Theorem~\ref{thBprime} is stated in Lean (and a check file for the paper's form), the lattices at $p=2$, the remark after Lemma~\ref{dance}, the words ``rebuilt from source'', the generality of the version-3 pieces, and the subsection on digits now fixes any prime.
+\item The layout of \cite{DST}.
+\end{enumerate}
+\subsection*{From version 3 to version 4}
 \begin{enumerate}
 \item New Theorems~\ref{thI} (Conjecture~I of version~3, every prime) and~\ref{thJ} (the whole group, every $d$), Sections~\ref{sec:conjI} and~\ref{sec:dance}, with their checks (\S\ref{sec:ver}, items~12--16) and the state of the Lean proof (\S\ref{sec:lean}). New title page and summary.
 \item Priority: the case $d=2$ was known (Ducey--Gerhard--Watson \cite[Theorem~1.1]{DGW}; it also follows from \cite[Theorem~13 and Example~11]{JNR}). Version~3 claimed Theorems B, C, D, G and H as new without excluding $d=2$. The existence of the $\Z_p$-forms of tilting modules and the lifting of decompositions are classical \cite[\S1.2]{And}, \cite[II.E]{Jan}; what is ours is their explicit form.
@@ -789,19 +855,19 @@ The proofs are being checked in the proof assistant Lean~4 with the Mathlib libr
 \end{enumerate}
 
 \section*{Provenance, priority and use of AI}\label{sec:prov}
-The work was done for the author by Claude (Anthropic), an AI system, in several sessions. Version~1 (night of 12--13 October 2026): choice of the problem after a search of the literature, computations, Theorems B--E and Conjecture~F, with Theorem~A recognized as \cite[Theorem~13]{JNR} before publication. Versions~2 and~3 (the same night): Theorems~F, G and~H, Corollary~\ref{corN} and Conjecture~I. Version~3 was read cold by a separate instance with no access to our notes; its corrections are listed in Section~\ref{sec:changes}. Version~4 (13--14 October 2026): Theorems~I and~J were found and proved by a separate instance working as constructor, re-derived and re-computed by the instance that audits the project, and read cold by a third instance, with no access to the audit, which wrote the floor of the Smith form out in full, re-ran its own computations and searched the literature again. Lean proofs are written by Aristotle \cite{Har} and compiled and audited on the author's machine (Section~\ref{sec:lean}). No human expert has read the proofs. The author takes responsibility for the paper.
+The work was done for the author by Claude (Anthropic), an AI system, in several sessions. Version~1 (night of 12--13 October 2026): choice of the problem after a search of the literature, computations, Theorems B--E and Conjecture~F, with Theorem~A recognized as \cite[Theorem~13]{JNR} before publication. Versions~2 and~3 (the same night): Theorems~F, G and~H, Corollary~\ref{corN} and Conjecture~I. Version~3 was read cold by a separate instance with no access to our notes; its corrections are listed in Section~\ref{sec:changes}. Version~4 (13--14 October 2026): Theorems~I and~J were found and proved by a separate instance working as constructor, re-derived and re-computed by the instance that audits the project, and read cold by a third instance, with no access to the audit, which wrote the floor of the Smith form out in full, re-ran its own computations and searched the literature again. Version~6 (15 October 2026): the Lean proof was completed for every prime and the Lean project rebuilt from its sources on GitHub's machines; version~5 and the Lean certificate were read cold by a fourth instance, which had the paper, the certificate, the Lean project and the author's logs but not the working sessions; the changes of version~6 were read cold by a fifth instance with the same kind of material, which found no error in the mathematics or in the Lean statements. Their corrections are listed in Section~\ref{sec:changes}. Lean proofs are written by Aristotle \cite{Har} and compiled and audited on the author's machine (Section~\ref{sec:lean}). No human expert has read the proofs. The author takes responsibility for the paper.
 
 To the best of our knowledge, after a search of the works citing \cite{JNR}, \cite{DGW}, \cite{DJ}, \cite{CSX}, \cite{Bai} and the main works on tilting modules of $SL_2$, of arXiv, zbMATH, OpenAlex, Zenodo, HAL, CORE, MathOverflow and the Hexagon preprint server: Theorem~A is due to Jacobson, Niedermaier and Reiner; the case $d=2$ of every result is due to Ducey, Gerhard and Watson \cite{DGW}; the case $e=0$ of Theorem~\ref{thC} follows from \cite[Theorem~2]{JNR}; the tilting theory used (Donkin's tensor product theorem, the existence and uniqueness of $\Z_p$-forms of tilting modules, the count of Weyl factors, projectivity over the first Frobenius kernel) and the decomposition of tensor powers in the proof of Corollary~\ref{corN} are classical \cite{Don,Jan,And}. Theorems~B--J for $d\ge3$, Corollary~\ref{corN}, and the explicit lattices of Section~\ref{sec:dance} were not found in the literature.
 
-\begin{thebibliography}{STWZ23}
-\bibitem[Bai03]{Bai} H. Bai, On the critical group of the $n$-cube, \emph{Linear Algebra Appl.} 369 (2003), 251--261.
+\begin{thebibliography}{STWZ23}\small
 \bibitem[And97]{And} H. H. Andersen, Filtrations and tilting modules, \emph{Ann. Sci. \'Ec. Norm. Sup\'er. (4)} 30 (1997), 353--366.
+\bibitem[Bai03]{Bai} H. Bai, On the critical group of the $n$-cube, \emph{Linear Algebra Appl.} 369 (2003), 251--261.
 \bibitem[Big99]{Big} N. L. Biggs, Chip-firing and the critical group of a graph, \emph{J. Algebraic Combin.} 9 (1999), 25--45.
 \bibitem[CSX15]{CSX} D. B. Chandler, P. Sin, Q. Xiang, The Smith group of the hypercube graph, arXiv:1511.00272.
 \bibitem[DGW16]{DGW} J. E. Ducey, J. Gerhard, N. Watson, The Smith and critical groups of the square rook's graph and its complement, \emph{Electron. J. Combin.} 23(4) (2016), \#P4.9; arXiv:1507.06583.
 \bibitem[DJ14]{DJ} J. E. Ducey, D. M. Jalil, Integer invariants of abelian Cayley graphs, \emph{Linear Algebra Appl.} 445 (2014), 316--325; arXiv:1308.2335.
 \bibitem[Don93]{Don} S. Donkin, On tilting modules for algebraic groups, \emph{Math. Z.} 212 (1993), 39--60.
-\bibitem[DST]{DST} R. Amichis Luengo, The Dancing Sand Theorem: the 2-part of the sandpile group of the hypercube, for every $n$, preprint (2026), version~11, hexagon:2610.00205; doi:10.5281/zenodo.23188298. Its proof is checked in Lean~4.
+\bibitem[DST]{DST} R. Amichis Luengo, The Dancing Sand Theorem: the 2-part of the sandpile group of the hypercube, for every $n$, preprint (2026), version~11, hexagon:2610.00205; concept DOI 10.5281/zenodo.23188298 (all versions), version~11 10.5281/zenodo.23356712. Its proof is checked in Lean~4; Lean certificate: doi:10.5281/zenodo.23298436.
 \bibitem[Har]{Har} Harmonic, Aristotle, \url{https://aristotle.harmonic.fun}.
 \bibitem[Jan03]{Jan} J. C. Jantzen, \emph{Representations of Algebraic Groups}, 2nd ed., Math. Surveys Monogr. 107, Amer. Math. Soc., 2003.
 \bibitem[JNR03]{JNR} B. Jacobson, A. Niedermaier, V. Reiner, Critical groups for complete multipartite graphs and Cartesian products of complete graphs, \emph{J. Graph Theory} 44 (2003), 231--250.
