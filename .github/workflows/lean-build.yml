@@ -1,0 +1,64 @@
+# Builds the Lean proof of «The Coloured Sand Theorem» (Theorems A–J, every prime) from source, and runs the final check
+# of the Lean certificate: all 36 per-piece checks in one environment (six files, each importing every module) and the
+# dependency cone. Started by hand (Actions tab → «Lean build» → «Run workflow»).
+name: Lean build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    defaults:
+      run:
+        shell: bash
+        working-directory: lean/project
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan (the toolchain in lean-toolchain is installed by lake)
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Mathlib's compiled files
+        run: lake exe cache get
+
+      - name: Build the 438 modules of RequestProject
+        run: lake build
+
+      - name: Final check, part A1 (pieces 1–4)
+        run: lake env lean checks/final/CheckColouredSandFinal2A1.lean 2>&1 | tee A1_actions.log
+      - name: Final check, part A2 (pieces 5–8)
+        run: lake env lean checks/final/CheckColouredSandFinal2A2.lean 2>&1 | tee A2_actions.log
+      - name: Final check, part A3 (pieces 9–12)
+        run: lake env lean checks/final/CheckColouredSandFinal2A3.lean 2>&1 | tee A3_actions.log
+      - name: Final check, part A4 (pieces 13–15)
+        run: lake env lean checks/final/CheckColouredSandFinal2A4.lean 2>&1 | tee A4_actions.log
+      - name: Final check, part A5 (pieces 16–18)
+        run: lake env lean checks/final/CheckColouredSandFinal2A5.lean 2>&1 | tee A5_actions.log
+      - name: Final check, half B (pieces 19–36)
+        run: lake env lean checks/final/CheckColouredSandFinal2B.lean 2>&1 | tee B_actions.log
+      - name: Dependency cone of the headline theorems
+        run: lake env lean checks/final/DepsColouredSand2.lean 2>&1 | tee Deps_actions.log
+
+      - name: No sorry, no error, 451 axiom lines, standard axioms only
+        run: |
+          set -o pipefail
+          for f in A1 A2 A3 A4 A5 B Deps; do
+            if grep -q 'sorryAx' ${f}_actions.log; then echo "sorry in $f"; exit 1; fi
+            if grep -q -E '(^|: )error' ${f}_actions.log; then echo "error in $f"; exit 1; fi
+          done
+          check() { n=$(grep -c 'depends on axioms' $1_actions.log); echo "$1: $n axiom lines (expected $2)"; test "$n" -eq "$2"; }
+          check A1 50; check A2 57; check A3 61; check A4 50; check A5 46; check B 187
+          cat A1_actions.log A2_actions.log A3_actions.log A4_actions.log A5_actions.log B_actions.log > Final_actions.log
+          if grep 'depends on axioms' Final_actions.log | grep -v -E '\[(propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*\]$'; then echo "non-standard axiom"; exit 1; fi
+          grep -q '^UNION: project decls in cone:' Deps_actions.log
+          grep '^UNION' Deps_actions.log
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Final_check_actions_logs
+          path: lean/project/*_actions.log
